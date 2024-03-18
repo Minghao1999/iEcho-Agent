@@ -1,4 +1,4 @@
-import { PendingUser, User } from "../models/user.js";
+import { PendingUser, User } from "../models/user1.js";
 import { TryCatch } from "../middlewares/error.js";
 import ErrorHandler from "../utils/utitlity.js";
 import { generateToken } from "../middlewares/auth.js";

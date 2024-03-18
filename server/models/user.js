@@ -1,34 +1,64 @@
-import mongoose, { Schema } from "mongoose";
-// PendingUser Schema
-const pendingUserSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId().toHexString(),
-    },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    verificationToken: String,
-});
-// ActualUser Schema
-const actualUserSchema = new Schema({
-    email: { type: String, required: [true, "Please Enter Email"], unique: true },
-    password: { type: String, required: [true, "Please Enter Password"] },
-    role: {
+import mongoose from 'mongoose';
+
+const userSchema = new mongoose.Schema({
+    aud: {
         type: String,
-        enum: ["supplier", "buyer", "auditor", "user"],
-        default: "user",
+        required: true
     },
-    firstname: { type: String, required: [true, "Please enter First Name"] },
-    lastname: { type: String, required: [true, "Please enter Last Name"] },
-    street: { type: String, default: "" },
-    apartment: { type: String, default: "" },
-    city: { type: String, default: "" },
-    country: { type: String, default: "" },
-    postcode: { type: String, default: "" },
-    phone: { type: String, default: "" },
-    mobile: { type: String, default: "" },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-});
-export const User = mongoose.model("User", actualUserSchema);
-export const PendingUser = mongoose.model("PendingUser", pendingUserSchema);
+    azp: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    email_verified: {
+        type: Boolean,
+        required: true
+    },
+    exp: {
+        type: Number,
+        required: true
+    },
+    family_name: {
+        type: String,
+        required: true
+    },
+    given_name: {
+        type: String,
+        required: true
+    },
+    iat: {
+        type: Number,
+        required: true
+    },
+    iss: {
+        type: String,
+        required: true
+    },
+    jti: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    nbf: {
+        type: Number,
+        required: true
+    },
+    picture: {
+        type: String,
+        required: true
+    },
+    sub: {
+        type: String,
+        required: true
+    }
+})
+
+const user = mongoose.model('user', userSchema);
+
+export default user;

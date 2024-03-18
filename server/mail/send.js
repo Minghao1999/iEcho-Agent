@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 export const sendEmail = ({ to, subject, html, }) => {
     const options = {
-        from: `FeedStock <${process.env.MAIL_EMAIL}>`,
+        from: `KOL Bayes <${process.env.MAIL_EMAIL}>`,
         cc: process.env.CC_EMAIL,
         to,
         subject,
