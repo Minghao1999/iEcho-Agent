@@ -1,89 +1,48 @@
-import express from "express";
+import { createBot } from "whatsapp-cloud-api";
+import cors from "cors";
 import dotenv from "dotenv";
-import axios from "axios"; // Import Axios for making HTTP requests
-import { genAIModel } from "./chatAI.js";
+import morgan from "morgan";
+import express from "express";
+const app = express();
+
+app.use(cors());
+app.use(morgan("dev"));
 
 dotenv.config();
 
-const app = express();
-const HOST = process.env.HOST || "localhost";
-const PORT = process.env.PORT || 3000;
-const FACEBOOK_ACCESS_TOKEN = process.env.FACEBOOK_ACCESS_TOKEN || "";
-const PhoneNumberID = process.env.PhoneNumberID || ""; 
+const from = process.env.FROM;
+const token = process.env.TOKEN;
+const to = process.env.TO;
+const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 
-
-// Define a simple GET endpoint
-app.get("/", (req, res) => {
-  return res.send("Hello, this is a simple GET API!");
-});
-
-app.use(express.json());
-
-app.post("/api/messages", async (req, res, next) => {
+(async () => {
   try {
-    const { prompt, received_number } = req.body;
+    // Create a bot that can send messages
+    const bot = createBot(from, token);
 
+    // const result = await bot.sendText(to, 'Hello world');
 
-    // Repose the message
-    const chatSession = genAIModel.startChat({
-      history: [],
-    });
-
-    const result = await chatSession.sendMessage(prompt);
-    const messageResponse = result.response.text();
-
-    // Your Facebook Graph API endpoint
-    const facebookAPIEndpoint = `https://graph.facebook.com/v18.0/${PhoneNumberID}/messages`;
-
-    // Construct the request body
-    const requestBody = {
-      recipient_type: "individual",
-      messaging_product: "whatsapp",
-      to: received_number,
-      type: "text",
-      text: {
-        preview_url: false,
-        body: messageResponse,
-      },
-    };
-
-    // Make the POST request to Facebook Graph API using Axios
-    const response = await axios.post(facebookAPIEndpoint, requestBody, {
-      headers: {
-        Authorization: `Bearer ${FACEBOOK_ACCESS_TOKEN}`,
-        "Content-Type": "application/json",
+    // Start express server to listen for incoming messages
+    await bot.startExpressServer({
+      webhookVerifyToken: webhookVerifyToken,
+      port: 3000,
+      useMiddleware: (app) => {
+        app.get("/", (req, res) => {
+          return res.send(200);
+        });
+        app.use(cors());
+        app.use(morgan("dev"));
       },
     });
 
-    // Check if the request was successful
-    if (response.status !== 200) {
-      throw new Error("Failed to send message to Facebook Graph API");
-    }
 
-    const responseData = response.data;
 
-    return res.status(200).json({
-      status: 200,
-      message: "Chat Response",
-      data: responseData,
+    bot.on("text", async (msg) => {
+      console.log(msg);
+      await bot.sendText(msg.from, "Received your text!");
     });
-  } catch (error) {
-    console.log(error);
-    next(error);
+
+  } catch (err) {
+    console.log(err);
   }
-});
-
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  res.status(500).json({
-    status: 500,
-    message: "Internal Server Error",
-    error: err.message,
-  });
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://${HOST}:${PORT}`);
-});
+})();
