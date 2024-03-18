@@ -1,64 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-const userSchema = new mongoose.Schema({
-    aud: {
-        type: String,
-        required: true
-    },
-    azp: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    email_verified: {
-        type: Boolean,
-        required: true
-    },
-    exp: {
-        type: Number,
-        required: true
-    },
-    family_name: {
-        type: String,
-        required: true
-    },
-    given_name: {
-        type: String,
-        required: true
-    },
-    iat: {
-        type: Number,
-        required: true
-    },
-    iss: {
-        type: String,
-        required: true
-    },
-    jti: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    nbf: {
-        type: Number,
-        required: true
-    },
-    picture: {
-        type: String,
-        required: true
-    },
-    sub: {
-        type: String,
-        required: true
-    }
-})
-
-const user = mongoose.model('user', userSchema);
-
-export default user;
+const actualUserSchema = new Schema({
+    email: { type: String, required: [true, "Please Enter Email"], unique: true },
+    password: { type: String, required: [true, "Please Enter Password"] },
+    firstname: { type: String, required: [true, "Please enter First Name"] },
+    lastname: { type: String, required: [true, "Please enter Last Name"] },
+    phone: { type: String, default: "" },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+});
+export const User = mongoose.model("User", actualUserSchema);

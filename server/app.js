@@ -7,7 +7,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import { connectDB } from "./utils/features.js";
 // Router
 
-import chatRouter from "./routes/chat.js";
+// import chatRouter from "./routes/chat.js";
 import userRouter from "./routes/user.js";
 dotenv.config();
 const app = express();
@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 app.use(cors());
 // Use Router for API routes
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/chat", chatRouter);
+// app.use("/api/v1/chat", chatRouter);
 export const myCache = new NodeCache();
 app.use("/uploads", express.static("uploads"));
 app.use(errorMiddleware);

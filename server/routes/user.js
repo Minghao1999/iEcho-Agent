@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { Login, completeUser, deleteUser, getUser, newUser, updateRole } from '../controllers/user.js';
-import adminOnly, { verifyTokenMiddleware } from '../middlewares/auth.js';
+import { Login,completeUser} from '../controllers/user.js';
+
 const router = Router();
-router.post('/signup', newUser);
-router.post('/signup/verification', completeUser);
+
 router.post('/login', Login);
-router.put('/role', verifyTokenMiddleware, updateRole);
-router.route('/:email').get(getUser).delete(adminOnly, deleteUser);
+router.post('/signup',completeUser);
+// router.post('/forgotpassword', ForgotPassword);
 export default router;
