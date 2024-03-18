@@ -68,3 +68,150 @@ export const completeUser = TryCatch(async (req, res, next) => {
         data: { user: user },
     });
 });
+
+// export const forgotPassword = async (req, res) => {
+//     if (req.body?.email) {
+//       let secret = Math.random().toString(16);
+//       secret = secret.replace("0.", "");
+//       let response = null;
+//       try {
+//         response = await user.forgotRequest(req.body, secret);
+//       } catch (err) {
+//         if (err?.status === 422) {
+//           res.status(422).json({
+//             status: 422,
+//             message: "Email wrong",
+//           });
+//         } else {
+//           res.status(500).json({
+//             status: 500,
+//             message: err,
+//           });
+//         }
+//       } finally {
+//         if (response) {
+//           fs.readFile(
+//             `${path.resolve(path.dirname(""))}/mail/template.html`,
+//             "utf8",
+//             (err, html) => {
+//               if (!err) {
+//                 html = html.replace(
+//                   "[URL]",
+//                   `${process.env.SITE_URL}:${process.env.SITE_PORT}/forgot/set/${response._id}/${response.secret}`
+//                 );
+//                 html = html.replace("[TITLE]", "Reset password");
+//                 html = html.replace(
+//                   "[CONTENT]",
+//                   "A password change has been requested for your account. If this was you, please use the link below to reset your password."
+//                 );
+//                 html = html.replace("[BTN_NAME]", "Reset password");
+  
+//                 sendMail({
+//                   to: req.body.email,
+//                   subject: `Change password for BayesChat Account`,
+//                   html,
+//                 });
+//               } else {
+//                 console.log(err);
+//               }
+//             }
+//           );
+  
+//           res.status(200).json({
+//             status: 200,
+//             message: "Success",
+//           });
+//         }
+//       }
+//     } else {
+//       res.status(422).json({
+//         status: 422,
+//         message: "Email wrong",
+//       });
+//     }
+// };
+  
+// export const forgotVerify = async (req, res) => {
+//     if (req.query?.userId && req.query?.secret) {
+//       let response = null;
+//       try {
+//         response = await user.checkForgot(req.query);
+//       } catch (err) {
+//         if (err?.status === 404) {
+//           res.status(404).json({
+//             status: 404,
+//             message: "Wrong Verification",
+//           });
+//         } else {
+//           res.status(500).json({
+//             status: 500,
+//             message: err,
+//           });
+//         }
+//       } finally {
+//         if (response) {
+//           res.status(200).json({
+//             status: 200,
+//             message: "Success",
+//           });
+//         }
+//       }
+//     } else {
+//       res.status(404).json({
+//         status: 404,
+//         message: "Wrong Verification",
+//       });
+//     }
+//   };
+  
+// export const resetPassword = async (req, res) => {
+//     if (req.body?.userId && req.body?.secret) {
+//       if (
+//         req.body?.newPass?.length >= 8 &&
+//         req.body?.reEnter &&
+//         req.body?.newPass === req.body?.reEnter
+//       ) {
+//         let response = null;
+//         try {
+//           response = await user.resetPassword(req.body);
+//         } catch (err) {
+//           if (err?.status === 404) {
+//             res.status(404).json({
+//               status: 404,
+//               message: "Wrong Verification",
+//             });
+//           } else {
+//             res.status(500).json({
+//               status: 500,
+//               message: err,
+//             });
+//           }
+//         } finally {
+//           if (response) {
+//             res.status(200).json({
+//               status: 200,
+//               message: "Success",
+//             });
+//           }
+//         }
+//       } else {
+//         res.status(422).json({
+//           status: 422,
+//           message:
+//             "Password must 8 character and New password and Re Enter password must same",
+//         });
+//       }
+//     } else {
+//       res.status(404).json({
+//         status: 404,
+//         message: "Wrong Verification",
+//       });
+//     }
+//   };
+
+export const logout = (req, res) => {
+    res.clearCookie("token").status(200).json({
+      status: 200,
+      message: "LogOut",
+    });
+  };
