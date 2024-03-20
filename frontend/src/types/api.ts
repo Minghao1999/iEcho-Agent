@@ -1,3 +1,5 @@
+import { Contact } from "./message";
+
 export interface UserResponse {}
 
 export interface AuthUser {
@@ -32,35 +34,11 @@ export interface LoginResponse extends MessageResponse {
   };
 }
 
-export interface AddChatRequest {
-  chatId: string;
-  prompt: string;
-}
-
-export interface NewChatRequest {
-  prompt: string;
-}
-
-export interface ChatResponse extends MessageResponse {
+export interface ContactResponse extends MessageResponse {
   data: {
-    chatId: string;
-    content: string;
+    contact: Contact[];
   };
 }
+export interface ContactRequest{
 
-export interface Message {
-  id: string;
-  content: string;
-}
-
-export interface MessagesState {
-  prompt: string;
-  content: string;
-  _id: string | null;
-  latest: {
-    id: string;
-    prompt: string;
-    content: string;
-  };
-  all: Message[];
 }

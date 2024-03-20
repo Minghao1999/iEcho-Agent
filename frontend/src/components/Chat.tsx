@@ -1,59 +1,76 @@
-// Chat.tsx
-import React, { useState } from 'react';
-import ChatHeader from './chatHeader';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { IoMdSend } from "react-icons/io";
-
-interface Message {
-  id: number;
-  sender: string;
-  message: string;
-  timestamp: string; // Add timestamp property
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Message } from "../types/message";
+import EmptyChat from "./EmptyChat";
+import ChatHeader from "./chatHeader";
 
 const Chat: React.FC = () => {
-  // Dummy data for the chat
-  const [messages, setMessages] = useState<Message[]>([
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
-    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
-    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+  const selectedContact = useSelector(
+    (state: RootState) => state.contactReducer.selectedContact
+  );
 
-    // Add more dummy messages as needed
-  ]);
-  const [inputValue, setInputValue] = useState<string>('');
+
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
+
+  useEffect(() => {
+    if (selectedContact) {
+      axios
+        .get(
+          `http://127.0.0.1:5000/api/v1/chat/message/get/${selectedContact.phonenumber}`
+        )
+        .then((response) => {
+          const data = response.data;
+          if (Array.isArray(data) && data.length > 0) {
+            setMessages(data[0].data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching messages:", error);
+        });
+    }
+  }, [selectedContact]);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSendMessage();
     }
   };
 
-
   const handleSendMessage = () => {
-    if (inputValue.trim() !== '') {
-      const currentTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    if (inputValue.trim() !== "") {
+      const date=new Date()
+      const currentTime = date.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
       const newMessage: Message = {
-        id: messages.length + 1,
-        sender: 'me',
-        message: inputValue.trim(),
-        timestamp: currentTime
+        _id: String(messages.length + 1),
+        sender: "me",
+        text: (inputValue.trim()), 
+        timestamp: currentTime,
       };
+      if(!selectedContact) return;
+      // Add axios POST request here
+      axios.post('http://127.0.0.1:5000/api/v1/chat/message/add', {
+        phonenumber: selectedContact.phonenumber,
+        sender: newMessage.sender,
+        text: newMessage.text,
+        type: "text",
+        name: selectedContact.name
+      }).then(response => {
+        console.log("Message sent successfully:", response.data);
+      }).catch(error => {
+        console.error("Error sending message:", error);
+      });
+
+
       setMessages([...messages, newMessage]);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -61,12 +78,27 @@ const Chat: React.FC = () => {
     <div className="chat-container">
       <ChatHeader />
       <div className="chat-messages">
-        {messages.map((message) => (
-          <div key={message.id} className={`message ${message.sender === 'me' ? 'sent' : 'received'}`}>
-            <div className="message-content">{message.message}</div>
-            <div className="message-time">{message.timestamp}</div>
-          </div>
-        ))}
+        {!selectedContact ? (
+          <EmptyChat />
+        ) : (
+          messages.map((message) => (
+            <div
+              key={message._id}
+              className={`message ${
+                message.sender === "me" ? "sent" : "received"
+              }`}
+            >
+              <div className="message-content">{message.text}</div>
+              <div className="message-time">
+                {new Date(message.timestamp).toLocaleString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Bottom section for typing message */}
@@ -79,10 +111,15 @@ const Chat: React.FC = () => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <IoMdSend size={30} className='sendBtn' color='green' onClick={handleSendMessage} />
+        <IoMdSend
+          size={30}
+          className="sendBtn"
+          color="green"
+          onClick={handleSendMessage}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Chat;

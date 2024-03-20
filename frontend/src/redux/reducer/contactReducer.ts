@@ -1,29 +1,49 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../types/api";
-import { InitialUserState } from "../../types/types";
+
+export interface Contact {
+  phonenumber: string | null;
+  name: string | null;
+  lastmessage: string | null;
+}
+
+export interface ContactsState {
+  contacts: Contact[];
+  isLoading: boolean;
+  selectedContact: Contact | null; 
+}
 
 // Define initial state
-const userInit: InitialUserState = {
-  user: null,
+const contactInit: ContactsState = {
+  contacts: [],
   isLoading: false,
+  selectedContact: null, 
 };
 
-export const userReducer = createSlice({ 
-  name: "userReducer",
-  initialState: userInit,
+export const contactReducer = createSlice({
+  name: "contactReducer",
+  initialState: contactInit,
   reducers: {
-    // Action to set user information and token
-    setUser: (state, action: PayloadAction<{ user: User }>) => {
-      state.user = action.payload.user;
-      state.isLoading = false;
+    addContact: (state, action: PayloadAction<Contact>) => {
+      state.contacts.push(action.payload);
     },
-    // Action to reset user information and token
-    resetUser: (state) => {
-      state.user = null;
-      state.isLoading = false;
+    addContacts: (state, action: PayloadAction<Contact[]>) => {
+      state.contacts.push(...action.payload);
+    },
+    updateLastMessage: (
+      state,
+      action: PayloadAction<{ phone: string; lastmessage: string }>
+    ) => {
+      const { phone, lastmessage } = action.payload;
+      const contact = state.contacts.find((c) => c.phone === phone);
+      if (contact) {
+        contact.lastmessage = lastmessage;
+      }
+    },
+    setSelectedContact: (state, action: PayloadAction<Contact | null>) => {
+      state.selectedContact = action.payload;
     },
   },
 });
 
-// Export actions
-export const { setUser, resetUser } = userReducer.actions;
+export const { addContact,addContacts, updateLastMessage, setSelectedContact } = contactReducer.actions;
+
