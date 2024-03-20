@@ -1,4 +1,6 @@
 // Chat.scss
+
+@include style-scrollbar();
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -44,17 +46,12 @@
 
 .message-input {
   flex-grow: 1;
-  padding: 10px;
+  font-size: 20px;
+  padding: 1.2rem;
   border-radius: 20px;
   border: 1px solid #ccc;
   margin-right: 10px;
 }
-
-.send-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background-color: #3f51b5;
-  color: #fff;
+.sendBtn{
   cursor: pointer;
 }

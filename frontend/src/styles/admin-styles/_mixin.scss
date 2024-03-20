@@ -9,6 +9,29 @@
   margin-right: 2vw;
 }
 
+@mixin style-scrollbar($width: 10px, $track-color: #f5f5f5, $thumb-color: #ccc, $thumb-hover-color: #b3b3b3) {
+  ::-webkit-scrollbar {
+    width: $width;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $thumb-hover-color;
+  }
+}
+
+
 @mixin heading($spacing: 3px, $weight: 300, $case: uppercase) {
   letter-spacing: $spacing;
   font-weight: $weight;

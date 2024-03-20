@@ -1,6 +1,7 @@
 // Chat.tsx
 import React, { useState } from 'react';
 import ChatHeader from './chatHeader';
+import { IoMdSend } from "react-icons/io";
 
 interface Message {
   id: number;
@@ -14,6 +15,23 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
     { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+    { id: 1, sender: 'friend', message: 'Hi there!', timestamp: '10:00 AM' },
+    { id: 2, sender: 'me', message: 'Hey! How are you?', timestamp: '10:05 AM' },
+
     // Add more dummy messages as needed
   ]);
   const [inputValue, setInputValue] = useState<string>('');
@@ -61,7 +79,7 @@ const Chat: React.FC = () => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button className="send-button" onClick={handleSendMessage}>Send</button>
+        <IoMdSend size={30} className='sendBtn' color='green' onClick={handleSendMessage} />
       </div>
     </div>
   );

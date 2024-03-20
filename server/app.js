@@ -15,6 +15,8 @@ const app = express();
 const port = Number(process.env.port) || Number(5000);
 const host = process.env.host || "127.0.0.1";
 const MongoDB_URL = process.env.MongoDB_URL;
+
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }))
