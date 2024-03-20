@@ -1,0 +1,29 @@
+// Header.scss
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #075e54;
+    color: #fff;
+    height: 12%
+  }
+  
+  .logo {
+    @include avatar;
+
+    
+  }
+  
+  .additional {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #fff;
+    margin-right: 10px;
+  }
+  

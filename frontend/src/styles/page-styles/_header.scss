@@ -1,0 +1,6 @@
+.header {
+    background-color: aqua;
+    @include flex(row,end,end,1.2rem)
+ 
+    
+}

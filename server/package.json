@@ -8,7 +8,8 @@
     "start": "node dist/app.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon  whatsCloud.js",
+    "dev": "nodemon  app.js",
+    "demo": "nodemon  whatsCloud.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "faijan",

@@ -1,0 +1,158 @@
+.profilePage {
+  display: flex;
+
+  > aside {
+    position: relative;
+
+    height: 100vh;
+    width: 20%;
+
+    .logo {
+      @include logo;
+    }
+  }
+
+  .head-content {
+    width: 80%;
+    .Header {
+      justify-content: space-between;
+
+      @include dasboardHeader;
+    }
+
+
+    .buttonWrapper {
+      @include headerBtn;
+    }
+    
+
+    .userSection {
+    margin-bottom: 2rem;
+
+
+      > form {
+        font-weight: bold;
+        @include form();
+        display: flex;
+        flex-direction: row;
+
+        .basic-details {
+          .name {
+            display: flex;
+            flex-direction: row;
+          }
+
+          .address {
+            display: flex;
+            flex-direction: column;
+
+            .addition-addr {
+              display: flex;
+              flex-direction: row;
+              gap: 20px;
+            }
+
+            .dropDrop {
+              display: flex;
+              flex-direction: row;
+              gap: 20px;
+            }
+          }
+        }
+
+        .advacedDeatail {
+          margin-left: 1.2rem;
+        }
+
+        select {
+          @include button-style;
+
+          background-color: #ffffff;
+          border: 1px solid #6d6d6d;
+          color: #6d6d6d;
+
+          &:hover {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .supplierSection {
+      > form {
+        display: flex;
+
+        flex-direction: column;
+
+        @include form();
+        select {
+          @include button-style;
+
+          background-color: #ffffff;
+          border: 1px solid #6d6d6d;
+          color: #6d6d6d;
+
+          &:hover {
+            color: #ffffff;
+          }
+        }
+
+        .company-detail {
+          display: flex;
+          flex-direction: column;
+
+          .vat-number {
+            display: flex;
+            flex-direction: row;
+            gap: 0.6rem;
+          }
+        }
+        .verify-details {
+          display: flex;
+          flex-direction: row;
+          gap: 1.2rem;
+          padding: 0.8rem;
+          margin-right: 0.8rem;
+
+          transition: transform 0.3s;
+        }
+      }
+    }
+
+    article {
+        display: flex;
+        flex-direction: column;
+
+        .vertification{
+            display: flex;
+            flex-direction: row;
+
+
+
+                .detail{
+                    width: 40%;
+                    p{
+                    }
+                }
+
+    
+                img{
+                    margin-bottom: 2.3rem;
+                    margin-left: 0;
+
+                }
+
+
+
+
+        }
+
+        button {
+            @include button-style;
+            width: fit-content;
+            border-radius: 5%;
+          }
+
+    }
+  }
+}

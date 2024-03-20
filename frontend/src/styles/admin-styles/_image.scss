@@ -1,0 +1,110 @@
+@mixin logo {
+  .image {
+    background-color: var(--grayscale-white);
+    height: 824px;
+    overflow: hidden;
+    width: 597px;
+
+    .overlap-group {
+      height: 1096px;
+      left: -166px;
+      position: relative;
+      top: -140px;
+      width: 925px;
+
+      .ellipse {
+        background-color: var(--grayscale-gray-400);
+        border-radius: 215px;
+        height: 430px;
+        left: 401px;
+        position: absolute;
+        top: 305px;
+        width: 430px;
+      }
+
+      .div {
+        background-color: var(--grayscale-gray-700);
+        border-radius: 215px;
+        height: 430px;
+        left: 440px;
+        position: absolute;
+        top: 0;
+        width: 430px;
+      }
+
+      .ellipse-2 {
+        background-color: var(--grayscale-gray-700);
+        border-radius: 215px;
+        height: 430px;
+        left: 280px;
+        position: absolute;
+        top: 325px;
+        width: 430px;
+      }
+
+      .ellipse-3 {
+        background-color: var(--grayscale-gray-600);
+        border-radius: 215px;
+        height: 430px;
+        left: 0;
+        position: absolute;
+        top: 424px;
+        width: 430px;
+      }
+
+      .ellipse-4 {
+        background-color: var(--grayscale-gray-400);
+        border-radius: 215px;
+        height: 430px;
+        left: 134px;
+        position: absolute;
+        top: 666px;
+        width: 430px;
+      }
+
+      .ellipse-5 {
+        background-color: var(--grayscale-gray-300);
+        border-radius: 215px;
+        height: 430px;
+        left: 495px;
+        position: absolute;
+        top: 639px;
+        width: 430px;
+      }
+
+      .ellipse-6 {
+        background-color: var(--grayscale-gray-600);
+        border-radius: 215px;
+        height: 430px;
+        left: 56px;
+        position: absolute;
+        top: 47px;
+        width: 430px;
+      }
+
+      .rectangle {
+        -webkit-backdrop-filter: blur(250px) brightness(100%);
+        backdrop-filter: blur(250px) brightness(100%);
+        background-color: #ffffff4c;
+        height: 824px;
+        left: 166px;
+        position: absolute;
+        top: 140px;
+        width: 597px;
+      }
+
+      .kigreen {
+        color: #ffffff;
+        font-family: "Roobert-Bold", Helvetica;
+        font-size: 56px;
+        font-weight: 700;
+        left: 358px;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        top: 502px;
+        white-space: nowrap;
+      }
+    }
+  }
+}

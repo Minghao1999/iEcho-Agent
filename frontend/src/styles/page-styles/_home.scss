@@ -1,0 +1,29 @@
+.Home {
+
+
+    main {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border: 2px solid green;
+      
+      .routing-container {
+        display: flex;
+        position: absolute;
+        text-decoration: underline blue;
+        flex-direction: row;
+        right: 0;
+        gap: 0.8rem;
+        padding: 1.2rem;
+        
+      }
+    }
+  
+    aside {
+      width: 50px;
+      position: relative;
+      border: 2px solid blue;
+      background-color: rgb(243, 182, 0);
+    }
+  }
+  

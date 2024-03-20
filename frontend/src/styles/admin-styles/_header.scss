@@ -1,0 +1,81 @@
+@mixin headerBtn() {
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3.2rem;
+
+    button {
+      @include button-style;
+    }
+
+    .white-btn {
+      background-color: #FFFFFF;
+      border: 1px solid #6D6D6D;
+      color: #6D6D6D;
+
+      &:hover{
+        color: #FFFFFF;
+      }
+    }
+
+    .right-buttons {
+      display: flex;
+
+      button {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+
+@mixin dasboardHeader(){
+  display: flex;
+  align-items: center;
+
+
+  h2 {
+    font-weight: bolder;
+    
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    height: fit-content;
+
+    a {
+      margin: 1rem;
+
+      svg {
+        width: 1.2rem; 
+        height: 1.2rem;
+      }
+    }
+
+    a:nth-child(2) svg {
+      transform: rotate(45deg) scale(1.2);
+
+      color: golden; 
+    }
+  }
+
+}
+
+@mixin sideLogo(){
+  display: block;
+  width: 35%;
+  font-weight: bolder;
+  font-size: larger;
+  
+  background-image: linear-gradient(
+    to right bottom,
+    #f8d163 0%,
+    #f8d163 33.33%,
+    #d8fce3 33.33%,
+    #d8fce3 66.66%,
+    #7cb789 66.66%,
+    #7cb789 100%
+  );
+}

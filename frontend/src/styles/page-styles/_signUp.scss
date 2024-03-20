@@ -1,0 +1,49 @@
+.Signup {
+  display: flex;
+  height: 100vh;
+
+  > aside {
+    @include sideLogo;
+  }
+
+  > main {
+    width: 65%;
+    height: 100vh;
+    @include flex(column);
+
+    > form {
+      @include form();
+
+      button {
+        @include button-style;
+      }
+
+      .password-input {
+        position: relative;
+        input {
+          width: 100%;
+          padding-right: 40px; /* Adjust padding to accommodate the button */
+        }
+
+        button {
+          position: absolute;
+          margin: 0%;
+          top: 0.9%;
+          right: 0%;
+        }
+      }
+    }
+  }
+  .create-account {
+    font-size: 0.8rem;
+    width: fit-content;
+    height: fit-content;
+    display: flex; /* Make it a flex container */
+    align-items: center; /* Center the content vertically */
+
+    button {
+      display: inline-block;
+      @include button-style();
+    }
+  }
+}

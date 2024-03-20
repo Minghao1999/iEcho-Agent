@@ -1,0 +1,39 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+@import "./admin-styles/color";
+@import "./admin-styles/header";
+
+
+@import "./admin-styles/mixin";
+@import "./page-styles/home";
+@import "./page-styles/login";
+@import "./page-styles/signUp";
+@import "./page-styles/dashboard";
+
+@import "./component-styles/_header";
+@import "./component-styles/messageMenu";
+
+
+@import "./component-styles/headerChat";
+
+@import "./component-styles/chat";
+
+
+
+
+// @import "./component-styles/_leftDasborad";
