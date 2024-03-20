@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 
 const MessageSchema = new mongoose.Schema({
-    conversationId: {
+    phonenumber: {
         type: String
     },
-    senderId: {
-        type: String
-    },
-    receiverId: {
+    sender: {
         type: String
     },
     text: {
@@ -15,12 +12,13 @@ const MessageSchema = new mongoose.Schema({
     },
     type: {
         type: String
+    },
+    timestamp: { 
+        type: Date, 
+        default: Date.now 
     }
-},
-{ 
-        timestamps: true
-})
+});
 
-const message = mongoose.model('Message', MessageSchema);
+const Message = mongoose.model('Message', MessageSchema);
 
-export default message;
+export default Message;

@@ -34,8 +34,6 @@ const  template = [
     let conversation=template
     // Create a bot that can send messages
     const bot = createBot(from, token);
-    await bot.sendText(to, "messageResponse");
-
 
     // Start express server to listen for incoming messages
     await bot.startExpressServer({
