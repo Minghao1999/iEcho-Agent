@@ -18,8 +18,7 @@ const app = express();
 // Use Router for API routes
 
 export const myCache = new NodeCache();
-app.use("/uploads", express.static("uploads"));
-app.use(errorMiddleware);
+
 
 dotenv.config();
 
@@ -50,6 +49,7 @@ export const bot = createBot(from, token);
         // Routes
         app.use("/api/v1/user", userRouter);
         app.use("/api/v1/chat", chatRouter);
+        app.use(errorMiddleware);
       },
     });
 
