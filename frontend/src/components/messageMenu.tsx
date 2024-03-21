@@ -6,25 +6,13 @@ import {
 } from "../redux/reducer/contactReducer";
 import { RootState } from "../redux/store";
 import { Contact } from "../types/message";
+import { useGetContactQuery } from "../redux/api/contactAPI";
+import MsgSkeletonLoading from "./messageSkeleton";
 
 const MessageMenu: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Fetch data from the API endpoint
-    fetch("http://127.0.0.1:5000/api/v1/chat/contact/get")
-      .then((response) => response.json())
-      .then((data) => {
-        // Check if API request was successful and data is available
-        if (data.success && data.data) {
-          dispatch(addContacts(data.data)); // Dispatch received contacts to Redux store
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [dispatch]);
+  const { data, isLoading } = useGetContactQuery("");
 
   // Assuming you have a selector to get the selected contact from the Redux store
   const selectedContact = useSelector(
@@ -50,6 +38,14 @@ const MessageMenu: React.FC = () => {
       conversation.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  useEffect(() => {
+    if (data) {
+      dispatch(addContacts(data.data));
+    }
+  }, [data, dispatch]);
+  
+  
+
   return (
     <div className="message-menu">
       <input
@@ -59,27 +55,34 @@ const MessageMenu: React.FC = () => {
         onChange={handleSearchChange}
       />
       <div className="conversation-container">
-        {filteredConversations.map((conversation, index) => (
-          <div
-            className={`conversation ${
-              selectedContact && selectedContact.phone === conversation.phone
-                ? "selected"
-                : ""
-            }`}
-            key={index}
-            onClick={() => handleContactClick(conversation)}
-          >
-            <div className="profile-info">
-              <div className="logo">
-                <span>{conversation.name.charAt(0).toUpperCase()}</span>
+        {isLoading ? (
+          <MsgSkeletonLoading />
+        ) : (
+          filteredConversations.map((conversation, index) => (
+            <div
+              className={`conversation ${
+                selectedContact &&
+                selectedContact.phonenumber === conversation.phonenumber
+                  ? "selected"
+                  : ""
+              }`}
+              key={index}
+              onClick={() => handleContactClick(conversation)}
+            >
+              <div className="profile-info">
+                <div className="logo">
+                  {conversation.name && (
+                    <span>{conversation.name.charAt(0).toUpperCase()}</span>
+                  )}
+                </div>
+              </div>
+              <div className="info">
+                <div className="name">{conversation.name}</div>
+                <div className="last-message">{conversation.lastmessage}</div>
               </div>
             </div>
-            <div className="info">
-              <div className="name">{conversation.name}</div>
-              <div className="last-message">{conversation.lastmessage}</div>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

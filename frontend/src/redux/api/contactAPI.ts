@@ -20,7 +20,7 @@ export const contactAPI = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getContact: builder.query<ContactResponse,null>({
+    getContact: builder.query<ContactResponse,string>({
       query: () => ({
         url: "/contact/get",
         credentials: "include",

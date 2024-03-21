@@ -1,24 +1,23 @@
-export interface Contact{
-    _id?: string;
-    phone: string | null;
-    name: string | null;
-    lastmessage: string | null;
-    
+export interface Contact {
+  _id?: string;
+  phonenumber: string;
+  name: string;
+  lastmessage: string;
 }
 
 export interface ContactsState {
-    contacts: Contact[];
-    isLoading: boolean;
+  contacts: Contact[];
+  isLoading: boolean;
+  selectedContact: Contact | null;
 }
 export interface Message {
-    _id: string;
-    sender: string;
-    message: string;
-    timestamp: string; 
-  }
+  _id: string;
+  sender: string;
+  message: string;
+  timestamp: string;
+}
 
 export interface Conversation {
-    name: string;
-    lastMessage: string;
-  }
-
+  name: string;
+  lastMessage: string;
+}
