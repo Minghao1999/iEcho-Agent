@@ -6,6 +6,11 @@ const ContactSchema = new mongoose.Schema({
     },
     name: {
         type: String
+    },
+    setting: {
+        type: String,
+        enum: ['auto', 'manual'],
+        default: 'auto'
     }
 });
 

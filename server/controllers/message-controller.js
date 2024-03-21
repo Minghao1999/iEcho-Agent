@@ -96,7 +96,8 @@ export const getContact = async (request, response) => {
                 _id: contact._id.toString(),
                 phonenumber: contact.phonenumber,
                 name: contact.name,
-                lastmessage: contact.lastmessage
+                lastmessage: contact.lastmessage,
+                setting:contact.setting
             }))
         });
     } catch (error) {
