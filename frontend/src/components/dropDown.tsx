@@ -17,7 +17,7 @@ const Dropdown: React.FC = () => {
   return (
     <div className="dropdown-container">
       <div className="action" onClick={toggleDropdown}>
-        <BsThreeDotsVertical color='red' />
+        <BsThreeDotsVertical  className='three-dot' />
       </div>
       {isOpen && (
         <div className="dropdown-content">

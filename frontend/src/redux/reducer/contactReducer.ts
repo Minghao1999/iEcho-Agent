@@ -1,18 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Contact, ContactsState } from "../../types/message";
 
-export interface Contact {
-  phonenumber: string | null;
-  name: string | null;
-  lastmessage: string | null;
-}
-
-export interface ContactsState {
-  contacts: Contact[];
-  isLoading: boolean;
-  selectedContact: Contact | null; 
-}
-
-// Define initial state
+// // Define initial state
 const contactInit: ContactsState = {
   contacts: [],
   isLoading: false,
@@ -34,7 +23,7 @@ export const contactReducer = createSlice({
       action: PayloadAction<{ phone: string; lastmessage: string }>
     ) => {
       const { phone, lastmessage } = action.payload;
-      const contact = state.contacts.find((c) => c.phone === phone);
+      const contact = state.contacts.find((c:Contact) => c.phonenumber === phone);
       if (contact) {
         contact.lastmessage = lastmessage;
       }
