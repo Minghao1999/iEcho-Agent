@@ -39,6 +39,5 @@ export interface ContactResponse extends MessageResponse {
     contact: Contact[];
   };
 }
-export interface ContactRequest{
 
-}
+// export interface 

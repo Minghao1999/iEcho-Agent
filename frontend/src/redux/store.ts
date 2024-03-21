@@ -4,6 +4,8 @@ import { contactAPI } from "./api/contactAPI";
 import { userAPI } from "./api/userAPI";
 import { userReducer } from "./reducer/userReducer";
 import { contactReducer } from "./reducer/contactReducer";
+import { messageAPI } from "./api/messageAPI";
+import { messageReducer } from "./reducer/messageReducer";
 
 
 export const server =  "http://127.0.0.1:5000";
@@ -14,9 +16,11 @@ export const store = configureStore({
     [userReducer.name]: userReducer.reducer,
     [contactReducer.name]: contactReducer.reducer,
     [contactAPI.reducerPath]: contactAPI.reducer,
+    [messageAPI.reducerPath]: messageAPI.reducer,
+    [messageReducer.reducerPath]: messageReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userAPI.middleware, contactAPI.middleware),
+    getDefaultMiddleware().concat(userAPI.middleware, contactAPI.middleware, messageAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

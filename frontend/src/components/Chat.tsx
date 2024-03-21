@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -6,33 +5,29 @@ import { RootState } from "../redux/store";
 import { Message } from "../types/message";
 import EmptyChat from "./EmptyChat";
 import ChatHeader from "./chatHeader";
+import { useGetMessageQuery, useSendMessageMutation } from "../redux/api/messageAPI";
 
 const Chat: React.FC = () => {
   const selectedContact = useSelector(
     (state: RootState) => state.contactReducer.selectedContact
   );
 
-
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
+  // RTK Query hook to fetch contact messages
+  const { data: contactMessages = [] } = useGetMessageQuery(selectedContact?.phonenumber ?? "", {
+    skip: !selectedContact,
+  });
+
+  // RTK Mutation hook to send a message
+  const [sendMessage] = useSendMessageMutation();
+
   useEffect(() => {
-    if (selectedContact) {
-      axios
-        .get(
-          `http://127.0.0.1:5000/api/v1/chat/message/get/${selectedContact.phonenumber}`
-        )
-        .then((response) => {
-          const data = response.data;
-          if (Array.isArray(data) && data.length > 0) {
-            setMessages(data[0].data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching messages:", error);
-        });
+    if (contactMessages.length > 0) {
+      setMessages(contactMessages[0].data);
     }
-  }, [selectedContact]);
+  }, [contactMessages]);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -41,8 +36,8 @@ const Chat: React.FC = () => {
   };
 
   const handleSendMessage = () => {
-    if (inputValue.trim() !== "") {
-      const date=new Date()
+    if (inputValue.trim() !== "" && selectedContact) {
+      const date = new Date();
       const currentTime = date.toLocaleString("en-US", {
         hour: "numeric",
         minute: "numeric",
@@ -51,23 +46,25 @@ const Chat: React.FC = () => {
       const newMessage: Message = {
         _id: String(messages.length + 1),
         sender: "me",
-        text: (inputValue.trim()), 
+        text: inputValue.trim(),
         timestamp: currentTime,
       };
-      if(!selectedContact) return;
-      // Add axios POST request here
-      axios.post('http://127.0.0.1:5000/api/v1/chat/message/add', {
+
+      // RTK Mutation to send message
+      sendMessage({
         phonenumber: selectedContact.phonenumber,
         sender: newMessage.sender,
         text: newMessage.text,
         type: "text",
-        name: selectedContact.name
-      }).then(response => {
-        console.log("Message sent successfully:", response.data);
-      }).catch(error => {
-        console.error("Error sending message:", error);
-      });
-
+        name: selectedContact.name,
+      })
+        .unwrap()
+        .then(() => {
+          console.log("Message sent successfully");
+        })
+        .catch((error) => {
+          console.error("Error sending message:", error);
+        });
 
       setMessages([...messages, newMessage]);
       setInputValue("");
@@ -76,7 +73,8 @@ const Chat: React.FC = () => {
 
   return (
     <div className="chat-container">
-      <ChatHeader />
+      {selectedContact && <ChatHeader />}
+
       <div className="chat-messages">
         {!selectedContact ? (
           <EmptyChat />
@@ -84,9 +82,7 @@ const Chat: React.FC = () => {
           messages.map((message) => (
             <div
               key={message._id}
-              className={`message ${
-                message.sender === "me" ? "sent" : "received"
-              }`}
+              className={`message ${message.sender === "me" ? "sent" : "received"}`}
             >
               <div className="message-content">{message.text}</div>
               <div className="message-time">
@@ -111,12 +107,7 @@ const Chat: React.FC = () => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <IoMdSend
-          size={30}
-          className="sendBtn"
-          color="green"
-          onClick={handleSendMessage}
-        />
+        <IoMdSend size={30} className="sendBtn" color="green" onClick={handleSendMessage} />
       </div>
     </div>
   );
