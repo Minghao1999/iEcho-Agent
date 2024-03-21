@@ -4,7 +4,7 @@ import Conversation from '../models/Conversation.js';
 
 
 export const newMessage = async (request, response) => {
-    const { phonenumber, name, sender, text, type } = request.body;
+    const { phonenumber, name, sender, text, type,setting } = request.body;
 
     try {
         // Check if the contact exists
@@ -12,7 +12,7 @@ export const newMessage = async (request, response) => {
 
         // If the contact doesn't exist, insert it into the Contact collection
         if (!contact) {
-            contact = new Contact({ phonenumber, name });
+            contact = new Contact({ phonenumber, name,setting });
             await contact.save();
         }
 
