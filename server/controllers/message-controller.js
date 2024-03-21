@@ -1,6 +1,7 @@
 import Message from "../models/Message.js";
 import Contact from "../models/Contact.js";
 import Conversation from '../models/Conversation.js';
+import { bot } from "../whatsCloud.js";
 
 
 export const newMessage = async (request, response) => {
@@ -9,7 +10,7 @@ export const newMessage = async (request, response) => {
     try {
         // Check if the contact exists
         let contact = await Contact.findOne({ phonenumber });
-
+        bot.sendMessage(phonenumber,"keso");
         // If the contact doesn't exist, insert it into the Contact collection
         if (!contact) {
             contact = new Contact({ phonenumber, name,setting });

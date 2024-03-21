@@ -10,6 +10,7 @@ export const openai = new OpenAI({
 // Gemini configuration
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 export const genAIModel = genAI.getGenerativeModel({ model: "gemini-pro" });
+
 export const conversation = [
     {
         role: "user",
