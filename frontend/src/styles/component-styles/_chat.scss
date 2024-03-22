@@ -14,27 +14,41 @@
   padding: 10px;
   border: 1px solid green;
 
+  .message-body {
+    display: flex;
+    flex-direction: column;
 
-  .message {
+    .message {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid red;
+      max-width: 70%; /* Adjust as needed */
+    }
 
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 30%;
-  }
+    .sent {
+      align-self: flex-end;
 
-  .sent {
-    align-self: flex-end;
-    background-color: #dcf8c6; 
-  }
+      background-color: #dcf8c6;
+    }
 
-  .received {
-    align-self: flex-start;
-    background-color: #eaeaea; 
-  }
+    .received {
+      align-self: flex-start;
 
-  .message-content {
-    color: #000; 
+      background-color: #eaeaea;
+    }
+
+    .message-time {
+      align-self: flex-end;
+      color: #534e4e;
+      margin-top: 5px;
+    }
+
+    .message-content {
+      color: #000;
+    }
   }
 }
 
@@ -52,11 +66,20 @@
   border: 1px solid #ccc;
   margin-right: 10px;
 }
-.sendBtn{
+.sendBtn {
   cursor: pointer;
 }
 
-.EmptyChat{
+.auto {
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.EmptyChat {
   display: flex;
   justify-content: center;
   align-items: center;

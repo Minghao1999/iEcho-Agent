@@ -5,7 +5,10 @@ import { RootState } from "../redux/store";
 import { Message } from "../types/message";
 import EmptyChat from "./EmptyChat";
 import ChatHeader from "./chatHeader";
-import { useGetMessageQuery, useSendMessageMutation } from "../redux/api/messageAPI";
+import {
+  useGetMessageQuery,
+  useSendMessageMutation,
+} from "../redux/api/messageAPI";
 
 const Chat: React.FC = () => {
   const selectedContact = useSelector(
@@ -16,9 +19,12 @@ const Chat: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
 
   // RTK Query hook to fetch contact messages
-  const { data: contactMessages = [] } = useGetMessageQuery(selectedContact?.phonenumber ?? "", {
-    skip: !selectedContact,
-  });
+  const { data: contactMessages = [] } = useGetMessageQuery(
+    selectedContact?.phonenumber ?? "",
+    {
+      skip: !selectedContact,
+    }
+  );
 
   // RTK Mutation hook to send a message
   const [sendMessage] = useSendMessageMutation();
@@ -79,36 +85,51 @@ const Chat: React.FC = () => {
         {!selectedContact ? (
           <EmptyChat />
         ) : (
-          messages.map((message) => (
-            <div
-              key={message._id}
-              className={`message ${message.sender === "me" ? "sent" : "received"}`}
-            >
-              <div className="message-content">{message.text}</div>
-              <div className="message-time">
-                {new Date(message.timestamp).toLocaleString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
+          <div className="message-body">
+            {messages.map((message) => (
+              <div
+                key={message._id}
+                className={`message ${
+                  message.sender === "me" ? "sent" : "received"
+                }`}
+              >
+                <div className="message-content">{message.text}</div>
+                <div className="message-time">
+                  {new Date(message.timestamp).toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
 
       {/* Bottom section for typing message */}
-      <div className="chat-footer">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          className="message-input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-        <IoMdSend size={30} className="sendBtn" color="green" onClick={handleSendMessage} />
-      </div>
+      {selectedContact ? (
+        selectedContact.setting === "manual" ? (
+          <div className="chat-footer">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              className="message-input"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+            <IoMdSend
+              size={30}
+              className="sendBtn"
+              color="green"
+              onClick={handleSendMessage}
+            />
+          </div>
+        ) : (
+          <span className="auto">This is Automate Messaging ...</span>
+        )
+      ) : null}
     </div>
   );
 };

@@ -49,44 +49,15 @@ export const handleMessage = TryCatch(async (msg) => {
   const chatSession = genAIModel.startChat({ history: conversation });
   const result = await chatSession.sendMessage(text);
   const messageResponse = result.response.text();
+
+  if(contact.setting=="manual"){
+    return
+  }
   await bot.sendText(from, messageResponse);
   
     // Update the Message document with the model's response
   message.data.push({ sender: 'friend', text: messageResponse, type });
   await message.save();
 
-  // const prompt = msg.data.text;
-  // let conversation = template;
-
-  // const chatSession = genAIModel.startChat({
-  //   history: conversation,
-  // });
-
-  // conversation.push({ role: "user", parts: prompt });
-
-  // const result = await chatSession.sendMessage(prompt);
-  // const messageResponse = result.response.text();
-  // await bot.sendText(msg.from, messageResponse);
-
-  // conversation.push({ role: "model", parts: messageResponse });
-  //   // Extract the last user and model messages
-  // const lastUserMessage = conversation[conversation.length - 2];
-  // const lastModelMessage = conversation[conversation.length - 1];
-  
-  // // Construct the desired format
-  // // Construct the desired format
-  // const formattedMessage = {
-  //   phonenumber: from,
-  //   data: {
-  //     senders: lastUserMessage.role === 'user' ? 'me' : lastUserMessage.role,
-  //     texts: lastUserMessage.parts,
-  //     sender: lastModelMessage.role === 'model' ? 'friend' : lastModelMessage.role,
-  //     text: lastModelMessage.parts,
-  //     type: type,
-  //     name: name,
-  //   }
-  // };
-  // console.log(formattedMessage);
-  
  
 });

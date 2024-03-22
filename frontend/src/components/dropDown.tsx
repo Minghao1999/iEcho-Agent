@@ -1,35 +1,57 @@
-import React, { useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateContactSetting } from "../redux/reducer/contactReducer";
+import { RootState } from "../redux/store";
+
 
 const Dropdown: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>('');
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const seletedContact = useSelector(
+    (state: RootState) => state.contactReducer.selectedContact
+  );
+  const dispatch = useDispatch();
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
-    setIsOpen(false); // Close the dropdown after selection
+    axios
+      .post("http://127.0.0.1:5000/api/v1/chat/update/setting", {
+        phonenumber: seletedContact?.phonenumber,
+        setting: option,
+      })
+      .then((response) => {
+        console.log(response.data);
+        dispatch(
+          updateContactSetting({
+            phone: seletedContact?.phonenumber,
+            setting: option,
+          })
+        );
+      })
+      .catch((error) => {
+        console.error("Error updating setting:", error);
+      });
   };
 
   return (
     <div className="dropdown-container">
-      <div className="action" onClick={toggleDropdown}>
-        <BsThreeDotsVertical  className='three-dot' />
+      <div className="options-container">
+        <button
+          className={`option ${selectedOption === "auto" && "selected"}`}
+          onClick={() => handleOptionClick("auto")}
+        >
+          Auto
+        </button>
+        <button
+          className={`option ${selectedOption === "manual" && "selected"}`}
+          onClick={() => handleOptionClick("manual")}
+        >
+          Manually
+        </button>
       </div>
-      {isOpen && (
-        <div className="dropdown-content">
-          <div className="option" onClick={() => handleOptionClick('Auto')}>
-            Auto
-          </div>
-          <div className="option" onClick={() => handleOptionClick('Manually')}>
-            Manually
-          </div>
-        </div>
-      )}
-      <div className="selected-option">{selectedOption}</div>
+      <div className={`selected-option ${selectedOption}`}>
+        {selectedOption}
+      </div>
     </div>
   );
 };

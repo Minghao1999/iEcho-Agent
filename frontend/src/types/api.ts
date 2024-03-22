@@ -16,6 +16,12 @@ export interface MessageResponse {
   message?: string;
 }
 
+export interface UpdateSettingRequest {
+  phonenumber: string;
+  setting:"auto" | "manual"
+
+}
+
 export interface User {
   _id: string;
   email: string;

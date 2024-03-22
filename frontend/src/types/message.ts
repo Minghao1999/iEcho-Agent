@@ -3,6 +3,8 @@ export interface Contact {
   phonenumber: string;
   name: string;
   lastmessage: string;
+  setting:"auto" | "manual";
+
 }
 
 export interface ContactsState {

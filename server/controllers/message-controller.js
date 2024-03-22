@@ -10,7 +10,6 @@ export const newMessage = async (request, response) => {
     try {
         // Check if the contact exists
         let contact = await Contact.findOne({ phonenumber });
-        bot.sendMessage(phonenumber,"keso");
         // If the contact doesn't exist, insert it into the Contact collection
         if (!contact) {
             contact = new Contact({ phonenumber, name,setting });
@@ -19,6 +18,8 @@ export const newMessage = async (request, response) => {
 
         // Find or create the message document
         let message = await Message.findOne({ phonenumber: contact._id });
+
+        bot.sendMessage(phonenumber, text)
 
         // If the message document doesn't exist, create a new one
         if (!message) {

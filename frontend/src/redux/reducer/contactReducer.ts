@@ -31,8 +31,15 @@ export const contactReducer = createSlice({
     setSelectedContact: (state, action: PayloadAction<Contact | null>) => {
       state.selectedContact = action.payload;
     },
+    updateContactSetting: (state, action: PayloadAction<{ phone: string; setting: "auto" | "manual" }>) => {
+      const { phone, setting } = action.payload;
+      const contact = state.contacts.find((c: Contact) => c.phonenumber === phone);
+      if (contact) {
+        contact.setting = setting;
+      }
+    },
   },
 });
 
-export const { addContact,addContacts, updateLastMessage, setSelectedContact } = contactReducer.actions;
+export const { addContact,addContacts, updateLastMessage, setSelectedContact,updateContactSetting } = contactReducer.actions;
 

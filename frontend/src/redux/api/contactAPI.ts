@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
-import {  ContactResponse } from "../../types/api";
+import {  ContactResponse, MessageResponse, UpdateSettingRequest } from "../../types/api";
 
 
 export const contactAPI = createApi({
@@ -27,9 +27,16 @@ export const contactAPI = createApi({
         method: "GET",
       }),
     }),
+    updateSetting: builder.mutation<MessageResponse,UpdateSettingRequest >({
+      query: (data) => ({
+        url: "update/setting",
+        method: "POST",
+        body: data,
+      }),
+    }),
 
 
   }),
 });
 
-export const { useGetContactQuery } = contactAPI;
+export const { useGetContactQuery,useUpdateSettingMutation } = contactAPI;
