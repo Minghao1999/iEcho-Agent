@@ -2,7 +2,7 @@ import Message from "../models/Message.js";
 import Contact from "../models/Contact.js";
 import Conversation from '../models/Conversation.js';
 import { bot } from "../whatsCloud.js";
-
+import { TryCatch } from "../middlewares/error.js";
 
 export const newMessage = async (request, response) => {
     const { phonenumber, name, sender, text, type,setting } = request.body;
@@ -109,3 +109,27 @@ export const getContact = async (request, response) => {
         });
     }
 };
+
+export const putSetting = TryCatch(async (req, res) => {
+    const { phonenumber,setting } = req.body;
+  
+    try {
+      // Find the contact by phone number
+      const contact = await Contact.findOne({ phonenumber });
+  
+      // If the contact doesn't exist, return a 404 Not Found error
+      if (!contact) {
+        return res.status(404).json({ success: false, message: 'Contact not found' });
+      }
+  
+      // Update the setting for the contact
+      contact.setting = setting;
+      await contact.save();
+  
+      // Return a success response
+      res.status(200).json({ success: true, message: 'Setting updated successfully' });
+    } catch (error) {
+      // If an error occurs, return a 500 Internal Server Error
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });

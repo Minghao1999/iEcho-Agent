@@ -208,6 +208,53 @@ export const completeUser = TryCatch(async (req, res, next) => {
 //       });
 //     }
 //   };
+export const getProfile = async (request, response) => {
+    try {
+      // Assuming you have some way to identify the user, such as their email or ID
+      const {phonenumber} = request.body; 
+      // Retrieve the user profile information from the database
+      const userProfile = await User.findOne({ phone: phonenumber });
+  
+      if (!userProfile) {
+        return response.status(404).json({ success: false, message: 'User profile not found' });
+      }
+  
+      // If the user profile exists, return it in the response
+      response.status(200).json({ success: true, data: userProfile });
+    } catch (error) {
+      // If an error occurs during the process, return a 500 Internal Server Error response
+      response.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+export const updateProfile = async (request, response) => {
+  try {
+    // Extract the phone number from the request parameters
+    const {phonenumber} = request.body; 
+
+    // Retrieve the user by phone number
+    const user = await User.findOne({ phone: phonenumber });
+
+    // If the user is not found, return a 404 Not Found response
+    if (!user) {
+      return response.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Update the user's profile information based on the request body
+    user.firstname = request.body.firstname || user.firstname;
+    user.lastname = request.body.lastname || user.lastname;
+    user.email = request.body.email || user.email;
+
+    // Save the updated user profile
+    await user.save();
+
+    // Return a success response
+    response.status(200).json({ success: true, message: 'User profile updated successfully', data: user });
+  } catch (error) {
+    // If an error occurs during the process, return a 500 Internal Server Error response
+    response.status(500).json({ success: false, message: error.message });
+  }
+};
 
 export const logout = (req, res) => {
     res.clearCookie("token").status(200).json({

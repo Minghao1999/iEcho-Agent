@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { newMessage, getMessage,getContact }from '../controllers/message-controller.js';
+import { newMessage, getMessage,getContact,putSetting }from '../controllers/message-controller.js';
 import router from "./user.js";
 // import { addChat, deleteChatById, getAllChats, getChatById, newChat } from "../controllers/chat.js";
 
@@ -7,6 +7,7 @@ import router from "./user.js";
 router.post('/message/add', newMessage);
 router.get('/message/get/:id', getMessage);
 router.get('/contact/get', getContact);
+router.post('/update/setting', putSetting);
 // import { verifyTokenMiddleware } from "../middlewares/auth.js";
 // const router = Router();
 // router.post("/new", verifyTokenMiddleware, newChat);
@@ -14,6 +15,5 @@ router.get('/contact/get', getContact);
 // router.get('/chats', verifyTokenMiddleware, getAllChats);
 // router.get("/chatId", verifyTokenMiddleware, getChatById);
 // router.delete('/chatId', verifyTokenMiddleware, deleteChatById);
-
 
 export default router;
