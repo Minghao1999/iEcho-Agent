@@ -9,6 +9,7 @@ import {
   useGetMessageQuery,
   useSendMessageMutation,
 } from "../redux/api/messageAPI";
+import Skeleton from "@mui/material/Skeleton";
 
 const Chat: React.FC = () => {
   const selectedContact = useSelector(
@@ -19,7 +20,7 @@ const Chat: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
 
   // RTK Query hook to fetch contact messages
-  const { data: contactMessages = [] } = useGetMessageQuery(
+  const { data: contactMessages = [], isLoading } = useGetMessageQuery(
     selectedContact?.phonenumber ?? "",
     {
       skip: !selectedContact,
@@ -84,6 +85,12 @@ const Chat: React.FC = () => {
       <div className="chat-messages">
         {!selectedContact ? (
           <EmptyChat />
+        ) : isLoading ? ( // Render Skeleton when loading
+          <div className="skeleton-loading">
+            <Skeleton variant="text" width={210} height={118} />
+            <Skeleton variant="text" width={210} height={118} />
+            <Skeleton variant="text" width={210} height={118} />
+          </div>
         ) : (
           <div className="message-body">
             {messages.map((message) => (
@@ -127,7 +134,7 @@ const Chat: React.FC = () => {
             />
           </div>
         ) : (
-          <span className="auto">This is Automate Messaging ...</span>
+          <section className="auto-footer">This is Automate Messaging ...</section>
         )
       ) : null}
     </div>

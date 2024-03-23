@@ -2,7 +2,7 @@
 
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import Dropdown from "./dropDown";
+import Setting from "./chatSetting";
 
 const ChatHeader = () => {
   const selectedContact = useSelector(
@@ -32,7 +32,7 @@ const ChatHeader = () => {
           </div>
         </div>
       </div>
-      <Dropdown />
+      <Setting />
     </header>
   );
 };
