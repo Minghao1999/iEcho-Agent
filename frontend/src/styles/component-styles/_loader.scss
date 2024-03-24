@@ -1,0 +1,15 @@
+.skeleton-loading {
+    display: flex;
+    justify-content: space-between; // To position loaders at the left and right ends
+  
+    .skeleton-loader {
+      &:first-child {
+        margin-right: auto; // Pushes the first loader to the right
+      }
+  
+      &:last-child {
+        margin-left: auto; // Pushes the last loader to the left
+      }
+    }
+  }
+  

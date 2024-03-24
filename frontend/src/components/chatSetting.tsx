@@ -1,15 +1,19 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContactSetting } from "../redux/reducer/contactReducer";
 import { RootState } from "../redux/store";
+import axios from "axios";
 import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Typography from "@mui/material/Typography";
 
 const Setting: React.FC = () => {
   const selectedContact = useSelector(
     (state: RootState) => state.contactReducer.selectedContact
   );
-  const [selectedOption, setSelectedOption] = useState<string>(selectedContact?.setting); // Set default option
+  const [selectedOption, setSelectedOption] = useState<"manual" | "auto">(
+    selectedContact?.setting || "manual"
+  ); // Set default option
 
   const dispatch = useDispatch();
 
@@ -29,8 +33,8 @@ const Setting: React.FC = () => {
         console.log(response.data);
         dispatch(
           updateContactSetting({
-            phone: selectedContact?.phonenumber,
-            setting: option,
+            phone: selectedContact?.phonenumber as string ,
+            setting: option as "manual" | "auto" ,
           })
         );
       })
@@ -40,16 +44,21 @@ const Setting: React.FC = () => {
   };
 
   return (
-    <div className="dropdown-container">
-      <div className="options-container">
-        <Switch 
-          defaultChecked={selectedOption === "auto"}
-          onChange={handleOptionToggle}
-        />
-      </div>
-      <div className={`selected-option ${selectedOption}`}>
-        {selectedOption}
-      </div>
+    <div style={{ display: "flex", alignItems: "center", backgroundColor: "white" }}>
+      <FormControlLabel
+        control={
+          <Switch
+            defaultChecked={selectedOption === "auto"}
+            onChange={handleOptionToggle}
+            color="warning"
+          />
+        }
+        label={
+          <Typography variant="body1" style={{ color: "black" }}>
+            {selectedOption === "auto" ? "Auto" : "Manual"}
+          </Typography>
+        }
+      />
     </div>
   );
 };

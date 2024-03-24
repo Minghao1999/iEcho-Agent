@@ -9,7 +9,7 @@ import {
   useGetMessageQuery,
   useSendMessageMutation,
 } from "../redux/api/messageAPI";
-import Skeleton from "@mui/material/Skeleton";
+import SkeletonLoader from "./loader/skeletonLoader";
 
 const Chat: React.FC = () => {
   const selectedContact = useSelector(
@@ -86,11 +86,12 @@ const Chat: React.FC = () => {
         {!selectedContact ? (
           <EmptyChat />
         ) : isLoading ? ( // Render Skeleton when loading
-          <div className="skeleton-loading">
-            <Skeleton variant="text" width={210} height={118} />
-            <Skeleton variant="text" width={210} height={118} />
-            <Skeleton variant="text" width={210} height={118} />
-          </div>
+          <SkeletonLoader
+            variantType="text"
+            width={210}
+            height={118}
+            numofLoaders={3}
+          />
         ) : (
           <div className="message-body">
             {messages.map((message) => (
@@ -134,7 +135,9 @@ const Chat: React.FC = () => {
             />
           </div>
         ) : (
-          <section className="auto-footer">This is Automate Messaging ...</section>
+          <section className="auto-footer">
+            This is Automate Messaging ...
+          </section>
         )
       ) : null}
     </div>

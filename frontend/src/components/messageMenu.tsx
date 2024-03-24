@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetContactQuery } from "../redux/api/contactAPI";
 import {
   addContacts,
   setSelectedContact,
 } from "../redux/reducer/contactReducer";
 import { RootState } from "../redux/store";
 import { Contact } from "../types/message";
-import { useGetContactQuery } from "../redux/api/contactAPI";
-import MsgSkeletonLoading from "./messageSkeleton";
+import MsgSkeletonLoading from "./loader/menuSkeletonLoading";
 
 const MessageMenu: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -43,8 +43,6 @@ const MessageMenu: React.FC = () => {
       dispatch(addContacts(data.data));
     }
   }, [data, dispatch]);
-  
-  
 
   return (
     <div className="message-menu">
@@ -56,8 +54,10 @@ const MessageMenu: React.FC = () => {
       />
       <div className="conversation-container">
         {isLoading ? (
-          <MsgSkeletonLoading />
-        ) : (
+        [...Array(6)].map((_, index) => (
+          <MsgSkeletonLoading key={index} />
+        ))
+      ) : (
           filteredConversations.map((conversation, index) => (
             <div
               className={`conversation ${

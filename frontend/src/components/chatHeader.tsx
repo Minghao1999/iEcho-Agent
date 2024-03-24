@@ -1,5 +1,6 @@
-// Header.js
-
+import Avatar from "@mui/material/Avatar";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import Setting from "./chatSetting";
@@ -10,7 +11,7 @@ const ChatHeader = () => {
   );
 
   // Function to get the first character of a string
-  const getFirstCharacter = (str:string) => {
+  const getFirstCharacter = (str: string) => {
     return str.charAt(0).toUpperCase();
   };
 
@@ -20,18 +21,15 @@ const ChatHeader = () => {
     : "";
 
   return (
+    
     <header className="chatheader">
-      <div className="profile">
-        <div className="profile-info">
-          <div className="logo">
-            <span>{firstCharacter}</span>
-          </div>
-          <div className="additional-info">
-            <p>{selectedContact?.name}</p>
-            <p>{selectedContact?.phonenumber}</p>
-          </div>
-        </div>
-      </div>
+      <Card>
+        <CardHeader     
+          avatar={<Avatar sx={{ bgcolor: "red" }}>{firstCharacter}</Avatar>}
+          title={selectedContact?.name}
+          subheader={selectedContact?.phonenumber}
+        />
+      </Card>
       <Setting />
     </header>
   );
