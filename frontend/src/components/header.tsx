@@ -1,4 +1,3 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IoChatbox } from "react-icons/io5";
@@ -18,7 +17,7 @@ const Header = () => {
         component="div"
         sx={{ p: 2.5, pb: 0, color: "white", display: "flex", alignItems: "center" }}
       >
-        <IoChatbox style={{ marginRight: "28px" }} /> INBOX
+        <IoChatbox style={{ marginRight: "1.2rem" }} /> INBOX
       </Typography>
     </Box>
   );

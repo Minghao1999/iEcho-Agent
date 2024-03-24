@@ -87,7 +87,7 @@ export const getContact = async (request, response) => {
             );
 
             // Set the lastmessage field of the contact object
-            contact.lastmessage = lastMessage ? lastMessage.data[0].text : ""; // If there's a last message, set the text, otherwise set it to an empty string
+            contact.lastmessage = lastMessage ? lastMessage.data[0].text : ""; 
         }
 
         // Send the formatted contacts array in the response

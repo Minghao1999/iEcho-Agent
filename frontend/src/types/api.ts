@@ -46,4 +46,12 @@ export interface ContactResponse extends MessageResponse {
   };
 }
 
+export interface MessageSendRequest {
+  phonenumber: string,
+  sender:string,
+  text: string,
+  type: "text",
+  name: string,
+}
+
 // export interface 

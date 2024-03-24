@@ -67,8 +67,9 @@
   display: block;
   width: 35%;
   font-weight: bolder;
+  mix-blend-mode: multiply;
   font-size: larger;
-  
+  border: 1px solid black;
   background-image: linear-gradient(
     to right bottom,
     #f8d163 0%,

@@ -12,12 +12,26 @@ export interface ContactsState {
   isLoading: boolean;
   selectedContact: Contact | null;
 }
+
 export interface Message {
   _id: string;
   sender: string;
-  message: string;
+  text: string;
   timestamp: string;
 }
+
+export interface GetMessageResponse {
+  _id: string;
+  phonenumber: {
+      _id: string;
+      phonenumber: string;
+  };
+  data: Message[]; 
+}
+
+
+
+
 
 export interface Conversation {
   name: string;

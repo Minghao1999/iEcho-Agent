@@ -7,12 +7,13 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Typography from "@mui/material/Typography";
 
+
 const Setting: React.FC = () => {
   const selectedContact = useSelector(
     (state: RootState) => state.contactReducer.selectedContact
   );
   const [selectedOption, setSelectedOption] = useState<"manual" | "auto">(
-    selectedContact?.setting || "manual"
+    selectedContact?.setting
   ); // Set default option
 
   const dispatch = useDispatch();
@@ -44,7 +45,14 @@ const Setting: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", backgroundColor: "white", padding: "0.6rem" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        backgroundColor: "white",
+        padding: "0.6rem",
+      }}
+    >
       <FormControlLabel
         control={
           <Switch
@@ -54,7 +62,7 @@ const Setting: React.FC = () => {
           />
         }
         label={
-          <Typography variant="body1" style={{color:"black"}}>
+          <Typography variant="body1" style={{ color: "black" }}>
             {selectedOption === "auto" ? "Auto Chat" : "Manual Chat"}
           </Typography>
         }

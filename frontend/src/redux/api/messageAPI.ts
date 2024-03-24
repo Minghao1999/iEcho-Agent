@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 import { Message } from "../../types/message";
-import { MessageResponse } from "../../types/api";
+import { MessageResponse, MessageSendRequest } from "../../types/api";
 
 export const messageAPI = createApi({
   reducerPath: "messageAPI",
@@ -20,7 +20,7 @@ export const messageAPI = createApi({
     getMessage: builder.query<Message[], string>({
       query: (phoneNumber) => `get/${phoneNumber}`,
     }),
-    sendMessage: builder.mutation<MessageResponse, Partial<ChatMessage>>({
+    sendMessage: builder.mutation<MessageResponse, Partial<MessageSendRequest>>({
       query: (message) => ({
         url: "add",
         method: "POST",
@@ -32,10 +32,4 @@ export const messageAPI = createApi({
 
 export const { useGetMessageQuery, useSendMessageMutation } = messageAPI;
 
-// Define your Message type if not already defined
-interface ChatMessage {
-  _id: string;
-  sender: string;
-  text: string;
-  timestamp: string;
-}
+
