@@ -33,8 +33,8 @@ const Setting: React.FC = () => {
         console.log(response.data);
         dispatch(
           updateContactSetting({
-            phone: selectedContact?.phonenumber as string ,
-            setting: option as "manual" | "auto" ,
+            phone: selectedContact?.phonenumber as string,
+            setting: option as "manual" | "auto",
           })
         );
       })
@@ -44,7 +44,7 @@ const Setting: React.FC = () => {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", backgroundColor: "white" }}>
+    <div style={{ display: "flex", alignItems: "center", backgroundColor: "white", padding: "0.6rem" }}>
       <FormControlLabel
         control={
           <Switch
@@ -54,8 +54,8 @@ const Setting: React.FC = () => {
           />
         }
         label={
-          <Typography variant="body1" style={{ color: "black" }}>
-            {selectedOption === "auto" ? "Auto" : "Manual"}
+          <Typography variant="body1" style={{color:"black"}}>
+            {selectedOption === "auto" ? "Auto Chat" : "Manual Chat"}
           </Typography>
         }
       />

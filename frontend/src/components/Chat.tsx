@@ -10,6 +10,7 @@ import {
   useSendMessageMutation,
 } from "../redux/api/messageAPI";
 import SkeletonLoader from "./loader/skeletonLoader";
+import { Box } from "@mui/system";
 
 const Chat: React.FC = () => {
   const selectedContact = useSelector(
@@ -135,9 +136,9 @@ const Chat: React.FC = () => {
             />
           </div>
         ) : (
-          <section className="auto-footer">
-            This is Automate Messaging ...
-          </section>
+          <Box sx={{ fontWeight:"bold",p: 3, backgroundColor: "black" ,color:"white" , textAlign: "center"}}>
+            This is Message are handle Automate  ...
+          </Box>
         )
       ) : null}
     </div>
