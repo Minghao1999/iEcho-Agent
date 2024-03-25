@@ -14,9 +14,13 @@ const Dashboard = () => {
       console.log("Connect from server", socket.id);
     });
 
-    socket.on("message", (data:MessageSocket) => {
+    socket.on("message", (data:MessageSocket) => { 
       console.log(data);
-      toast.success(data.data.text);
+      const notification =`Msg from ${data.from} data: ${data.data.text}`
+      toast.success(notification,{
+        position: "top-right",
+
+        })
       
     });
 

@@ -34,11 +34,11 @@ export const handleMessage = TryCatch(async (msg) => {
   if (!message) {
     message = new Message({
       phonenumber: contact._id,
-      data: [{ sender: 'me', type, text }],
+      data: [{ sender: 'friend', type, text }],
     });
   } else {
     // If the message document exists, update it by pushing the new message data
-    message.data.push({ sender: 'me', type, text });
+    message.data.push({ sender: 'friend', type, text });
   }
 
   // Save the updated or new message document

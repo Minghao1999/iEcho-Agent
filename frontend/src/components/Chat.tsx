@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -19,6 +19,7 @@ const Chat: React.FC = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // RTK Query hook to fetch contact messages
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
@@ -36,6 +37,16 @@ const Chat: React.FC = () => {
       setMessages(contactMessages[0].data);
     }
   }, [contactMessages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -112,6 +123,7 @@ const Chat: React.FC = () => {
                 </div>
               </div>
             ))}
+            {/* <div ref={messagesEndRef} /> */}
           </div>
         )}
       </div>
@@ -136,8 +148,8 @@ const Chat: React.FC = () => {
             />
           </div>
         ) : (
-          <Box sx={{ fontWeight:"bold",p: 3, backgroundColor: "black" ,color:"white" , textAlign: "center"}}>
-            This is Message are handle Automate  ...
+          <Box sx={{ fontWeight: "bold", p: 3, backgroundColor: "black", color: "white", textAlign: "center" }}>
+            This message is handled automatically...
           </Box>
         )
       ) : null}
