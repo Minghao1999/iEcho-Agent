@@ -1,8 +1,10 @@
-import { createBot } from "whatsapp-cloud-api";
 import cors from "cors";
 import dotenv from "dotenv";
-import morgan from "morgan";
 import express from "express";
+import {createServer} from "http"; // Import http module for creating server
+import morgan from "morgan";
+import { Server } from "socket.io"; // Import socket.io
+import { createBot } from "whatsapp-cloud-api";
 
 import NodeCache from "node-cache";
 import { errorMiddleware } from "./middlewares/error.js";
@@ -14,21 +16,30 @@ import userRouter from "./routes/user.js";
 import { handleMessage } from "./routes/webhook.js";
 
 const app = express();
+const server = createServer(app); // Create HTTP server
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"], 
+    credentials: true, 
+  },
+});
 
 // Use Router for API routes
 
 export const myCache = new NodeCache();
 
-
 dotenv.config();
 
-const port = Number(process.env.port) || Number(5000);
+const port = Number(process.env.PORT) || 5000; // Change port to process.env.PORT or default to 5000
 const from = process.env.FROM;
 const token = process.env.TOKEN;
 const to = process.env.TO;
 const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
+
+const socketport=8000
 
 export const bot = createBot(from, token);
 
@@ -53,7 +64,24 @@ export const bot = createBot(from, token);
       },
     });
 
-    bot.on("text", handleMessage);
+    bot.on("text", (message) => {
+      handleMessage(message);
+      io.emit("message", message); 
+    });
+
+    // Socket.io connection
+    io.on("connection", (socket) => {
+      console.log(`Client connected to ${socket.id}`);
+
+      // Handle disconnect
+      socket.on("disconnect", () => {
+        console.log("Client disconnected");
+      });
+    });
+
+    server.listen(socketport, () => {
+      console.log(`Socket Server running on port ${socketport}`);
+    });
   } catch (err) {
     console.log(err);
   }
