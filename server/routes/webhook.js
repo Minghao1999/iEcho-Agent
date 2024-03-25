@@ -56,7 +56,7 @@ export const handleMessage = TryCatch(async (msg) => {
   await bot.sendText(from, messageResponse);
   
     // Update the Message document with the model's response
-  message.data.push({ sender: 'friend', text: messageResponse, type });
+  message.data.push({ sender: 'me', text: messageResponse, type });
   await message.save();
 
  
