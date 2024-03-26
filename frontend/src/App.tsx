@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/protectedRoute";
 import { UserState } from "./types/user";
+import Loading from "./components/loader/loading";
 
 const Login = lazy(() => import("./pages/Login"));
 const Forgot = lazy(() => import("./pages/forgot"));
@@ -27,7 +28,7 @@ function App() {
   }, [user]);
 
   return isLoading ? (
-    <div>Loading User</div>
+    <Loading />
   ) : (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>

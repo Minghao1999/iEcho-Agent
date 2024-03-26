@@ -1,25 +1,24 @@
-import React, { useEffect, useState, useRef } from "react";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { Message } from "../types/message";
-import EmptyChat from "./EmptyChat";
-import ChatHeader from "./chatHeader";
 import {
   useGetMessageQuery,
   useSendMessageMutation,
 } from "../redux/api/messageAPI";
+import { RootState } from "../redux/store";
+import { Message } from "../types/message";
+import EmptyChat from "./EmptyChat";
+import ChatHeader from "./chatHeader";
 import SkeletonLoader from "./loader/skeletonLoader";
-import { Box } from "@mui/system";
 
 const Chat: React.FC = () => {
-  const selectedContact = useSelector(
-    (state: RootState) => state.contactReducer.selectedContact
+  const {selectedContact} = useSelector(
+    (state: RootState) => state.contactReducer
   );
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // RTK Query hook to fetch contact messages
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
@@ -29,6 +28,9 @@ const Chat: React.FC = () => {
     }
   );
 
+  
+
+
   // RTK Mutation hook to send a message
   const [sendMessage] = useSendMessageMutation();
 
@@ -37,16 +39,7 @@ const Chat: React.FC = () => {
       setMessages(contactMessages[0].data);
     }
   }, [contactMessages]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -93,6 +86,7 @@ const Chat: React.FC = () => {
   return (
     <div className="chat-container">
       {selectedContact && <ChatHeader />}
+
 
       <div className="chat-messages">
         {!selectedContact ? (

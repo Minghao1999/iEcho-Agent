@@ -19,13 +19,18 @@ export interface Message {
   timestamp: string;
 }
 
+
+
 export interface GetMessageResponse {
   _id: string;
-  phonenumber: {
-    _id: string;
-    phonenumber: string;
-  };
-  data: Message[];
+  phonenumber: string;
+  phonenumberobject: string;
+  data: {
+      sender: string;
+      text: string;
+      type: string;
+      timestamp: Date;
+  }[];
 }
 
 export interface Conversation {

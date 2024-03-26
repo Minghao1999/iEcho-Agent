@@ -40,13 +40,13 @@ export const sendVerificationEmail = (email, verificationToken) => {
         }
         // Replace placeholders with dynamic content
         html = html.replace("[URL]", verificationUrl);
-        html = html.replace("[TITLE]", "Verify your email address");
-        html = html.replace("[CONTENT]", "To continue setting up your FeedStock account, please verify that this is your email address.");
-        html = html.replace("[BTN_NAME]", "Verify email address");
+        html = html.replace("[TITLE]", "Reset your your password");
+        html = html.replace("[CONTENT]", " Link the button to verify Reset Password.");
+        html = html.replace("[BTN_NAME]", "Reset Password");
         // Send email with dynamic HTML content
         sendEmail({
             to: email,
-            subject: `FeedStock - Verify your email`,
+            subject: `KOL - Reset your Password`,
             html,
         });
     });

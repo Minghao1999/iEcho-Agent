@@ -10,7 +10,6 @@ export const contactAPI = createApi({
     prepareHeaders: (headers) => {
       // Get token from the state
       const token = Cookies.get("token") || localStorage.getItem("token");
-      console.log("Toke", token);
       if (token) {
         // If token exists, set it in the headers
         headers.set("Authorization", `Bearer ${token}`);

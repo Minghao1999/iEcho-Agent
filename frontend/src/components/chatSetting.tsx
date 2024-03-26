@@ -1,47 +1,54 @@
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useUpdateSettingMutation } from "../redux/api/contactAPI";
 import { updateContactSetting } from "../redux/reducer/contactReducer";
 import { RootState } from "../redux/store";
-import axios from "axios";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Typography from "@mui/material/Typography";
-
+import { MessageResponse } from "../types/api";
 
 const Setting: React.FC = () => {
   const selectedContact = useSelector(
     (state: RootState) => state.contactReducer.selectedContact
   );
   const [selectedOption, setSelectedOption] = useState<"manual" | "auto">(
-    selectedContact?.setting
-  ); // Set default option
+    selectedContact?.setting || "auto"
+  );
 
+  const [updateSetting] = useUpdateSettingMutation();
   const dispatch = useDispatch();
 
-  const handleOptionToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOptionToggle = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const option = event.target.checked ? "auto" : "manual";
     setSelectedOption(option);
-    updateSetting(option);
-  };
-
-  const updateSetting = (option: string) => {
-    axios
-      .post("http://127.0.0.1:5000/api/v1/chat/update/setting", {
+    if (selectedContact?.phonenumber) {
+      const res = await updateSetting({
         phonenumber: selectedContact?.phonenumber,
         setting: option,
-      })
-      .then((response) => {
-        console.log(response.data);
+      });
+
+      if ("data" in res) {
         dispatch(
           updateContactSetting({
             phone: selectedContact?.phonenumber as string,
-            setting: option as "manual" | "auto",
+            setting: option,
           })
         );
-      })
-      .catch((error) => {
-        console.error("Error updating setting:", error);
-      });
+        const message = res.data as MessageResponse;
+
+        console.log("Chat header",selectedContact.setting);
+        toast.success(message.message || "success updated Settings");
+      } else {
+        const err = res.error as FetchBaseQueryError;
+        const message = err.data as MessageResponse;
+        toast.error("Failed to change Setting" + message.message);
+      }
+    }
   };
 
   return (
