@@ -35,7 +35,6 @@ const Login: React.FC = () => {
       toast.success(message);
       dispatch(setUser({ user: res.data.data.user }));
 
-      console.log("User", user);
 
       localStorage.setItem("token", res.data.data.token);
       navigator("/");
@@ -45,6 +44,8 @@ const Login: React.FC = () => {
       toast.error(message);
     }
   };
+
+  
 
   return (
       <div className="login">

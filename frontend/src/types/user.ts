@@ -1,3 +1,4 @@
+import { User } from "./api";
 
 export interface UserAccountData {
     firstname: string;
@@ -12,6 +13,11 @@ export interface UserAccountData {
 
 }
 
+
+export interface UserState {
+  user: User | null; 
+  isLoading: boolean;
+}
 
 export interface SupplierData  extends UserAccountData {
     company_name:string;
