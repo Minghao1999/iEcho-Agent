@@ -11,6 +11,16 @@ export interface ForgotUser {
   email: string;
 }
 
+export interface ResetPasswordQuery {
+  verifyToken: string;
+
+  password: string;
+}
+
+export interface ResetPasswordResponse extends MessageResponse {
+  token: string;
+}
+
 export interface MessageResponse {
   success?: boolean;
   message?: string;
@@ -18,8 +28,7 @@ export interface MessageResponse {
 
 export interface UpdateSettingRequest {
   phonenumber: string;
-  setting:"auto" | "manual"
-
+  setting: "auto" | "manual";
 }
 
 export interface User {
@@ -47,11 +56,11 @@ export interface ContactResponse extends MessageResponse {
 }
 
 export interface MessageSendRequest {
-  phonenumber: string,
-  sender:string,
-  text: string,
-  type: "text",
-  name: string,
+  phonenumber: string;
+  sender: string;
+  text: string;
+  type: "text";
+  name: string;
 }
 
-// export interface 
+// export interface

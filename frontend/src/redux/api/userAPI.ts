@@ -4,6 +4,8 @@ import {
   ForgotUser,
   LoginResponse,
   MessageResponse,
+  ResetPasswordQuery,
+  ResetPasswordResponse,
 } from "../../types/api";
 import Cookies from "js-cookie";
 
@@ -38,6 +40,14 @@ export const userAPI = createApi({
         body: data,
       }),
     }),
+
+    reset: builder.mutation<ResetPasswordResponse, ResetPasswordQuery>({
+      query: (data) => ({
+        url: "/forgot-finish",
+        method: "PUT",
+        body: data,
+      }),
+    }),
     logout: builder.mutation<MessageResponse, AuthUser>({
       query: (data) => ({
         url: "/logout",
@@ -57,4 +67,4 @@ export const userAPI = createApi({
 });
 
 // Accessing the signup, signupFinish, and setUserRole mutations
-export const { useLoginMutation,useForgotMutation, useSetUserRoleMutation } = userAPI;
+export const { useLoginMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation } = userAPI;

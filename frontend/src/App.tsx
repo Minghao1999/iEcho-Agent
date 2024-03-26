@@ -9,6 +9,8 @@ import Loading from "./components/loader/loading";
 
 const Login = lazy(() => import("./pages/Login"));
 const Forgot = lazy(() => import("./pages/forgot"));
+const ResetPassword = lazy(() => import("./pages/reset"));
+
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Profile = lazy(() => import("./pages/profile"));
 const FriendProfile = lazy(() => import("./pages/friendProfile"));
@@ -41,6 +43,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgot" element={<Forgot />} />
           </Route>
+            <Route path="/reset/:token" element={<ResetPassword />} />
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute isAuthenticated={userstate} />}>

@@ -30,7 +30,7 @@ export const sendEmail = ({ to, subject, html, }) => {
     });
 };
 export const sendVerificationEmail = (email, verificationToken) => {
-    const verificationUrl = `${process.env.SITE_URL}:${process.env.SITE_PORT}/signup/pending/${verificationToken}`;
+    const verificationUrl = `${process.env.SITE_URL}:${process.env.SITE_PORT}/reset/${verificationToken}`;
     console.log(`dirname ${path.resolve(path.dirname(""))}`);
     // Read HTML template from file
     fs.readFile(`${path.resolve(path.dirname(""))}/views/mail.html`, "utf8", (err, html) => {
