@@ -26,6 +26,8 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setUserState(true);
+    }else{
+      setUserState(false);
     }
   }, [user]);
 

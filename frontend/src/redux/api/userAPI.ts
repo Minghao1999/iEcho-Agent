@@ -48,7 +48,7 @@ export const userAPI = createApi({
         body: data,
       }),
     }),
-    logout: builder.mutation<MessageResponse, AuthUser>({
+    logout: builder.mutation<MessageResponse, "">({
       query: (data) => ({
         url: "/logout",
         method: "POST",
@@ -67,4 +67,4 @@ export const userAPI = createApi({
 });
 
 // Accessing the signup, signupFinish, and setUserRole mutations
-export const { useLoginMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation } = userAPI;
+export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation } = userAPI;
