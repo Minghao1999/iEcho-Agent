@@ -53,36 +53,41 @@ const MessageMenu: React.FC = () => {
         onChange={handleSearchChange}
       />
       <div className="conversation-container">
-        {isLoading ? (
-        [...Array(6)].map((_, index) => (
-          <MsgSkeletonLoading key={index} />
-        ))
-      ) : (
-          filteredConversations.map((conversation, index) => (
-            <div
-              className={`conversation ${
-                selectedContact &&
-                selectedContact.phonenumber === conversation.phonenumber
-                  ? "selected"
-                  : ""
-              }`}
-              key={index}
-              onClick={() => handleContactClick(conversation)}
-            >
-              <div className="profile-info">
-                <div className="logo">
-                  {conversation.name && (
-                    <span>{conversation.name.charAt(0).toUpperCase()}</span>
-                  )}
+        {isLoading
+          ? [...Array(6)].map((_, index) => <MsgSkeletonLoading key={index} />)
+          : filteredConversations.map((conversation, index) => (
+              <div
+                className={`conversation ${
+                  selectedContact &&
+                  selectedContact.phonenumber === conversation.phonenumber
+                    ? "selected"
+                    : ""
+                }`}
+                key={index}
+                onClick={() => handleContactClick(conversation)}
+              >
+                <div className="profile-info">
+                  <div className="logo">
+                    {conversation.name && (
+                      <span>{conversation.name.charAt(0).toUpperCase()}</span>
+                    )}
+                  </div>
+                </div>
+                <div className="info">
+                  <div className="name">{conversation.name}</div>
+                  <div className="last-message">
+                    {conversation.lastmessage &&
+                      conversation.lastmessage
+                        .split(" ")
+                        .slice(0, 5)
+                        .join(" ")}
+                    {conversation.lastmessage &&
+                      conversation.lastmessage.split(" ").length > 10 &&
+                      "..."}
+                  </div>
                 </div>
               </div>
-              <div className="info">
-                <div className="name">{conversation.name}</div>
-                <div className="last-message">{conversation.lastmessage}</div>
-              </div>
-            </div>
-          ))
-        )}
+            ))}
       </div>
     </div>
   );

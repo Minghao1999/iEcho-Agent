@@ -28,8 +28,6 @@ const Chat: React.FC = () => {
     }
   );
 
-  
-
 
   // RTK Mutation hook to send a message
   const [sendMessage] = useSendMessageMutation();
@@ -37,6 +35,7 @@ const Chat: React.FC = () => {
   useEffect(() => {
     if (contactMessages.length > 0) {
       setMessages(contactMessages[0].data);
+      console.log("in Chat ",selectedContact);
     }
   }, [contactMessages]);
   
@@ -85,7 +84,7 @@ const Chat: React.FC = () => {
 
   return (
     <div className="chat-container">
-      {selectedContact && <ChatHeader />}
+      {selectedContact && <ChatHeader selectedContact={selectedContact} />}
 
 
       <div className="chat-messages">

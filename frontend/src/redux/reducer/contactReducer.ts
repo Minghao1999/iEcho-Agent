@@ -36,6 +36,7 @@ export const contactReducer = createSlice({
       const contact = state.contacts.find((c: Contact) => c.phonenumber === phone);
       if (contact) {
         contact.setting = setting;
+        console.log("In redux update Setting ",contact.name,contact.setting);
       }
     },
   },
