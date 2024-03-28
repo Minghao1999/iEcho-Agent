@@ -1,7 +1,24 @@
-body {
-  overflow: hidden;
+// Define mixins if not already defined
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
+// Media query for smaller screens (e.g., mobile)
+$smallerScreen: 768px;
+
+// Responsive styles for overflow behavior
+body {
+  overflow: hidden;
+
+  @media (max-width: $smallerScreen) {
+    overflow: auto;
+  }
+}
+
+// Dashboard layout
 .dashboard {
   display: flex;
   height: 100vh;
@@ -9,13 +26,26 @@ body {
   > aside {
     width: 30%;
     height: 100vh;
-
   }
 
   > main {
-
     width: 70%;
     height: 100vh;
     @include flex(column);
+  }
+
+  // Media query for smaller screens (e.g., mobile)
+  @media (max-width: $smallerScreen) {
+    flex-direction: column;
+
+    > aside,
+    > main {
+      width: 100%;
+      height: auto;
+    }
+
+    > aside {
+      order: 0; // Change the order of aside to show below main
+    }
   }
 }

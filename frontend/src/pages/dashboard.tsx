@@ -15,8 +15,8 @@ const Dashboard = () => {
     });
 
     socket.on("message", (data: MessageSocket) => {
-      console.log(data);
-      const notification = `Msg from ${data.from} data: ${data.data.text}`;
+      console.log("Socket",data);
+      const notification = `Msg from ${data.from} \n Text: ${data.data.text}`;
       toast.success(notification, {
         position: "top-right",
         icon: "🔔",
