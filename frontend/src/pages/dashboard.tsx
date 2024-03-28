@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import Chat from "../components/Chat";
-import Header from "../components/header";
+import Header from "../components/menuHeader";
 import MessageMenu from "../components/messageMenu";
 import { io } from "socket.io-client";
 import toast from "react-hot-toast";

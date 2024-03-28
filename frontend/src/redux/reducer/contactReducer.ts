@@ -5,7 +5,7 @@ import { Contact, ContactsState } from "../../types/message";
 const contactInit: ContactsState = {
   contacts: [],
   isLoading: false,
-  selectedContact: null, 
+  selectedContact: null,
 };
 
 export const contactReducer = createSlice({
@@ -23,7 +23,9 @@ export const contactReducer = createSlice({
       action: PayloadAction<{ phone: string; lastmessage: string }>
     ) => {
       const { phone, lastmessage } = action.payload;
-      const contact = state.contacts.find((c:Contact) => c.phonenumber === phone);
+      const contact = state.contacts.find(
+        (c: Contact) => c.phonenumber === phone
+      );
       if (contact) {
         contact.lastmessage = lastmessage;
       }
@@ -31,16 +33,28 @@ export const contactReducer = createSlice({
     setSelectedContact: (state, action: PayloadAction<Contact | null>) => {
       state.selectedContact = action.payload;
     },
-    updateContactSetting: (state, action: PayloadAction<{ phone: string; setting: "auto" | "manual" }>) => {
+    updateContactSetting: (
+      state,
+      action: PayloadAction<{ phone: string; setting: "auto" | "manual" }>
+    ) => {
       const { phone, setting } = action.payload;
-      const contact = state.contacts.find((c: Contact) => c.phonenumber === phone);
-      if (contact) {
-        contact.setting = setting;
-        console.log("In redux update Setting ",contact.name,contact.setting);
+      const contactIndex = state.contacts.findIndex(
+        (c: Contact) => c.phonenumber === phone
+      );
+      if (contactIndex !== -1) {
+        state.contacts[contactIndex].setting = setting;
+        if (state.selectedContact?.phonenumber === phone) {
+          state.selectedContact.setting = setting;
+        }
       }
     },
   },
 });
 
-export const { addContact,addContacts, updateLastMessage, setSelectedContact,updateContactSetting } = contactReducer.actions;
-
+export const {
+  addContact,
+  addContacts,
+  updateLastMessage,
+  setSelectedContact,
+  updateContactSetting,
+} = contactReducer.actions;

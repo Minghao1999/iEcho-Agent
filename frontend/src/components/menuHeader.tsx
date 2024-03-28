@@ -8,23 +8,23 @@ import { IoChatbox } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetUser } from "../redux/reducer/userReducer";
+import Tooltip from "@mui/material/Tooltip";
 
 const Header = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     dispatch(resetUser());
     localStorage.removeItem("token");
     const message = "Logout successful";
     toast.success(message);
-    console.log("Redirecting to login...");
+    // console.log("Redirecting to login...");
     navigator("/login");
   };
 
-  console.log("Rendering Header...");
 
   return (
     <Box
@@ -49,14 +49,15 @@ const Header = () => {
         <IoChatbox style={{ marginRight: "1.2rem" }} /> INBOX
       </Typography>
 
-      <IconButton
-        aria-label="logout"
-        sx={{ color: "white" }}
-        onClick={handleSubmit}
-      >
-        {/* {} */}
-        <BiLogOut />
-      </IconButton>
+      <Tooltip title="Logout"> 
+        <IconButton
+          aria-label="logout"
+          sx={{ color: "white" }}
+          onClick={handleSubmit}
+        >
+          <BiLogOut />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 };

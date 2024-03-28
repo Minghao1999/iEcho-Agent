@@ -2,7 +2,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateSettingMutation } from "../redux/api/contactAPI";
@@ -19,10 +19,6 @@ const ChatHeader = () => {
     (state: RootState) => state.contactReducer.selectedContact
   );
 
-  const [selectedOption, setSelectedOption] = useState<"manual" | "auto">(
-    selectedContact?.setting || "auto"
-  );
-
   const [updateSetting] = useUpdateSettingMutation();
   const dispatch = useDispatch();
 
@@ -30,7 +26,6 @@ const ChatHeader = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const option = event.target.checked ? "auto" : "manual";
-    setSelectedOption(option);
     if (selectedContact?.phonenumber) {
       const res = await updateSetting({
         phonenumber: selectedContact?.phonenumber,
@@ -46,8 +41,6 @@ const ChatHeader = () => {
         );
         const message = res.data as MessageResponse;
 
-
-        console.log("Chat header", selectedContact.setting);
         toast.success(message.message || "success updated Settings");
       } else {
         const err = res.error as FetchBaseQueryError;
@@ -56,6 +49,9 @@ const ChatHeader = () => {
       }
     }
   };
+  {
+    console.log("Chat User header", selectedContact);
+  }
 
   return (
     <header className="chatheader">
@@ -83,14 +79,16 @@ const ChatHeader = () => {
         <FormControlLabel
           control={
             <Switch
-              defaultChecked={selectedOption === "auto"}
+              checked={selectedContact?.setting === "auto"}
               onChange={handleOptionToggle}
               color="warning"
             />
           }
           label={
             <Typography variant="body1" style={{ color: "black" }}>
-              {selectedOption === "auto" ? "Auto Chat" : "Manual Chat"}
+              {selectedContact && selectedContact.setting === "auto"
+                ? "Auto Chat"
+                : "Manual Chat"}
             </Typography>
           }
         />

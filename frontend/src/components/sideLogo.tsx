@@ -4,7 +4,7 @@ const SideLogo = () => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '35%',
+    width: '20%',
     fontWeight: 'bolder',
     fontSize: 'larger',
     border: '1px solid black',
@@ -21,12 +21,28 @@ const SideLogo = () => {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
-    transform: 'rotate(45deg)' // Rotate by 45 degrees
+    transform: 'rotate(45deg)', // Rotate by 45 degrees
+    margin: '20px', // Add some margin
+  };
+
+  // Media query for smaller screens (e.g., mobile)
+  const smallerScreen = '@media (max-width: 768px)';
+
+  // Responsive styles for smaller screens
+  const responsiveStyles = {
+    [smallerScreen]: {
+      width: '50%', // Adjust width for smaller screens
+      fontSize: 'smaller', // Adjust font size for smaller screens
+    },
   };
 
   return (
-    <aside style={logoStyle}>
-      <img src="../../public/assets/logo.svg" alt="Logo" />
+    <aside style={{ ...logoStyle, ...responsiveStyles[smallerScreen] }}>
+      <img 
+        src="../../public/assets/logo.svg" 
+        alt="Logo" 
+        style={{ maxWidth: '100%', height: 'auto' }} // Make the image responsive
+      />
     </aside>
   );
 };
