@@ -31,7 +31,7 @@ const Header = () => {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      sx={{ bgcolor: "black" }}
+      sx={{ bgcolor: "black",height: "12%" }}
       component="header"
     >
       <Typography
