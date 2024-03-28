@@ -15,8 +15,13 @@ export const contactReducer = createSlice({
     addContact: (state, action: PayloadAction<Contact>) => {
       state.contacts.push(action.payload);
     },
+
     addContacts: (state, action: PayloadAction<Contact[]>) => {
       state.contacts.push(...action.payload);
+    },
+
+    resetContacts:(state, action: PayloadAction<[]>) =>{
+      state.contacts=action.payload;
     },
     updateLastMessage: (
       state,
@@ -57,4 +62,5 @@ export const {
   updateLastMessage,
   setSelectedContact,
   updateContactSetting,
+  resetContacts,
 } = contactReducer.actions;

@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetUser } from "../redux/reducer/userReducer";
 import Tooltip from "@mui/material/Tooltip";
+import { resetContacts } from "../redux/reducer/contactReducer";
 
 const Header = () => {
   const navigator = useNavigate();
@@ -18,11 +19,15 @@ const Header = () => {
     e.preventDefault();
 
     dispatch(resetUser());
+    dispatch(resetContacts([]));
     localStorage.removeItem("token");
     const message = "Logout successful";
     toast.success(message);
-    // console.log("Redirecting to login...");
+
     navigator("/login");
+    console.log("navigating to login...",localStorage.getItem("token"));
+
+
   };
 
 

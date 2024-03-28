@@ -40,9 +40,10 @@ const MessageMenu: React.FC = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       dispatch(addContacts(data.data));
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   return (
     <div className="message-menu">

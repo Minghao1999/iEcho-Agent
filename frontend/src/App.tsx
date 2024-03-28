@@ -1,11 +1,13 @@
 // App.tsx
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/protectedRoute";
 import { UserState } from "./types/user";
 import Loading from "./components/loader/loading";
+import axios from "axios";
+import { setUser } from "./redux/reducer/userReducer";
 
 const Login = lazy(() => import("./pages/Login"));
 const Forgot = lazy(() => import("./pages/forgot"));
@@ -17,19 +19,37 @@ const FriendProfile = lazy(() => import("./pages/friendProfile"));
 
 function App() {
   const [userstate, setUserState] = useState<boolean>(false);
+  const dispatch =useDispatch()
 
   const { user, isLoading } = useSelector(
     (state: { userReducer: UserState }) => state.userReducer
   );
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUserState(true);
-    }else{
-      setUserState(false);
-    }
-  }, [user]);
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await axios.get('http://127.0.0.1:5000/api/v1/user', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log(response.data.data);
+          dispatch(setUser(response.data.data));
+          setUserState(true);
+        } else {
+          setUserState(false);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setUserState(false); 
+      }
+    };
+  
+    fetchUserData(); 
+  
+  }, [user,dispatch]); 
 
   return isLoading ? (
     <Loading />

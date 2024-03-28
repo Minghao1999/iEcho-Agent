@@ -50,9 +50,7 @@ export interface LoginResponse extends MessageResponse {
 }
 
 export interface ContactResponse extends MessageResponse {
-  data: {
-    contact: Contact[];
-  };
+  data: Contact[];
 }
 
 export interface MessageSendRequest {

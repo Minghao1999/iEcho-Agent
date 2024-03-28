@@ -8,6 +8,7 @@ import {
   ResetPasswordResponse,
 } from "../../types/api";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const userAPI = createApi({
   reducerPath: "userApi",
@@ -65,6 +66,24 @@ export const userAPI = createApi({
     }),
   }),
 });
+
+export const getUserInfo = async () => {
+  try {
+    const token = Cookies.get('token') || localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Token not found');
+    }
+    const response = await axios.get('http://127.0.0.1:5000/api/v1/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userData = response.data;
+    console.log('User Data:', userData);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
 
 // Accessing the signup, signupFinish, and setUserRole mutations
 export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation } = userAPI;

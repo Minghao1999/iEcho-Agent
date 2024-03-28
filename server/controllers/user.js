@@ -39,6 +39,27 @@ export const Login = async (req, res, next) => {
       data: { token: token, user: user },
     });
 };
+
+export const getUser = TryCatch(async (req, res, next) => {
+  // Extract user ID from request parameters
+  const { userId } = req.body;
+
+  // Find user by ID in the database
+  const user = await User.findById(userId);
+
+  // If user not found, throw an error
+  if (!user) next(new ErrorHandler("User not found", 404));
+
+  // If user found, return user data
+  res
+    .status(200)
+    .json({
+      success: true,
+      message: "Login successful using Token",
+      data: user,
+    });
+});
+
 export const completeUser = TryCatch(async (req, res, next) => {
   const { firstname, lastname, password, phone, email } = req.body;
   // Find pending user by verification token
@@ -155,7 +176,6 @@ export const ResetPassword = TryCatch(async (req, res, next) => {
       token: token,
     });
 });
-
 
 export const getProfile = async (request, response) => {
   try {
