@@ -85,5 +85,16 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: #eaeaea;
+  background-color: #000;
+
+  h1{
+    font-weight: bolder;
+    color: azure;
+  }
+
+  img {
+    max-width:  30%;
+    height: 'auto';
+    margin: 10%; 
+  }
 }

@@ -1,7 +1,8 @@
 const EmptyChat = () => {
   return (
     <div className="EmptyChat">
-      <h1>No Message found</h1>
+      <h1>KOL CHAT APP</h1>
+      <img src="/assets/logo.svg" alt="Logo" />
     </div>
   );
 };

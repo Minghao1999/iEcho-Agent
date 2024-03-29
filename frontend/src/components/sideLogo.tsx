@@ -39,7 +39,7 @@ const SideLogo = () => {
   return (
     <aside style={{ ...logoStyle, ...responsiveStyles[smallerScreen] }}>
       <img 
-        src="../../public/assets/logo.svg" 
+        src="../../assets/logo.svg" 
         alt="Logo" 
         style={{ maxWidth: '100%', height: 'auto' }} // Make the image responsive
       />

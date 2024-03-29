@@ -1,13 +1,15 @@
 // App.tsx
-import { Suspense, lazy, useEffect, useState } from "react";
+import axios from "axios";
+import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/protectedRoute";
-import { UserState } from "./types/user";
 import Loading from "./components/loader/loading";
-import axios from "axios";
-import { setUser } from "./redux/reducer/userReducer";
+import ProtectedRoute from "./components/protectedRoute";
+import { resetUser, setUser } from "./redux/reducer/userReducer";
+import { User } from "./types/api";
+import { UserState } from "./types/user";
+import { server } from "./redux/store";
 
 const Login = lazy(() => import("./pages/Login"));
 const Forgot = lazy(() => import("./pages/forgot"));
@@ -18,8 +20,7 @@ const Profile = lazy(() => import("./pages/profile"));
 const FriendProfile = lazy(() => import("./pages/friendProfile"));
 
 function App() {
-  const [userstate, setUserState] = useState<boolean>(false);
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
 
   const { user, isLoading } = useSelector(
     (state: { userReducer: UserState }) => state.userReducer
@@ -30,26 +31,24 @@ function App() {
       try {
         const token = localStorage.getItem("token");
         if (token) {
-          const response = await axios.get('http://127.0.0.1:5000/api/v1/user', {
+          const response = await axios.get(`${server}/api/v1/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log(response.data.data);
-          dispatch(setUser(response.data.data));
-          setUserState(true);
+          const data = response.data.data as User;
+          dispatch(setUser({ user: data }));
         } else {
-          setUserState(false);
+          dispatch(resetUser());
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        setUserState(false); 
+        console.error("Error fetching user data:", error);
+        dispatch(resetUser());
       }
     };
-  
-    fetchUserData(); 
-  
-  }, [user,dispatch]); 
+
+    fetchUserData();
+  }, [dispatch]);
 
   return isLoading ? (
     <Loading />
@@ -59,16 +58,21 @@ function App() {
         <Routes>
           <Route
             element={
-              <ProtectedRoute isAuthenticated={!userstate} redirect="/" />
+              <ProtectedRoute
+                isAuthenticated={!user ? true : false}
+                redirect="/"
+              />
             }
           >
             <Route path="/login" element={<Login />} />
             <Route path="/forgot" element={<Forgot />} />
           </Route>
-            <Route path="/reset/:token" element={<ResetPassword />} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
 
           {/* Protected Routes */}
-          <Route element={<ProtectedRoute isAuthenticated={userstate} />}>
+          <Route
+            element={<ProtectedRoute isAuthenticated={user ? true : false} />}
+          >
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/friend" element={<FriendProfile />} />

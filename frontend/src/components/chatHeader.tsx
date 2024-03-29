@@ -49,9 +49,6 @@ const ChatHeader = () => {
       }
     }
   };
-  {
-    console.log("Chat User header", selectedContact);
-  }
 
   return (
     <header className="chatheader">
