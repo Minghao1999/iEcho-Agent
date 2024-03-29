@@ -13,7 +13,7 @@ import { connectDB } from "./utils/features.js";
 
 import chatRouter from "./routes/chat.js";
 import userRouter from "./routes/user.js";
-import { handleMessage } from "./routes/webhook.js";
+import { handleMessage } from "./controllers/webhook.js";
 
 const app = express();
 const server = createServer(app); // Create HTTP server

@@ -1,8 +1,7 @@
-import Message from "../models/Message.js";
-import Contact from "../models/Contact.js";
-import Conversation from '../models/Conversation.js';
-import { bot } from "../whatsCloud.js";
 import { TryCatch } from "../middlewares/error.js";
+import Contact from "../models/Contact.js";
+import Message from "../models/Message.js";
+import { bot } from "../whatsCloud.js";
 
 export const newMessage = async (request, response) => {
     const { phonenumber, name, sender, text, type,setting } = request.body;

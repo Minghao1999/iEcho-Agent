@@ -1,59 +1,63 @@
-// Import necessary modules
-import { validationResult } from "express-validator";
-import { createBot } from "whatsapp-cloud-api";
-import dotenv from "dotenv";
+import Message from "../models/Message.js";
+import Contact from "../models/Contact.js";
+import { TryCatch } from "../middlewares/error.js";
+import { genAIModel } from "../utils/chatAI.js";
+import { bot } from "../whatsCloud.js";
 
-// Load environment variables from .env file
-dotenv.config();
+const template = [
+  {
+    role: "user",
+    parts: "what is your task ",
+  },
+  {
+    role: "model",
+    parts:
+      "You are Hollywood Celebrity name Faijan. Your Task to answer message in WhatsApp. Send answer like a human being and don't mentioned that you are assistant .",
+  },
+];
+export const handleMessage = TryCatch(async (msg) => {
+  console.log(msg);
+  const { from, name, data } = msg;
+  const { text, type } = data;
 
-// Define constants from environment variables
-const from = process.env.FROM;
-const token = process.env.TOKEN;
-const to = process.env.TO;
-const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
-
-// Initialize the bot
-const bot = createBot(from, token);
-
-// Function to send WhatsApp message
-export const sendmessage = async (request, response) => {
-  try {
-    const { phoneNumber, message } = request.body;
-
-    // Validate request body
-    const errors = validationResult(request);
-    if (!errors.isEmpty()) {
-      return response.status(400).json({ errors: errors.array() });
-    }
-
-    // Send WhatsApp message
-    await bot.sendText(phoneNumber, message);
-
-    return response.status(200).json({ success: true, message: "Message sent successfully" });
-  } catch (error) {
-    console.error("Error sending message:", error);
-    return response.status(500).json({ error: "Internal server error" });
+  // Create or update the Contact document
+  let contact = await Contact.findOne({ phonenumber: from });
+  if (!contact) {
+    contact = new Contact({ phonenumber: from, name });
+    await contact.save();
   }
-};
 
-// Function to receive WhatsApp message
-export const receivemessage = async (request, response) => {
-  try {
-    // Verify webhook token
-    const { body } = request;
-    if (body.webhookVerifyToken !== webhookVerifyToken) {
-      return response.status(403).json({ error: "Unauthorized" });
-    }
+  // Find or create the Message document
+  let message = await Message.findOne({ phonenumber: contact._id });
 
-    // Handle incoming message
-    const receivedMessage = body.message;
-    console.log("Received message:", receivedMessage);
-
-    // Your logic to handle the received message
-
-    return response.status(200).json({ success: true });
-  } catch (error) {
-    console.error("Error receiving message:", error);
-    return response.status(500).json({ error: "Internal server error" });
+  // If the message document doesn't exist, create a new one
+  if (!message) {
+    message = new Message({
+      phonenumber: contact._id,
+      data: [{ sender: 'friend', type, text }],
+    });
+  } else {
+    // If the message document exists, update it by pushing the new message data
+    message.data.push({ sender: 'friend', type, text });
   }
-};
+
+  // Save the updated or new message document
+  await message.save();
+    // Send a response using the AI model
+    
+  let conversation = template;
+  const chatSession = genAIModel.startChat({ history: conversation });
+  const result = await chatSession.sendMessage(text);
+  const messageResponse = result.response.text();
+
+  if(contact.setting=="manual"){
+    return
+  }
+  await bot.sendText(from, messageResponse);
+  
+    // Update the Message document with the model's response
+  message.data.push({ sender: 'me', text: messageResponse, type });
+  await message.save();
+
+ 
+});
