@@ -65,8 +65,7 @@ export const bot = createBot(from, token);
     });
 
     bot.on("text", (message) => {
-      handleMessage(message);
-      io.emit("message", message); 
+      handleMessage(message,io);
     });
 
     // Socket.io connection

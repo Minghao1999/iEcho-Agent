@@ -5,13 +5,18 @@ import MessageMenu from "../components/messageMenu";
 import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 import { MessageSocket } from "../types/message";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage } from "../redux/reducer/messageReducer";
+import { BotMessageResponse } from "../types/api";
+import { RootState } from "../redux/store";
 
 const Dashboard = () => {
   const socket = useMemo(() => io("http://127.0.0.1:8000"), []);
   const dispatch = useDispatch();
+  const { selectedContact } = useSelector(
+    (state: RootState) => state.contactReducer
+  );
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -44,6 +49,16 @@ const Dashboard = () => {
         position: "top-right",
         icon: "🔔",
       });
+    });
+
+    socket.on("bot-message", (data: BotMessageResponse) => {
+      dispatch(
+        updateLastMessage({
+          phone: selectedContact?.phonenumber,
+          lastmessage: data.data.text,
+        })
+      );
+      dispatch(addMessage(data.data));
     });
 
     return () => {

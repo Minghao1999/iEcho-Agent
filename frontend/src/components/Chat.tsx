@@ -62,7 +62,6 @@ const Chat: React.FC = () => {
   const handleSendMessage = async () => {
     if (inputValue.trim() !== "" && selectedContact) {
       const date = new Date();
-      console.log("Date in handle Message : ", date);
       const currentTime = date.toLocaleString("en-US", {
         hour: "numeric",
         minute: "numeric",
@@ -85,6 +84,7 @@ const Chat: React.FC = () => {
       });
       if ("data" in response) {
         const msg = response.data.data;
+        console.log(msg)
         dispatch(addMessage(msg));
         dispatch(
           updateLastMessage({

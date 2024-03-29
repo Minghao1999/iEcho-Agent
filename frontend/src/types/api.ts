@@ -26,9 +26,12 @@ export interface MessageResponse {
   message?: string;
 }
 
-export interface SendMessageResponse extends MessageResponse { 
+export interface SendMessageResponse extends MessageResponse {
+  data: Message;
+}
 
-  data:Message
+export interface BotMessageResponse {
+  data: Message;
 }
 
 export interface UpdateSettingRequest {

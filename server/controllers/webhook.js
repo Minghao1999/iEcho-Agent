@@ -15,8 +15,10 @@ const template = [
       "You are Hollywood Celebrity name Faijan. Your Task to answer message in WhatsApp. Send answer like a human being and don't mentioned that you are assistant .",
   },
 ];
-export const handleMessage = TryCatch(async (msg) => {
+export const handleMessage = TryCatch(async (msg, io) => {
   console.log(msg);
+  io.emit("message", msg);
+
   const { from, name, data } = msg;
   const { text, type } = data;
 
@@ -34,30 +36,59 @@ export const handleMessage = TryCatch(async (msg) => {
   if (!message) {
     message = new Message({
       phonenumber: contact._id,
-      data: [{ sender: 'friend', type, text }],
+      data: [{ sender: "friend", type, text }],
     });
   } else {
     // If the message document exists, update it by pushing the new message data
-    message.data.push({ sender: 'friend', type, text });
+    message.data.push({ sender: "friend", type, text });
   }
 
   // Save the updated or new message document
   await message.save();
-    // Send a response using the AI model
-    
+  // Send a response using the AI model
+
+
+
+
+  if (contact.setting == "manual") {
+    return;
+  }
+
   let conversation = template;
   const chatSession = genAIModel.startChat({ history: conversation });
   const result = await chatSession.sendMessage(text);
   const messageResponse = result.response.text();
 
-  if(contact.setting=="manual"){
-    return
-  }
   await bot.sendText(from, messageResponse);
-  
-    // Update the Message document with the model's response
-  message.data.push({ sender: 'me', text: messageResponse, type });
-  await message.save();
 
- 
+
+
+    // data: { text: string };
+    // text: string;
+    // from: string;
+    // id: string;
+    // name: string;
+    // timestamp: string;
+    // type: string;
+
+  const formattedMessage ={
+    data:{
+      text: messageResponse
+    },
+    from: from,
+    sender:"me",
+    id: contact._id,
+    name: contact.name,
+    timestamp: new Date().toISOString(),
+    type: "text",
+  }
+
+
+
+  message.data.push({ sender: "me", text: messageResponse, type });
+  const lastMessage = message.data[message.data.length - 1];
+  io.emit("bot-message", {data:lastMessage})
+
+
+  await message.save();
 });
