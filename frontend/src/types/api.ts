@@ -1,4 +1,4 @@
-import { Contact } from "./message";
+import { Contact, Message } from "./message";
 
 export interface UserResponse {}
 
@@ -24,6 +24,11 @@ export interface ResetPasswordResponse extends MessageResponse {
 export interface MessageResponse {
   success?: boolean;
   message?: string;
+}
+
+export interface SendMessageResponse extends MessageResponse { 
+
+  data:Message
 }
 
 export interface UpdateSettingRequest {

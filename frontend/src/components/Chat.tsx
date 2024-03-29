@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdSend } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useGetMessageQuery,
   useSendMessageMutation,
@@ -11,14 +11,22 @@ import { Message } from "../types/message";
 import EmptyChat from "./EmptyChat";
 import ChatHeader from "./chatHeader";
 import SkeletonLoader from "./loader/skeletonLoader";
+import { updateLastMessage } from "../redux/reducer/contactReducer";
+import { addMessage, setMessages } from "../redux/reducer/messageReducer";
+import toast from "react-hot-toast";
 
 const Chat: React.FC = () => {
-  const {selectedContact} = useSelector(
+  const { selectedContact } = useSelector(
     (state: RootState) => state.contactReducer
   );
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const dispatch = useDispatch();
+  const messages = useSelector(
+    (state: RootState) => state.messageReducer.messages
+  );
+  // const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const autoScroll=useRef<HTMLDivElement>(null);
 
   // RTK Query hook to fetch contact messages
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
@@ -28,16 +36,22 @@ const Chat: React.FC = () => {
     }
   );
 
-
   // RTK Mutation hook to send a message
   const [sendMessage] = useSendMessageMutation();
 
   useEffect(() => {
     if (contactMessages.length > 0) {
-      setMessages(contactMessages[0].data);
+      dispatch(setMessages(contactMessages[0].data));
     }
-  }, [contactMessages]);
-  
+  }, [contactMessages, dispatch]);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    if (autoScroll.current) {
+      autoScroll.current.scrollTop = autoScroll.current.scrollHeight;
+    }
+  }, [messages]);
+
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -45,9 +59,10 @@ const Chat: React.FC = () => {
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputValue.trim() !== "" && selectedContact) {
       const date = new Date();
+      console.log("Date in handle Message : ", date);
       const currentTime = date.toLocaleString("en-US", {
         hour: "numeric",
         minute: "numeric",
@@ -61,32 +76,36 @@ const Chat: React.FC = () => {
       };
 
       // RTK Mutation to send message
-      sendMessage({
+      const response = await sendMessage({
         phonenumber: selectedContact.phonenumber,
         sender: newMessage.sender,
         text: newMessage.text,
         type: "text",
         name: selectedContact.name,
-      })
-        .unwrap()
-        .then(() => {
-          console.log("Message sent successfully");
-        })
-        .catch((error) => {
-          console.error("Error sending message:", error);
-        });
+      });
+      if ("data" in response) {
+        const msg = response.data.data;
+        dispatch(addMessage(msg));
+        dispatch(
+          updateLastMessage({
+            phone: selectedContact.phonenumber,
+            lastmessage: newMessage.text,
+          })
+        );
 
-      setMessages([...messages, newMessage]);
-      setInputValue("");
+        setInputValue("");
+      } else {
+        toast.error("Error sending message:");
+      }
     }
   };
+  
 
   return (
     <div className="chat-container">
       {selectedContact && <ChatHeader />}
 
-
-      <div className="chat-messages">
+      <div className="chat-messages" ref={autoScroll}>
         {!selectedContact ? (
           <EmptyChat />
         ) : isLoading ? ( // Render Skeleton when loading
@@ -140,7 +159,15 @@ const Chat: React.FC = () => {
             />
           </div>
         ) : (
-          <Box sx={{ fontWeight: "bold", p: 3, backgroundColor: "black", color: "white", textAlign: "center" }}>
+          <Box
+            sx={{
+              fontWeight: "bold",
+              p: 3,
+              backgroundColor: "black",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
             This message is handled automatically...
           </Box>
         )
