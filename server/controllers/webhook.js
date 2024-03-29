@@ -87,7 +87,7 @@ export const handleMessage = TryCatch(async (msg, io) => {
 
   message.data.push({ sender: "me", text: messageResponse, type });
   const lastMessage = message.data[message.data.length - 1];
-  io.emit("bot-message", {data:lastMessage})
+  io.emit("bot-message", {data:lastMessage,phonenumber:contact.phonenumber})
 
 
   await message.save();

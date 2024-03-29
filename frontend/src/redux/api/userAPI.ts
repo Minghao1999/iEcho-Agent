@@ -13,7 +13,7 @@ import axios from "axios";
 export const userAPI = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:5000/api/v1/user",
+    baseUrl: `${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_PORT}/api/v1/user`,
     credentials: "include",
     prepareHeaders: (headers) => {
       // Get token from the state

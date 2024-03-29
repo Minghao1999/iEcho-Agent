@@ -1,69 +1,61 @@
 import { useEffect, useMemo } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { io } from "socket.io-client";
 import Chat from "../components/Chat";
 import Header from "../components/menuHeader";
 import MessageMenu from "../components/messageMenu";
-import { io } from "socket.io-client";
-import toast from "react-hot-toast";
-import { MessageSocket } from "../types/message";
-import { useDispatch, useSelector } from "react-redux";
 import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage } from "../redux/reducer/messageReducer";
 import { BotMessageResponse } from "../types/api";
-import { RootState } from "../redux/store";
+import { MessageSocket } from "../types/message";
 
 const Dashboard = () => {
-  const socket = useMemo(() => io("http://127.0.0.1:8000"), []);
+  const socket = useMemo(() => io(`${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_SOCKET_PORT}`), []);
   const dispatch = useDispatch();
-  const { selectedContact } = useSelector(
-    (state: RootState) => state.contactReducer
-  );
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connect from server", socket.id);
-    });
-    socket.on("message", (data: MessageSocket) => {
-      console.log("Socket", data);
+    const handleSocketConnect = () => {
+      console.log("Connected to server", socket.id);
+    };
+
+    const handleIncomingMessage = (data: MessageSocket) => {
       const milliseconds = Number(data.timestamp) * 1000;
-
-      // Create a new Date object using the milliseconds
       const date = new Date(milliseconds);
-
-      // Format the date in en-US format
       const formattedDate = date.toLocaleString("en-US");
-
       console.log("Date", formattedDate);
+
       const msg = {
         _id: data.id,
         sender: data.from,
         text: data.data.text,
         timestamp: formattedDate,
       };
-      const notification = `Msg from ${data.from} \n Text: ${data.data.text} \n Timestamp: ${formattedDate}`;
-      dispatch(
-        updateLastMessage({ phone: data.from, lastmessage: data.data.text })
-      );
 
+      const notification = `Msg from ${data.from}\nText: ${data.data.text}\nTimestamp: ${formattedDate}`;
+      dispatch(updateLastMessage({ phone: data.from, lastmessage: data.data.text }));
       dispatch(addMessage(msg));
+
       toast.success(notification, {
         position: "top-right",
         icon: "🔔",
       });
-    });
+    };
 
-    socket.on("bot-message", (data: BotMessageResponse) => {
-      dispatch(
-        updateLastMessage({
-          phone: selectedContact?.phonenumber,
-          lastmessage: data.data.text,
-        })
-      );
+    const handleBotMessage = (data: BotMessageResponse) => {
+      dispatch(updateLastMessage({ phone: data.phonenumber, lastmessage: data.data.text }));
       dispatch(addMessage(data.data));
-    });
+    };
 
+    socket.on("connect", handleSocketConnect);
+    socket.on("message", handleIncomingMessage);
+    socket.on("bot-message", handleBotMessage);
+
+    // Clean up socket listeners
     return () => {
-      socket.off("connect");
-      socket.off("welcome");
+      socket.off("connect", handleSocketConnect);
+      socket.off("message", handleIncomingMessage);
+      socket.off("bot-message", handleBotMessage);
     };
   }, [socket, dispatch]);
 
