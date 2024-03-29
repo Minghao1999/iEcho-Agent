@@ -14,6 +14,7 @@ import SkeletonLoader from "./loader/skeletonLoader";
 import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage, setMessages } from "../redux/reducer/messageReducer";
 import toast from "react-hot-toast";
+import { MarkdownRenderer } from "./mardownFormat";
 
 const Chat: React.FC = () => {
   const { selectedContact } = useSelector(
@@ -26,7 +27,7 @@ const Chat: React.FC = () => {
   );
   // const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const autoScroll=useRef<HTMLDivElement>(null);
+  const autoScroll = useRef<HTMLDivElement>(null);
 
   // RTK Query hook to fetch contact messages
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
@@ -51,7 +52,6 @@ const Chat: React.FC = () => {
       autoScroll.current.scrollTop = autoScroll.current.scrollHeight;
     }
   }, [messages]);
-
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -84,7 +84,7 @@ const Chat: React.FC = () => {
       });
       if ("data" in response) {
         const msg = response.data.data;
-        console.log(msg)
+        console.log(msg);
         dispatch(addMessage(msg));
         dispatch(
           updateLastMessage({
@@ -99,7 +99,6 @@ const Chat: React.FC = () => {
       }
     }
   };
-  
 
   return (
     <div className="chat-container">
@@ -124,7 +123,9 @@ const Chat: React.FC = () => {
                   message.sender === "me" ? "sent" : "received"
                 }`}
               >
-                <div className="message-content">{message.text}</div>
+                <div className="message-content">
+                  <MarkdownRenderer content={message.text} />
+                </div>
                 <div className="message-time">
                   {new Date(message.timestamp).toLocaleString("en-US", {
                     hour: "numeric",

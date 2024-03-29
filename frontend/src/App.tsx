@@ -9,7 +9,6 @@ import ProtectedRoute from "./components/protectedRoute";
 import { resetUser, setUser } from "./redux/reducer/userReducer";
 import { User } from "./types/api";
 import { UserState } from "./types/user";
-import { server } from "./redux/store";
 
 const Login = lazy(() => import("./pages/Login"));
 const Forgot = lazy(() => import("./pages/forgot"));

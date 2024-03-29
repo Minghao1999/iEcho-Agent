@@ -32,6 +32,7 @@ export interface SendMessageResponse extends MessageResponse {
 
 export interface BotMessageResponse {
   data: Message;
+  phonenumber: string;
 }
 
 export interface UpdateSettingRequest {
