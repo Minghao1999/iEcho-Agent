@@ -1,7 +1,11 @@
 import Message from "../models/Message.js";
 import Contact from "../models/Contact.js";
 import { TryCatch } from "../middlewares/error.js";
-import { genAIModel } from "../utils/chatAI.js";
+import {
+  genAIModel,
+  generationConfig,
+  safetySettings,
+} from "../utils/chatAI.js";
 import { bot } from "../whatsCloud.js";
 
 const template = [
@@ -47,48 +51,30 @@ export const handleMessage = TryCatch(async (msg, io) => {
   await message.save();
   // Send a response using the AI model
 
-
-
-
   if (contact.setting == "manual") {
     return;
   }
 
   let conversation = template;
-  const chatSession = genAIModel.startChat({ history: conversation });
+  const chatSession = genAIModel.startChat({
+    history: conversation,
+    generationConfig: generationConfig,
+    safetySettings: safetySettings,
+  });
   const result = await chatSession.sendMessage(text);
+  if (!result) {
+    console.log("Couldn't send message");
+  }
   const messageResponse = result.response.text();
 
   await bot.sendText(from, messageResponse);
 
-
-
-    // data: { text: string };
-    // text: string;
-    // from: string;
-    // id: string;
-    // name: string;
-    // timestamp: string;
-    // type: string;
-
-  const formattedMessage ={
-    data:{
-      text: messageResponse
-    },
-    from: from,
-    sender:"me",
-    id: contact._id,
-    name: contact.name,
-    timestamp: new Date().toISOString(),
-    type: "text",
-  }
-
-
-
   message.data.push({ sender: "me", text: messageResponse, type });
   const lastMessage = message.data[message.data.length - 1];
-  io.emit("bot-message", {data:lastMessage,phonenumber:contact.phonenumber})
-
+  io.emit("bot-message", {
+    data: lastMessage,
+    phonenumber: contact.phonenumber,
+  });
 
   await message.save();
 });

@@ -30,7 +30,7 @@ function App() {
       try {
         const token = localStorage.getItem("token");
         if (token) {
-          const response = await axios.get(`${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_PORT}/api/v1/user`, {
+          const response = await axios.get(`${import.meta.env.VITE_SERVER_IP}/api/v1/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

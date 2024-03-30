@@ -6,7 +6,7 @@ import { Message } from "../../types/message";
 export const messageAPI = createApi({
   reducerPath: "messageAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_PORT}/api/v1/chat/message`,
+    baseUrl: `${import.meta.env.VITE_SERVER_IP}/api/v1/chat/message`,
     prepareHeaders: (headers) => {
       const token = Cookies.get("token") || localStorage.getItem("token");
       if (token) {

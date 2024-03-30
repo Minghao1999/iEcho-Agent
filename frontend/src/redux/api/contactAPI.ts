@@ -6,7 +6,7 @@ import {  ContactResponse, MessageResponse, UpdateSettingRequest } from "../../t
 export const contactAPI = createApi({
   reducerPath: "contactApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_PORT}/api/v1/chat`,
+    baseUrl: `${import.meta.env.VITE_SERVER_IP}/api/v1/chat`,
     prepareHeaders: (headers) => {
       // Get token from the state
       const token = Cookies.get("token") || localStorage.getItem("token");

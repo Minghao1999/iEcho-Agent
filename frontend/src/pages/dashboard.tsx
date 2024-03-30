@@ -11,7 +11,7 @@ import { BotMessageResponse } from "../types/api";
 import { MessageSocket } from "../types/message";
 
 const Dashboard = () => {
-  const socket = useMemo(() => io(`${import.meta.env.VITE_SERVER_IP}:${import.meta.env.VITE_SERVER_SOCKET_PORT}`), []);
+  const socket = useMemo(() => io(`${import.meta.env.VITE_SERVER_SOCKET_IP}`), []);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Dashboard = () => {
         timestamp: formattedDate,
       };
 
-      const notification = `Msg from ${data.from}\nText: ${data.data.text}\nTimestamp: ${formattedDate}`;
+      const notification = `Msg from ${data.from}\nText: ${data.data.text}\nTime: ${formattedDate}`;
       dispatch(updateLastMessage({ phone: data.from, lastmessage: data.data.text }));
       dispatch(addMessage(msg));
 

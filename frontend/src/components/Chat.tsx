@@ -1,4 +1,3 @@
-import { Box } from "@mui/system";
 import React, { useEffect, useRef, useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,11 +24,9 @@ const Chat: React.FC = () => {
   const messages = useSelector(
     (state: RootState) => state.messageReducer.messages
   );
-  // const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const autoScroll = useRef<HTMLDivElement>(null);
 
-  // RTK Query hook to fetch contact messages
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
     selectedContact?.phonenumber ?? "",
     {
@@ -37,7 +34,6 @@ const Chat: React.FC = () => {
     }
   );
 
-  // RTK Mutation hook to send a message
   const [sendMessage] = useSendMessageMutation();
 
   useEffect(() => {
@@ -47,7 +43,6 @@ const Chat: React.FC = () => {
   }, [contactMessages, dispatch]);
 
   useEffect(() => {
-    // Scroll to bottom when messages change
     if (autoScroll.current) {
       autoScroll.current.scrollTop = autoScroll.current.scrollHeight;
     }
@@ -74,7 +69,6 @@ const Chat: React.FC = () => {
         timestamp: currentTime,
       };
 
-      // RTK Mutation to send message
       const response = await sendMessage({
         phonenumber: selectedContact.phonenumber,
         sender: newMessage.sender,
@@ -84,7 +78,6 @@ const Chat: React.FC = () => {
       });
       if ("data" in response) {
         const msg = response.data.data;
-        console.log(msg);
         dispatch(addMessage(msg));
         dispatch(
           updateLastMessage({
@@ -92,12 +85,23 @@ const Chat: React.FC = () => {
             lastmessage: newMessage.text,
           })
         );
-
         setInputValue("");
       } else {
         toast.error("Error sending message:");
       }
     }
+  };
+
+  // Function to determine if a message is the start of a new day
+  const isNewDay = (index: number): boolean => {
+    if (index === 0) return true;
+    const currentDate = new Date(messages[index].timestamp);
+    const prevDate = new Date(messages[index - 1].timestamp);
+    return (
+      currentDate.getDate() !== prevDate.getDate() ||
+      currentDate.getMonth() !== prevDate.getMonth() ||
+      currentDate.getFullYear() !== prevDate.getFullYear()
+    );
   };
 
   return (
@@ -107,7 +111,7 @@ const Chat: React.FC = () => {
       <div className="chat-messages" ref={autoScroll}>
         {!selectedContact ? (
           <EmptyChat />
-        ) : isLoading ? ( // Render Skeleton when loading
+        ) : isLoading ? (
           <SkeletonLoader
             variantType="text"
             width={210}
@@ -116,63 +120,58 @@ const Chat: React.FC = () => {
           />
         ) : (
           <div className="message-body">
-            {messages.map((message) => (
-              <div
-                key={message._id}
-                className={`message ${
-                  message.sender === "me" ? "sent" : "received"
-                }`}
-              >
-                <div className="message-content">
-                  <MarkdownRenderer content={message.text} />
+            {messages.map((message, index) => (
+              <React.Fragment key={message._id}>
+                {isNewDay(index) && (
+                  <div className="date-divider">
+                    {new Date(message.timestamp).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
+                )}
+                <div
+                  className={`message ${
+                    message.sender === "me" ? "sent" : "received"
+                  }`}
+                >
+                  <div className="message-content">
+                    <MarkdownRenderer content={message.text} />
+                  </div>
+                  <div className="message-time">
+                    {new Date(message.timestamp).toLocaleString("en-US", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </div>
                 </div>
-                <div className="message-time">
-                  {new Date(message.timestamp).toLocaleString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                </div>
-              </div>
+              </React.Fragment>
             ))}
-            {/* <div ref={messagesEndRef} /> */}
           </div>
         )}
       </div>
 
-      {/* Bottom section for typing message */}
-      {selectedContact ? (
-        selectedContact.setting === "manual" ? (
-          <div className="chat-footer">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="message-input"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-            <IoMdSend
-              size={30}
-              className="sendBtn"
-              color="green"
-              onClick={handleSendMessage}
-            />
-          </div>
-        ) : (
-          <Box
-            sx={{
-              fontWeight: "bold",
-              p: 3,
-              backgroundColor: "black",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            This message is handled automatically...
-          </Box>
-        )
-      ) : null}
+      {selectedContact && selectedContact.setting === "manual" && (
+        <div className="chat-footer">
+          <input
+            type="text"
+            placeholder="Type a message..."
+            className="message-input"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
+          <IoMdSend
+            size={30}
+            className="sendBtn"
+            color="green"
+            onClick={handleSendMessage}
+          />
+        </div>
+      )}
     </div>
   );
 };
