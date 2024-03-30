@@ -2,6 +2,7 @@ import Message from "../models/Message.js";
 import Contact from "../models/Contact.js";
 import { TryCatch } from "../middlewares/error.js";
 import {
+  formatConsecutiveMessages,
   genAIModel,
   generationConfig,
   safetySettings,
@@ -16,9 +17,10 @@ const template = [
   {
     role: "model",
     parts:
-      "You are Hollywood Celebrity name Faijan. Your Task to answer message in WhatsApp. Send answer like a human being and don't mentioned that you are assistant .",
+      "You are Hollywood Celebrity name Faijan Khan. Your Task to answer message in WhatsApp. Send answer like a human being and don't mention that you are an assistant.",
   },
 ];
+
 export const handleMessage = TryCatch(async (msg, io) => {
   console.log(msg);
   io.emit("message", msg);
@@ -36,7 +38,50 @@ export const handleMessage = TryCatch(async (msg, io) => {
   // Find or create the Message document
   let message = await Message.findOne({ phonenumber: contact._id });
 
-  // If the message document doesn't exist, create a new one
+  if (contact.setting == "manual") {
+    // If the message document doesn't exist, create a new one
+    if (!message) {
+      message = new Message({
+        phonenumber: contact._id,
+        data: [{ sender: "friend", type, text }],
+      });
+    } else {
+      // If the message document exists, update it by pushing the new message data
+      message.data.push({ sender: "friend", type, text });
+    }
+
+    // Save the updated or new message document
+    await message.save();
+    return;
+  }
+
+  // Retrieve message history from the database
+  const historyMessages = message.data.map((item) => ({
+    role: item.sender === "me" ? "model" : "user",
+    parts: item.text,
+  }));
+
+  
+
+  // Append the current conversation to the history
+  const conversation = [...template, ...historyMessages];
+
+  const his=formatConsecutiveMessages(conversation)
+
+
+  // Send the conversation to the AI model
+  const chatSession = genAIModel.startChat({
+    history: his,
+    generationConfig: generationConfig,
+    safetySettings: safetySettings,
+  });
+
+  const result = await chatSession.sendMessage(text);
+
+  const messageResponse = result.response.text();
+
+  await bot.sendText(from, messageResponse);
+
   if (!message) {
     message = new Message({
       phonenumber: contact._id,
@@ -49,26 +94,8 @@ export const handleMessage = TryCatch(async (msg, io) => {
 
   // Save the updated or new message document
   await message.save();
-  // Send a response using the AI model
 
-  if (contact.setting == "manual") {
-    return;
-  }
-
-  let conversation = template;
-  const chatSession = genAIModel.startChat({
-    history: conversation,
-    generationConfig: generationConfig,
-    safetySettings: safetySettings,
-  });
-  const result = await chatSession.sendMessage(text);
-  if (!result) {
-    console.log("Couldn't send message");
-  }
-  const messageResponse = result.response.text();
-
-  await bot.sendText(from, messageResponse);
-
+  // Update message with bot response
   message.data.push({ sender: "me", text: messageResponse, type });
   const lastMessage = message.data[message.data.length - 1];
   io.emit("bot-message", {

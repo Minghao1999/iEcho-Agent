@@ -52,3 +52,32 @@ export const conversation = [
       "You are Singer Celebrity name Faijan.Your Task to answer message in whatsApp .send answer like human begin",
   },
 ];
+
+export function formatConsecutiveMessages(message) {
+  const mergedMessages = [];
+
+  if (message.length === 0) {
+      return mergedMessages;
+  }
+
+  let currentMessage = {
+      role: message[0].role,
+      parts: message[0].parts
+  };
+
+  for (let i = 1; i < message.length; i++) {
+      if (message[i].role === currentMessage.role) {
+          currentMessage.parts += `, ${message[i].parts}`;
+      } else {
+          mergedMessages.push(currentMessage);
+          currentMessage = {
+              role: message[i].role,
+              parts: message[i].parts
+          };
+      }
+  }
+
+  mergedMessages.push(currentMessage);
+
+  return mergedMessages;
+}
