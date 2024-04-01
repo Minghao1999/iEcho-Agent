@@ -36,14 +36,12 @@ export const handleMessage = TryCatch(async (msg, io) => {
   }
 
   let message = await Message.findOne({ phonenumber: contact._id }).exec();
-  let isNewMessage = false;
 
   if (!message) {
     message = new Message({
       phonenumber: contact._id,
       data: [],
     });
-    isNewMessage = true;
   }
 
   if (contact.setting === "manual") {
@@ -74,10 +72,8 @@ export const handleMessage = TryCatch(async (msg, io) => {
 
   await bot.sendText(from, messageResponse);
 
-  if (isNewMessage) {
     message.data.push({ sender: "friend", type, text });
     await message.save();
-  }
 
   message.data.push({ sender: "me", text: messageResponse, type });
   io.emit("bot-message", {
