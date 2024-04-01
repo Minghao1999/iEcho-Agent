@@ -54,7 +54,7 @@ export const handleMessage = TryCatch(async (msg, io) => {
 
   let historyMessages = [];
   if (message) {
-     historyMessages = message.data.map((item) => ({
+    historyMessages = message.data.map((item) => ({
       role: item.sender === "me" ? "model" : "user",
       parts: item.text,
     }));
@@ -76,6 +76,7 @@ export const handleMessage = TryCatch(async (msg, io) => {
 
   if (isNewMessage) {
     message.data.push({ sender: "friend", type, text });
+    await message.save();
   }
 
   message.data.push({ sender: "me", text: messageResponse, type });
