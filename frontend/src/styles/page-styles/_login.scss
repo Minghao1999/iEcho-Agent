@@ -39,6 +39,8 @@
     }
   }
   .forgot-account {
+    display: flex;
+    flex-direction: column;
     font-size: 1.2rem;
     width: fit-content;
     height: fit-content;

@@ -107,7 +107,7 @@ const Signup: React.FC = () => {
 
           <button type="submit">Sign Up</button>
         </form>
-        <div className="login-instead">
+        <div className="forgot-account">
           <p>
             Already have an account?{" "}
             <Link to={"/login"}>
