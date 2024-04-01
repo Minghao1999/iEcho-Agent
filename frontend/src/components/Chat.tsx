@@ -9,6 +9,7 @@ import { RootState } from "../redux/store";
 import { Message } from "../types/message";
 import EmptyChat from "./EmptyChat";
 import ChatHeader from "./chatHeader";
+import { Box } from "@mui/system";
 import SkeletonLoader from "./loader/skeletonLoader";
 import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage, setMessages } from "../redux/reducer/messageReducer";
@@ -154,24 +155,38 @@ const Chat: React.FC = () => {
         )}
       </div>
 
-      {selectedContact && selectedContact.setting === "manual" && (
-        <div className="chat-footer">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            className="message-input"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-          <IoMdSend
-            size={30}
-            className="sendBtn"
-            color="green"
-            onClick={handleSendMessage}
-          />
-        </div>
-      )}
+      {selectedContact ? (
+        selectedContact.setting === "manual" ? (
+          <div className="chat-footer">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              className="message-input"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+            <IoMdSend
+              size={30}
+              className="sendBtn"
+              color="green"
+              onClick={handleSendMessage}
+            />
+          </div>
+        ) : (
+          <Box
+            sx={{
+              fontWeight: "bold",
+              p: 3,
+              backgroundColor: "black",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            This message is handled automatically...
+          </Box>
+        )
+      ) : null}
     </div>
   );
 };

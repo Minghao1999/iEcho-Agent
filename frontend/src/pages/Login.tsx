@@ -11,7 +11,6 @@ import { LoginResponse, MessageResponse } from "../types/api";
 
 import SideLogo from "../components/sideLogo";
 
-
 const Login: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -32,9 +31,10 @@ const Login: React.FC = () => {
 
     if ("data" in res) {
       const message = (res.data as LoginResponse).message || "";
-      toast.success(message);
+      toast.success(message, {
+        duration: 4000,
+      });
       dispatch(setUser({ user: res.data.data.user }));
-
 
       localStorage.setItem("token", res.data.data.token);
       navigator("/");
@@ -45,51 +45,48 @@ const Login: React.FC = () => {
     }
   };
 
-  
-
   return (
-      <div className="login">
-        <SideLogo />
-        <main>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="phone"
-              placeholder="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+    <div className="login">
+      <SideLogo />
+      <main>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="phone"
+            placeholder="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
 
-            <label htmlFor="password">Password</label>
-            <div className="password-input">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </button>
-            </div>
-            <br />
-            <button type="submit">Login</button>
-          </form>
-          <div className="forgot-account">
+          <label htmlFor="password">Password</label>
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </button>
+          </div>
+          <br />
+          <button type="submit">Login</button>
+        </form>
+        <div className="forgot-account">
           <p>
-            Forgot account? 
+            Forgot account?
             <Link to={"/forgot"}>
               <button className="button"> Click Here</button>
             </Link>
           </p>
         </div>
-        </main>
-
-      </div>
+      </main>
+    </div>
   );
 };
 
