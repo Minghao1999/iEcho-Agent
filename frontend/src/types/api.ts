@@ -7,6 +7,14 @@ export interface AuthUser {
   password: string;
 }
 
+export interface SingupUser {
+  phone: string;
+  password: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+}
+
 export interface ForgotUser {
   email: string;
 }

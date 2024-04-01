@@ -62,16 +62,23 @@ export const getUser = TryCatch(async (req, res, next) => {
 
 export const completeUser = TryCatch(async (req, res, next) => {
   const { firstname, lastname, password, phone, email } = req.body;
+  
   // Find pending user by verification token
   if (!firstname || !lastname || !phone || !email || !password) {
     return next(new ErrorHandler("Please give all required parameters", 400));
   }
+
+  const existingUser = await User.findOne({ email: email.toLowerCase() });
+  if (existingUser) {
+    return next(new ErrorHandler("User with this email already exists", 409));
+  }
+  
   const hashedPassword = await bcrypt.hash(password, 10);
   // Create actual user from pending user data
   const user = new User({
     firstname: firstname,
     lastname: lastname,
-    email: email,
+    email: email.toLowerCase(),
     password: hashedPassword,
     phone: phone,
   });

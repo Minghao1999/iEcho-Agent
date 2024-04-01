@@ -11,6 +11,7 @@ import { User } from "./types/api";
 import { UserState } from "./types/user";
 
 const Login = lazy(() => import("./pages/Login"));
+const Signup= lazy(() => import("./pages/signUp"));
 const Forgot = lazy(() => import("./pages/forgot"));
 const ResetPassword = lazy(() => import("./pages/reset"));
 
@@ -64,6 +65,7 @@ function App() {
             }
           >
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/forgot" element={<Forgot />} />
           </Route>
           <Route path="/reset/:token" element={<ResetPassword />} />

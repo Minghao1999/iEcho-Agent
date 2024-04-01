@@ -6,6 +6,7 @@ import {
   MessageResponse,
   ResetPasswordQuery,
   ResetPasswordResponse,
+  SingupUser,
 } from "../../types/api";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -30,6 +31,14 @@ export const userAPI = createApi({
     login: builder.mutation<LoginResponse, AuthUser>({
       query: (data) => ({
         url: "/login",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    signup: builder.mutation<LoginResponse, SingupUser>({
+      query: (data) => ({
+        url: "/signup",
         method: "POST",
         body: data,
       }),
@@ -67,6 +76,10 @@ export const userAPI = createApi({
   }),
 });
 
+export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation,useSignupMutation } = userAPI;
+
+
+
 export const getUserInfo = async () => {
   try {
     const token = Cookies.get('token') || localStorage.getItem('token');
@@ -86,4 +99,3 @@ export const getUserInfo = async () => {
 };
 
 // Accessing the signup, signupFinish, and setUserRole mutations
-export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation } = userAPI;

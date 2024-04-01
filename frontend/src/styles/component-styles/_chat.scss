@@ -11,6 +11,7 @@
 .chat-messages {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 10px;
   border: 1px solid green;
 
