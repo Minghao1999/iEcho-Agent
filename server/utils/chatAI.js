@@ -4,17 +4,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { HarmCategory,HarmBlockThreshold } from "@google/generative-ai";
 dotnet.config();
 // OpenAI configuration
-export const openai = new OpenAI({
-  organization: process.env.OPENAI_ORGANIZATION || "",
-  apiKey: process.env.OPENAI_API_KEY || "",
-});
-
-export const generationConfig = {
-  temperature: 0.9,
-  topK: 1,
-  topP: 1,
-  maxOutputTokens: 2048,
-};
 
 export const safetySettings = [
   {
@@ -34,6 +23,19 @@ export const safetySettings = [
     threshold: HarmBlockThreshold.BLOCK_NONE,
   },
 ];
+
+export const generationConfig = {
+  temperature: 0.9,
+  topK: 1,
+  topP: 1,
+  maxOutputTokens: 2048,
+};
+
+export const openai = new OpenAI({
+  organization: process.env.OPENAI_ORGANIZATION || "",
+  apiKey: process.env.OPENAI_API_KEY || "",
+});
+
 
 // Gemini configuration
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
