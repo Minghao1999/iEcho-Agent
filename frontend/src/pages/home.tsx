@@ -1,12 +1,19 @@
-import { Link } from "react-router-dom"
+import React from 'react';
+import Articles from '../../components/articles/Articles';
+import Hero from '../../components/hero/Hero';
+import Info from '../../components/information/Info';
+import { HomeContainer } from './Home.style';
 
-const Home = () => {
-  return (
-    <div className='Home'>
-        <Link to={"/login"}>Login</Link>
+const Home: React.FC = () => {
+	return (
+		<div>
+			<HomeContainer>
+				<Hero />
+				<Info />
+				<Articles />
+			</HomeContainer>
+		</div>
+	);
+};
 
-    </div>
-  )
-}
-
-export default Home
+export default Home;
