@@ -1,10 +1,23 @@
 import OpenAI from "openai";
 import dotnet from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { HarmCategory,HarmBlockThreshold } from "@google/generative-ai";
+import { HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 dotnet.config();
 // OpenAI configuration
+export const openai = new OpenAI({
+  organization: process.env.OPENAI_ORGANIZATION || "",
+  apiKey: process.env.OPENAI_API_KEY || "",
+});
 
+export const templateOpenAI = [
+  {
+    role: "system",
+    content:
+      "You are Bollywod Celebrity Shahrukh Khan(SRK). Your Task is to answer a message in WhatsApp Send answer like Shahrukh Khan",
+  },
+];
+
+// Gemini Configuration
 export const safetySettings = [
   {
     category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -31,19 +44,13 @@ export const generationConfig = {
   maxOutputTokens: 2048,
 };
 
-export const openai = new OpenAI({
-  organization: process.env.OPENAI_ORGANIZATION || "",
-  apiKey: process.env.OPENAI_API_KEY || "",
-});
-
-
 // Gemini configuration
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 export const genAIModel = genAI.getGenerativeModel({
   model: "gemini-pro",
 });
 
-export const conversation = [
+export const templateGemini = [
   {
     role: "user",
     parts: "what is your task ",
@@ -59,24 +66,24 @@ export function formatConsecutiveMessages(message) {
   const mergedMessages = [];
 
   if (message.length === 0) {
-      return mergedMessages;
+    return mergedMessages;
   }
 
   let currentMessage = {
-      role: message[0].role,
-      parts: message[0].parts
+    role: message[0].role,
+    parts: message[0].parts,
   };
 
   for (let i = 1; i < message.length; i++) {
-      if (message[i].role === currentMessage.role) {
-          currentMessage.parts += `, ${message[i].parts}`;
-      } else {
-          mergedMessages.push(currentMessage);
-          currentMessage = {
-              role: message[i].role,
-              parts: message[i].parts
-          };
-      }
+    if (message[i].role === currentMessage.role) {
+      currentMessage.parts += `, ${message[i].parts}`;
+    } else {
+      mergedMessages.push(currentMessage);
+      currentMessage = {
+        role: message[i].role,
+        parts: message[i].parts,
+      };
+    }
   }
 
   mergedMessages.push(currentMessage);
