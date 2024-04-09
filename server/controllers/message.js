@@ -144,20 +144,15 @@ export const putSetting = TryCatch(async (req, res) => {
   }
 });
 export const addScheduledMessage = async (request, response) => {
-  const { phonenumber, scheduletimestamp, text } = request.body;
-
+  const { scheduletimestamp, text } = request.body;
   try {
-    // Find or create the schedule document
-    let schedule = await Schedule.findOne({ phonenumber });
-
-    if (!schedule) {
-      schedule = new Schedule({ phonenumber, data: [] });
+    if (scheduletimestamp && text) {
+      const schedule = new Schedule({
+        scheduletimestamp: scheduletimestamp,
+        text: text,
+      });
+      await schedule.save();
     }
-
-    // Add the new scheduled message data
-    schedule.data.push({ scheduletimestamp, text });
-
-    await schedule.save();
 
     response.status(200).json({
       success: true,
@@ -180,7 +175,7 @@ export const scheduled = async () => {
 
       // Find scheduled messages where the scheduled timestamp is before or equal to the current time
       const scheduledMessages = await Schedule.find({
-        'data.scheduletimestamp': { $lte: currentTime }
+        "data.scheduletimestamp": { $lte: currentTime },
       });
 
       // Iterate through each scheduled message
@@ -191,7 +186,7 @@ export const scheduled = async () => {
         if (currentTime >= message.data.scheduletimestamp) {
           // Send the message using your bot implementation
           // await bot.sendMessage(phonenumber, text);
-          console.log("phonenumber: " + phonenumber ,"text"+text);
+          console.log("phonenumber: " + phonenumber, "text" + text);
 
           // Update the timestamp to mark it as sent
           message.data.timestamp = new Date();
@@ -200,7 +195,7 @@ export const scheduled = async () => {
           await message.save();
 
           // Log the text
-          console.log('Scheduled message sent:', text);
+          console.log("Scheduled message sent:", text);
         }
       }
     }, 1000); // Check every second

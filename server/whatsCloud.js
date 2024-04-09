@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import {createServer} from "http"; // Import http module for creating server
+import { createServer } from "http"; // Import http module for creating server
 import morgan from "morgan";
 import { Server } from "socket.io"; // Import socket.io
 import { createBot } from "whatsapp-cloud-api";
@@ -15,14 +15,15 @@ import { connectDB } from "./utils/features.js";
 import chatRouter from "./routes/chat.js";
 import userRouter from "./routes/user.js";
 import { handleMessage } from "./controllers/webhook.js";
+import Contact from "./models/Contact.js";
 
 const app = express();
 const server = createServer(app); // Create HTTP server
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"], 
-    credentials: true, 
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -40,7 +41,7 @@ const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
 
-const socketport=8000
+const socketport = 8000;
 
 export const bot = createBot(from, token);
 
@@ -66,7 +67,7 @@ export const bot = createBot(from, token);
     });
 
     bot.on("text", (message) => {
-      handleMessage(message,io);
+      handleMessage(message, io);
     });
 
     // Socket.io connection
@@ -84,127 +85,47 @@ export const bot = createBot(from, token);
     });
     // Schedule good night message function
     scheduleAndSendMessages(); // Schedule a message to be sent at 10:00
-
-
   } catch (err) {
     console.log(err);
   }
-
 })();
-// function scheduleMessage(time) {
-//   // Split the time string into hours and minutes
-//   const [hours, minutes] = time.split(':').map(Number);
-
-//   // Get the current date and time
-//   const now = new Date();
-
-//   // Calculate the target time for the given hours and minutes
-//   const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
-
-//   // Calculate the time difference until the target time
-//   let timeDifference = targetTime - now;
-
-//   // If the target time has already passed for today, add 24 hours to schedule it for tomorrow
-//   if (timeDifference < 0) {
-//     timeDifference += 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-//   }
-
-//   setTimeout(function() {
-//     console.log("Good night!");
-//     bot.sendText('917796577820','Good night!');
-//     // Call your function here
-//     // Example: goodNightMessageFunction();
-//   }, timeDifference); // Schedule message for the calculated time difference
-// }
-// async function scheduleAndSendMessages(time) {
-//   try {
-//     // Split the time string into hours and minutes
-//     const [hours, minutes] = time.split(':').map(Number);
-
-//     // Get the current date and time
-//     const now = new Date();
-
-//     // Calculate the target time for the given hours and minutes
-//     const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
-
-//     // Calculate the time difference until the target time
-//     let timeDifference = targetTime - now;
-
-//     // If the target time has already passed for today, add 24 hours to schedule it for tomorrow
-//     if (timeDifference < 0) {
-//       timeDifference += 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-//     }
-//     console.log(timeDifference)
-//     setTimeout(async function() {
-//       // Log the scheduled time
-//       console.log("Scheduled time reached:", targetTime);
-
-//       // Find scheduled messages where the scheduled timestamp is before or equal to the current time
-//       const scheduledMessages = await Schedule.find({
-//         'data.scheduletimestamp': { $lte: targetTime }
-//       });
-
-//       // Iterate through each scheduled message
-//       for (const message of scheduledMessages) {
-//         const { phonenumber, text } = message.data;
-
-//         // Compare the scheduled timestamp with the current time
-//         if (targetTime >= message.data.scheduletimestamp) {
-//           // Send the message using your bot implementation
-//           // await bot.sendMessage(phonenumber, text);
-//           console.log("phonenumber: " + phonenumber ,"text"+text);
-
-//           // Update the timestamp to mark it as sent
-//           message.data.timestamp = new Date();
-
-//           // Save the updated message
-//           await message.save();
-
-//           // Log the text
-//           console.log('Scheduled message sent:', text);
-//         }
-//       }
-//     }, timeDifference); // Schedule message for the calculated time difference
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
-
 
 async function scheduleAndSendMessages() {
   try {
-      // Get the current time in UTC
-      const nowUTC = new Date();
 
-      // Get the current time in Indian Standard Time (IST)
-      const now = new Date(nowUTC.getTime() + (5.5 * 60 * 60 * 1000)); // IST is UTC+5.5
+    const nowUTC = new Date();
+    const nowIST = new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
+    const hours=nowIST.getHours();
+    const minutes=nowIST.getMinutes();
+    const hoursandminutes=`${hours}:${minutes}`;
+    console.log("hoursandminutes time: " + hoursandminutes)
 
-    console.log(now);
-    // Find scheduled messages where the scheduled timestamp is before or equal to the current time
+    // Find scheduled messages where the scheduled timestamp is equal to the current time
     const scheduledMessages = await Schedule.find({
-      'data.scheduletimestamp': { $lte: now }
+      "scheduletimestamp": { $eq: hoursandminutes }, // Use $eq for exact match
     });
-    console.log(scheduledMessages)
+
+
     // Iterate through each scheduled message
     for (const message of scheduledMessages) {
-      const { phonenumber, text, scheduletimestamp } = message.data;
+      const {  text } = message;
+      console.log("scheduledMessages: " + text)
 
-      // Log the scheduled time
-      console.log("Scheduled time reached:", scheduletimestamp);
+      const contacts = await Contact.find(); // Retrieve all contacts
+      console.log("contacts: " + contacts)
+      for (const contact of contacts) {
+        // Assuming phonenumber is stored in each contact document
+        const { phonenumber } = contact;
+        console.log("phonenumber: " + phonenumber)
+        // Send message to each contact
+        bot.sendMessage(phonenumber, text);
+      }
 
-      // Send the message using your bot implementation
-      // await bot.sendMessage(phonenumber, text);
-      console.log("phonenumber: " + phonenumber, "text" + text);
 
-      // Update the timestamp to mark it as sent
-      message.data.timestamp = new Date();
 
-      // Save the updated message
-      await message.save();
-
-      // Log the text
-      console.log('Scheduled message sent:', text);
     }
+
+
   } catch (error) {
     console.error("Error:", error);
   }
@@ -213,7 +134,5 @@ async function scheduleAndSendMessages() {
   setTimeout(scheduleAndSendMessages, 60000); // Check every minute
 }
 
-// Call the function to start checking for scheduled messages
-scheduleAndSendMessages();
-
-
+// // Call the function to start checking for scheduled messages
+// scheduleAndSendMessages();
