@@ -12,7 +12,7 @@ import { resetContacts } from "../redux/reducer/contactReducer";
 import { resetUser } from "../redux/reducer/userReducer";
 import { RootState } from "../redux/store";
 
-const Header = () => {
+const MenuHeader = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const KOL_User=useSelector((state:RootState)=>state.userReducer.user?.firstname)
@@ -69,4 +69,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default MenuHeader;

@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import Chat from "../components/Chat";
-import Header from "../components/menuHeader";
+import MenuHeader from "../components/menuHeader";
 import MessageMenu from "../components/messageMenu";
 import { addContact, updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage } from "../redux/reducer/messageReducer";
@@ -66,7 +66,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <aside>
-        <Header />
+        <MenuHeader />
         <MessageMenu />
       </aside>
       <main>

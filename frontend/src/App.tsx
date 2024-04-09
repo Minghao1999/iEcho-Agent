@@ -10,8 +10,10 @@ import { resetUser, setUser } from "./redux/reducer/userReducer";
 import { User } from "./types/api";
 import { UserState } from "./types/user";
 
+const LandingPage =lazy(() => import("./pages/landing"));
+
 const Login = lazy(() => import("./pages/Login"));
-const Signup= lazy(() => import("./pages/signUp"));
+const Signup = lazy(() => import("./pages/signUp"));
 const Forgot = lazy(() => import("./pages/forgot"));
 const ResetPassword = lazy(() => import("./pages/reset"));
 
@@ -31,11 +33,14 @@ function App() {
       try {
         const token = localStorage.getItem("token");
         if (token) {
-          const response = await axios.get(`${import.meta.env.VITE_SERVER_IP}/api/v1/user`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await axios.get(
+            `${import.meta.env.VITE_SERVER_IP}/api/v1/user`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           const data = response.data.data as User;
           dispatch(setUser({ user: data }));
         } else {
@@ -56,11 +61,12 @@ function App() {
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
+          <Route path="/home" element={<LandingPage />} />
           <Route
             element={
               <ProtectedRoute
                 isAuthenticated={!user ? true : false}
-                redirect="/"
+                redirect="/home"
               />
             }
           >
