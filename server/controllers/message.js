@@ -1,6 +1,7 @@
 import { TryCatch } from "../middlewares/error.js";
 import Contact from "../models/Contact.js";
 import Message from "../models/Message.js";
+import Schedule from "../models/Schedule.js";
 import { bot } from "../whatsCloud.js";
 
 export const newMessage = async (request, response) => {
@@ -142,3 +143,68 @@ export const putSetting = TryCatch(async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+export const addScheduledMessage = async (request, response) => {
+  const { phonenumber, scheduletimestamp, text } = request.body;
+
+  try {
+    // Find or create the schedule document
+    let schedule = await Schedule.findOne({ phonenumber });
+
+    if (!schedule) {
+      schedule = new Schedule({ phonenumber, data: [] });
+    }
+
+    // Add the new scheduled message data
+    schedule.data.push({ scheduletimestamp, text });
+
+    await schedule.save();
+
+    response.status(200).json({
+      success: true,
+      message: "Scheduled message added successfully",
+    });
+  } catch (error) {
+    response.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const scheduled = async () => {
+  try {
+    // Continuously check the database for scheduled messages
+    setInterval(async () => {
+      // Get the current time
+      const currentTime = new Date();
+
+      // Find scheduled messages where the scheduled timestamp is before or equal to the current time
+      const scheduledMessages = await Schedule.find({
+        'data.scheduletimestamp': { $lte: currentTime }
+      });
+
+      // Iterate through each scheduled message
+      for (const message of scheduledMessages) {
+        const { phonenumber, text } = message.data;
+
+        // Compare the scheduled timestamp with the current time
+        if (currentTime >= message.data.scheduletimestamp) {
+          // Send the message using your bot implementation
+          // await bot.sendMessage(phonenumber, text);
+          console.log("phonenumber: " + phonenumber ,"text"+text);
+
+          // Update the timestamp to mark it as sent
+          message.data.timestamp = new Date();
+
+          // Save the updated message
+          await message.save();
+
+          // Log the text
+          console.log('Scheduled message sent:', text);
+        }
+      }
+    }, 1000); // Check every second
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
