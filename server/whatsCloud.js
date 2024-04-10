@@ -15,7 +15,7 @@ import { connectDB } from "./utils/features.js";
 import chatRouter from "./routes/chat.js";
 import userRouter from "./routes/user.js";
 import { handleMessage } from "./controllers/webhook.js";
-import Contact from "./models/Contact.js";
+import { scheduleAndSendMessages } from "./controllers/Schedule.js";
 
 const app = express();
 const server = createServer(app); // Create HTTP server
@@ -84,55 +84,9 @@ export const bot = createBot(from, token);
       console.log(`Socket Server running on port ${socketport}`);
     });
     // Schedule good night message function
-    scheduleAndSendMessages(); // Schedule a message to be sent at 10:00
+    scheduleAndSendMessages();
   } catch (err) {
     console.log(err);
   }
 })();
 
-async function scheduleAndSendMessages() {
-  try {
-
-    const nowUTC = new Date();
-    const nowIST = new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
-    const hours=nowIST.getHours();
-    const minutes=nowIST.getMinutes();
-    const hoursandminutes=`${hours}:${minutes}`;
-    console.log("hoursandminutes time: " + hoursandminutes)
-
-    // Find scheduled messages where the scheduled timestamp is equal to the current time
-    const scheduledMessages = await Schedule.find({
-      "scheduletimestamp": { $eq: hoursandminutes }, // Use $eq for exact match
-    });
-
-
-    // Iterate through each scheduled message
-    for (const message of scheduledMessages) {
-      const {  text } = message;
-      console.log("scheduledMessages: " + text)
-
-      const contacts = await Contact.find(); // Retrieve all contacts
-      console.log("contacts: " + contacts)
-      for (const contact of contacts) {
-        // Assuming phonenumber is stored in each contact document
-        const { phonenumber } = contact;
-        console.log("phonenumber: " + phonenumber)
-        // Send message to each contact
-        bot.sendMessage(phonenumber, text);
-      }
-
-
-
-    }
-
-
-  } catch (error) {
-    console.error("Error:", error);
-  }
-
-  // Schedule the next check after a certain interval (e.g., every minute)
-  setTimeout(scheduleAndSendMessages, 60000); // Check every minute
-}
-
-// // Call the function to start checking for scheduled messages
-// scheduleAndSendMessages();

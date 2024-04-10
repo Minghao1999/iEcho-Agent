@@ -66,7 +66,7 @@ function App() {
             element={
               <ProtectedRoute
                 isAuthenticated={!user ? true : false}
-                redirect="/home"
+                redirect="/"
               />
             }
           >
