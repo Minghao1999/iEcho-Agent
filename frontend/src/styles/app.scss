@@ -32,8 +32,10 @@ a {
 @import "./component-styles/chat";
 
 @import "./page-styles/profile";
-// @import "./component-styles/loader";
 
+@import "./component-styles/NavBar";
+@import "./component-styles/Hero";
 
-
-// @import "./component-styles/_leftDasborad";
+@import "./component-styles/feature";
+@import "./component-styles/inquery";
+@import "./component-styles/footer";

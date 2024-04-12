@@ -7,7 +7,7 @@ interface Props {
   redirect?: string;
 }
 
-const ProtectedRoute: React.FC<Props> = ({ isAuthenticated, children, redirect = "/login" }) => {
+const ProtectedRoute: React.FC<Props> = ({ isAuthenticated, children, redirect = "/home" }) => {
     if (!isAuthenticated) return <Navigate to={redirect}  />
 
     // return <Navigate to="/"  />

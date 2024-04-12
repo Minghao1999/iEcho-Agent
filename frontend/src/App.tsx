@@ -10,7 +10,7 @@ import { resetUser, setUser } from "./redux/reducer/userReducer";
 import { User } from "./types/api";
 import { UserState } from "./types/user";
 
-const LandingPage =lazy(() => import("./pages/landing"));
+const Home = lazy(() => import("./pages/home"));
 
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/signUp"));
@@ -61,7 +61,6 @@ function App() {
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/home" element={<LandingPage />} />
           <Route
             element={
               <ProtectedRoute
@@ -70,6 +69,8 @@ function App() {
               />
             }
           >
+            <Route path="/home" element={<Home />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot" element={<Forgot />} />

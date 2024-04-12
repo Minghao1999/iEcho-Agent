@@ -16,8 +16,6 @@ export async function scheduleAndSendMessages() {
     const minutes = now.minutes();
 
     const hoursandminutes = `${hours}:${minutes}`;
-    console.log("hoursandminutes time: " + hoursandminutes);
-
     // Find scheduled messages where the scheduled timestamp is equal to the current time
     const scheduledMessages = await Schedule.find({
       scheduletimestamp: { $eq: hoursandminutes }, // Use $eq for exact match

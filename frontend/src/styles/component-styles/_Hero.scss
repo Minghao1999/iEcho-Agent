@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    position: relative;
+    margin: 1.2rem;
+    
+
+    .hero-content {
+        width: 60%;
+        
+
+        .hero-title {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+
+            span {
+                color: #ff4500; // Change color as needed
+            }
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+    }
+
+    img {
+        width: 70%; // Adjust size as needed
+        max-width: 500px; // Maximum width
+        right: 0;
+        bottom: 0;
+        animation: slide-in 1s ease; // Animation
+    }
+}
+
+// Animation
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
