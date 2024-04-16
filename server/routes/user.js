@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Login,completeUser,logout,getProfile,updateProfile, ForgotRequest, ResetPassword, getUser} from '../controllers/user.js';
+import { Login,completeUser,logout,getProfile,updateProfile, ForgotRequest, ResetPassword, getUser,inquiry} from '../controllers/user.js';
 import { verifyTokenMiddleware } from '../middlewares/auth.js';
 
 const router = Router();
@@ -13,4 +13,5 @@ router.put('/forgot-finish', ResetPassword)
 router.get('/getProfile',getProfile )
 router.post('/updateProfile',updateProfile);
 router.get('/logout',logout )
+router.post('/inquiry',inquiry);
 export default router;
