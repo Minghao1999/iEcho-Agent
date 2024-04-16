@@ -4,7 +4,7 @@ const features = [
     description:
       "Provides instant support for common queries and tasks, reducing the need for manual intervention and improving response times using OpenAI.",
     details: [
-      "Uses natural language processing (NLP) to understand user queries.",
+      "Uses LLM Model to understand user queries.",
       "Offers personalized responses based on user interactions.",
       "Integrates with knowledge bases to provide accurate information.",
     ],

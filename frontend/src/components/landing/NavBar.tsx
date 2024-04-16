@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { logo } from "../../../assets/icons/index";
-import "../../styles/landing/_navbar.scss";
 interface NavLink {
   path: string;
   label: string;
