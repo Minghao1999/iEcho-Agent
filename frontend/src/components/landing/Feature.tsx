@@ -1,6 +1,3 @@
-import { messaging } from "../../../assets/icons/index.ts";
-import "../../styles/landing/_feature.scss";
-
 const features = [
   {
     title: "Automated Assistance",
@@ -9,8 +6,8 @@ const features = [
     details: [
       "Uses natural language processing (NLP) to understand user queries.",
       "Offers personalized responses based on user interactions.",
-      "Integrates with knowledge bases to provide accurate information."
-    ]
+      "Integrates with knowledge bases to provide accurate information.",
+    ],
   },
   {
     title: "WhatsApp Integration",
@@ -19,8 +16,8 @@ const features = [
     details: [
       "Enables seamless communication through WhatsApp's interface.",
       "Supports multimedia messages, including images, videos, and documents.",
-      "Allows for automated responses to be sent directly via WhatsApp."
-    ]
+      "Allows for automated responses to be sent directly via WhatsApp.",
+    ],
   },
   {
     title: "Real-time Communication",
@@ -29,8 +26,8 @@ const features = [
     details: [
       "Utilizes WebSocket technology for instant message delivery.",
       "Enables live chat sessions for interactive support.",
-      "Integrates with user authentication systems for personalized experiences."
-    ]
+      "Integrates with user authentication systems for personalized experiences.",
+    ],
   },
 ];
 

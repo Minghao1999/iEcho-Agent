@@ -1,5 +1,4 @@
 import { mobile_hero } from "../../../assets/icons/index.ts";
-import "../../styles/landing/_hero.scss";
 
 const Hero = () => {
   return (

@@ -1,5 +1,5 @@
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
-import "../../styles/landing/_footer.scss";
+
 const Footer = () => {
     return (
         <footer className="footer">
