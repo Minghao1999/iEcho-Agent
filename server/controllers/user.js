@@ -4,6 +4,7 @@ import ErrorHandler from "../utils/utitlity.js";
 import { generateToken } from "../middlewares/auth.js";
 import bcrypt from "bcrypt";
 import { sendVerificationEmail } from "../mail/send.js";
+import Inquiry  from "../models/Inquiry.js";
 
 export const Login = async (req, res, next) => {
   const { phone, password } = req.body;
@@ -245,4 +246,36 @@ export const logout = (req, res) => {
     success: true,
     message: "LogOut",
   });
+};
+
+export const inquiry = async (request, response) => {
+  try {
+    // Extract data from request body
+    const { name, email, phoneNumber, message } = request.body;
+
+    // Create new Inquiry instance
+    const newInquiry = new Inquiry({
+      name,
+      email,
+      phoneNumber,
+      message
+    });
+
+    // Save the new inquiry to the database
+    await newInquiry.save();
+
+    // Send success response
+    response.status(201).json({
+      success: true,
+      message: 'Inquiry added successfully'
+    });
+  } catch (error) {
+    // Handle errors
+    console.error('Error adding inquiry:', error);
+    response.status(500).json({
+      success: false,
+      message: 'Failed to add inquiry',
+      error: error.message
+    });
+  }
 };
