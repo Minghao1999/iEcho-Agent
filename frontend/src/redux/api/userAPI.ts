@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   AuthUser,
   ForgotUser,
+  InquiryData,
   LoginResponse,
   MessageResponse,
   ResetPasswordQuery,
@@ -65,6 +66,14 @@ export const userAPI = createApi({
         body: data,
       }),
     }),
+    inquiry: builder.mutation<MessageResponse,InquiryData>({
+      query: (data) => ({
+        url: "/inquiry",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
 
     setUserRole: builder.mutation({
       query: (data) => ({
@@ -76,7 +85,7 @@ export const userAPI = createApi({
   }),
 });
 
-export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation,useSignupMutation } = userAPI;
+export const { useLoginMutation,useLogoutMutation,useForgotMutation,useResetMutation, useSetUserRoleMutation,useSignupMutation,useInquiryMutation } = userAPI;
 
 
 

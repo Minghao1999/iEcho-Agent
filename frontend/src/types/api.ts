@@ -78,4 +78,11 @@ export interface MessageSendRequest {
   name: string;
 }
 
+export interface InquiryData {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
+}
+
 // export interface
