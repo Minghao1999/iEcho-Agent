@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px; /* Adjust margin as needed */
+  }
+  
+  .hero-content {
+    flex: 1;
+  }
+  
+  .hero-image {
+    flex: 1;
+    text-align: center; /* Center the image */
+  }
+  
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
