@@ -77,6 +77,10 @@ export interface MessageSendRequest {
   type: "text";
   name: string;
 }
+export interface SendSheduleRequest {
+  scheduletimestamp: string;
+  text: string;
+}
 
 export interface InquiryData {
   name: string;

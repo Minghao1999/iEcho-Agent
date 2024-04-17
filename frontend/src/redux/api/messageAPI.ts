@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
-import { MessageSendRequest, SendMessageResponse } from "../../types/api";
+import { MessageResponse, MessageSendRequest, SendMessageResponse, SendSheduleRequest } from "../../types/api";
 import { Message } from "../../types/message";
 
 export const messageAPI = createApi({
@@ -26,10 +26,19 @@ export const messageAPI = createApi({
         method: "POST",
         body: message,
       }),
+      
+    }),
+    sendSchedule: builder.mutation<MessageResponse, Partial<SendSheduleRequest>>({
+      query: (message) => ({
+        url: "addScheduledMessage",
+        method: "POST",
+        body: message,
+      }),
+      
     }),
   }),
 });
 
-export const { useGetMessageQuery, useSendMessageMutation } = messageAPI;
+export const { useGetMessageQuery, useSendMessageMutation,useSendScheduleMutation } = messageAPI;
 
 
