@@ -108,7 +108,7 @@ const MenuHeader = () => {
         }}
       >
         <MenuItem>
-          <Tooltip title="Schedule">
+          <Tooltip title="Schedule Message">
             <IconButton aria-label="logout" onClick={handleSchedule}>
               <BiSolidMessageRoundedEdit />
             </IconButton>
