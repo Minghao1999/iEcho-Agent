@@ -11,6 +11,8 @@ import { User } from "./types/api";
 import { UserState } from "./types/user";
 
 const Home = lazy(() => import("./pages/home"));
+const Demo = lazy(() => import("./pages/Demo"));
+const About = lazy(() => import("./pages/about"));
 
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/signUp"));
@@ -70,6 +72,8 @@ function App() {
             }
           >
             <Route path="/home" element={<Home />} />
+            <Route path="/demo" element={<Demo />} />
+            <Route path="/about" element={<About />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
