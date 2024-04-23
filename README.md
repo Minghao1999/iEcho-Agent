@@ -12,11 +12,28 @@ Before you begin, ensure that you have the following prerequisites installed on 
 
 ## Technology Stack
 
-The application is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for both frontend and backend development. Real-time communication between the client and server is facilitated by Socket.IO. Additional technologies include React, Redux for frontend development, and npm or yarn for package management. MongoDB Atlas is utilized for cloud-based MongoDB database hosting.
+The application is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for both frontend and backend development. Real-time communication between the client and server is facilitated by Socket.IO. Additional technologies include React, Redux,RTK Query for frontend development, and npm or yarn for package management. MongoDB Atlas is utilized for cloud-based MongoDB database hosting.
+
+
+
+## Feature: Key Opinion Leader (KOL) (AI) Assistant
+
+The KOL Chat Application includes  AI assistant designed specifically for WhatsApp. This AI assistant is capable of automatically responding to messages using Large Language Models (LLM), providing users with efficient communication management. Additionally, it offers the flexibility to switch between automatic AI responses and manual response mode, empowering users to tailor their communication approach as needed.
+
+### Key Features:
+
+1. **Automatic Message Responses**: The AI assistant can automatically respond to incoming messages using advanced language processing capabilities.
+
+2. **Manual Response Mode**: Users have the option to switch to manual response mode, allowing them to personally engage with their contacts when desired.
+
+3. **Scheduling Messaging**: The AI assistant supports scheduling messages, enabling users to plan and send messages at specific times, enhancing communication efficiency.
+
 
 ## Environment Variables
 
-To run this project locally, you'll need to set up environment variables. Create a `.env` file in both the server and client directories. You can refer to `.env.example` in the server directory for guidance.
+To run this project locally, you'll need to set up environment variables.
+
+ Create a `.env` file in both the server and client directories. You can refer to `.env.example` in the server and client directory for guidance.
 
 You'll also need to obtain the WhatsApp webhook information from [here](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/).
 
