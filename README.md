@@ -1,97 +1,73 @@
 # KOL Application
 
-The KOL Chat Application allows celebrities to communicate with their friends and fans via a chat interface. This document serves as a comprehensive guide for understanding the application's functionality, architecture, and usage.
+The KOL Chat Application facilitates communication between celebrities and their friends and fans through a chat interface. This document serves as a comprehensive guide to understanding the application's functionality, architecture, and usage.
 
 ## Prerequisites
 
-Make sure you have installed all of the following prerequisites on your development machine:
+Before you begin, ensure that you have the following prerequisites installed on your development machine:
 
-- Node Js & Npm [Download and Install](https://nodejs.org/en)
-- MongoDB [Download and Install](https://www.mongodb.com/docs/manual/installation/)
-- Git [Download and Install](https://git-scm.com/downloads)
+- **Node.js & NPM**: Download and install from [here](https://nodejs.org/en).
+- **MongoDB**: Download and install from [here](https://www.mongodb.com/docs/manual/installation/).
+- **Git**: Download and install from [here](https://git-scm.com/downloads).
 
-## Technology Used
+## Technology Stack
 
-### MERN Stack (MongoDB, Express.js, React.js, Node.js): For building the frontend and backend of the application.
-
-### Socket.IO: For real-time communication between the client and server.
-
-### React,Redux: For frontend development.
-
-### npm or yarn: For package management.
-
-### MongoDB Atlas: For cloud-based MongoDB database hosting.
+The application is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for both frontend and backend development. Real-time communication between the client and server is facilitated by Socket.IO. Additional technologies include React, Redux for frontend development, and npm or yarn for package management. MongoDB Atlas is utilized for cloud-based MongoDB database hosting.
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file in server directory
+To run this project locally, you'll need to set up environment variables. Create a `.env` file in both the server and client directories. You can refer to `.env.example` in the server directory for guidance.
 
-### For server
+You'll also need to obtain the WhatsApp webhook information from [here](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/).
 
-`PORT` = `5000`
-`HOST`
-`MongoDB_URL`
-`SITE_URL`
-`SITE_PORT`
-`CORS_ORIGIN`
-`GEMINI_API_KEY`
-`JWT_PRIVATE_KEY`
-`MAIL_EMAIL`
-`MAIL_SECRET`
+## Running Locally
 
-#### Whatsapp API
+To run the project on your local machine, follow these steps:
 
-`FROM`
-`TOKEN`
-`TO`
-`WEBHOOK_VERIFY_TOKEN`
+### 1. Clone the Project
 
-To run this project, you will need to add the following environment variables to your .env file in client directory
-
-## Run Locally
-
-Clone the project
+Clone the repository to your local machine using the following command:
 
 ```bash
-  git clone https://github.com/bayesianinstitute/KOL_Chat.git
+git clone https://github.com/bayesianinstitute/KOL_Chat.git
 ```
 
-## To Start BackEnd
+### 2. Start Backend
 
-Go to the server directory
+Navigate to the server directory:
 
 ```bash
-  cd KOL_Chat/server
+cd KOL_Chat/server
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
-  npm install
+npm install
 ```
 
-Start
+Start the backend:
 
 ```bash
-  npm run demo
+npm run demo
 ```
 
-## To Start FrontEnd
+### 3. Start Frontend
 
-Go to the client directory
+Navigate to the client directory:
 
 ```bash
-  cd KOL_Chat/frontend
+cd KOL_Chat/frontend
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
-  npm install
+npm install
 ```
 
-Start
+Start the frontend:
 
 ```bash
-  npm run dev
+npm run dev
 ```
