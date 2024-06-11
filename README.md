@@ -69,6 +69,17 @@ Start the backend:
 npm run demo
 ```
 
+### 3. Connect WhatsApp Api with Our Backend
+
+
+Package used: https://github.com/tawn33y/whatsapp-cloud-api?tab=readme-ov-file
+
+Follow this Tutorial : https://github.com/tawn33y/whatsapp-cloud-api/blob/main/TUTORIAL.md#3-setting-up-ngrok
+
+
+```bash
+ngrok http 5000
+```
 ### 3. Start Frontend
 
 Navigate to the client directory:
@@ -88,3 +99,4 @@ Start the frontend:
 ```bash
 npm run dev
 ```
+
