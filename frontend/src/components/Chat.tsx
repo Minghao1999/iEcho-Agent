@@ -18,26 +18,30 @@ import { MarkdownRenderer } from "./mardownFormat";
 
 const Chat: React.FC = () => {
   const { selectedContact } = useSelector(
-    (state: RootState) => state.contactReducer
+      (state: RootState) => state.contactReducer
   );
 
   const dispatch = useDispatch();
   const messages = useSelector(
-    (state: RootState) => state.messageReducer.messages
+      (state: RootState) => state.messageReducer.messages
   );
   const [inputValue, setInputValue] = useState<string>("");
   const autoScroll = useRef<HTMLDivElement>(null);
 
   const { data: contactMessages = [], isLoading } = useGetMessageQuery(
-    selectedContact?.phonenumber ?? "",
-    {
-      skip: !selectedContact,
-    }
+      selectedContact?.phonenumber ?? "",
+      {
+        skip: !selectedContact,
+      }
   );
 
   const [sendMessage] = useSendMessageMutation();
 
   useEffect(() => {
+    // console.log("selectedContact:", selectedContact);
+    // console.log("contactMessages:", contactMessages);
+    // console.log("isLoading:", isLoading);
+
     if (contactMessages.length > 0) {
       dispatch(setMessages(contactMessages[0].data));
     }
@@ -81,10 +85,10 @@ const Chat: React.FC = () => {
         const msg = response.data.data;
         dispatch(addMessage(msg));
         dispatch(
-          updateLastMessage({
-            phone: selectedContact.phonenumber,
-            lastmessage: newMessage.text,
-          })
+            updateLastMessage({
+              phone: selectedContact.phonenumber,
+              lastmessage: newMessage.text,
+            })
         );
         setInputValue("");
       } else {
@@ -99,95 +103,95 @@ const Chat: React.FC = () => {
     const currentDate = new Date(messages[index].timestamp);
     const prevDate = new Date(messages[index - 1].timestamp);
     return (
-      currentDate.getDate() !== prevDate.getDate() ||
-      currentDate.getMonth() !== prevDate.getMonth() ||
-      currentDate.getFullYear() !== prevDate.getFullYear()
+        currentDate.getDate() !== prevDate.getDate() ||
+        currentDate.getMonth() !== prevDate.getMonth() ||
+        currentDate.getFullYear() !== prevDate.getFullYear()
     );
   };
 
   return (
-    <div className="chat-container">
-      {selectedContact && <ChatHeader />}
+      <div className="chat-container">
+        {selectedContact && <ChatHeader />}
 
-      <div className="chat-messages" ref={autoScroll}>
-        {!selectedContact ? (
-          <EmptyChat />
-        ) : isLoading ? (
-          <SkeletonLoader
-            variantType="text"
-            width={210}
-            height={118}
-            numofLoaders={3}
-          />
-        ) : (
-          <div className="message-body">
-            {messages.map((message, index) => (
-              <React.Fragment key={message._id}>
-                {isNewDay(index) && (
-                  <div className="date-divider">
-                    {new Date(message.timestamp).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </div>
-                )}
-                <div
-                  className={`message ${
-                    message.sender === "me" ? "sent" : "received"
-                  }`}
-                >
-                  <div className="message-content">
-                    <MarkdownRenderer content={message.text} />
-                  </div>
-                  <div className="message-time">
-                    {new Date(message.timestamp).toLocaleString("en-US", {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
-                  </div>
+        <div className="chat-messages" ref={autoScroll}>
+          {!selectedContact ? (
+              <EmptyChat />
+          ) : isLoading ? (
+              <SkeletonLoader
+                  variantType="text"
+                  width={210}
+                  height={118}
+                  numofLoaders={3}
+              />
+          ) : (
+              <div className="message-body">
+                {messages.map((message, index) => (
+                    <React.Fragment key={message._id}>
+                      {isNewDay(index) && (
+                          <div className="date-divider">
+                            {new Date(message.timestamp).toLocaleDateString("en-US", {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </div>
+                      )}
+                      <div
+                          className={`message ${
+                              message.sender === "me" ? "sent" : "received"
+                          }`}
+                      >
+                        <div className="message-content">
+                          <MarkdownRenderer content={message.text} />
+                        </div>
+                        <div className="message-time">
+                          {new Date(message.timestamp).toLocaleString("en-US", {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
+                        </div>
+                      </div>
+                    </React.Fragment>
+                ))}
+              </div>
+          )}
+        </div>
+
+        {selectedContact ? (
+            selectedContact.setting === "manual" ? (
+                <div className="chat-footer">
+                  <input
+                      type="text"
+                      placeholder="Type a message..."
+                      className="message-input"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={handleKeyPress}
+                  />
+                  <IoMdSend
+                      size={30}
+                      className="sendBtn"
+                      color="green"
+                      onClick={handleSendMessage}
+                  />
                 </div>
-              </React.Fragment>
-            ))}
-          </div>
-        )}
+            ) : (
+                <Box
+                    sx={{
+                      fontWeight: "bold",
+                      p: 3,
+                      backgroundColor: "black",
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                >
+                  This message is handled automatically...
+                </Box>
+            )
+        ) : null}
       </div>
-
-      {selectedContact ? (
-        selectedContact.setting === "manual" ? (
-          <div className="chat-footer">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="message-input"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-            <IoMdSend
-              size={30}
-              className="sendBtn"
-              color="green"
-              onClick={handleSendMessage}
-            />
-          </div>
-        ) : (
-          <Box
-            sx={{
-              fontWeight: "bold",
-              p: 3,
-              backgroundColor: "black",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            This message is handled automatically...
-          </Box>
-        )
-      ) : null}
-    </div>
   );
 };
 

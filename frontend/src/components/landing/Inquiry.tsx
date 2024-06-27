@@ -1,14 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import {
-  AiOutlineUser,
-  AiOutlineMail,
-  AiOutlinePhone,
-  AiOutlineMessage,
-} from "react-icons/ai";
 import { InquiryData, MessageResponse } from "../../types/api";
 import { useInquiryMutation } from "../../redux/api/userAPI";
 import toast from "react-hot-toast";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import classes from '../UI/inquiry/inquiry.module.css'
+import {Ellipse8Icon} from "../UI/feature/Ellipse8Icon.tsx";
+import {Ellipse9Icon} from "../UI/feature/Ellipse9Icon.tsx";
 
 const Inquiry: React.FC = () => {
   const [formData, setFormData] = useState<InquiryData>({
@@ -59,69 +56,77 @@ const Inquiry: React.FC = () => {
   };
 
   return (
-    <div className="inquiry-form">
-      <h2>Demo Inquiry Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <AiOutlineUser className="icon" />
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          {formErrors.name && <span className="error">{formErrors.name}</span>}
-        </div>
-        <div className="form-group">
-          <AiOutlineMail className="icon" />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          {formErrors.email && (
-            <span className="error">{formErrors.email}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <AiOutlinePhone className="icon" />
-          <input
-            type="text"
-            id="phone"
-            name="phoneNumber"
-            placeholder="Phone Number"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            required
-          />
-          {formErrors.phoneNumber && (
-            <span className="error">{formErrors.phoneNumber}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <AiOutlineMessage className="icon" />
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          ></textarea>
-          {formErrors.message && (
-            <span className="error">{formErrors.message}</span>
-          )}
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      <div className={`${classes.root}`}>
+          <div className={classes.rectangle21}></div>
+          <div className={classes.requestDemo}>Request</div>
+          <div className={classes.ellipse8}>
+              <Ellipse8Icon className={classes.icon}/>
+          </div>
+          <div className={classes.ellipse9}>
+              <Ellipse9Icon className={classes.icon}/>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+              <div>
+                  <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className={classes.rectangle10}
+                  />
+                  <div className={classes.Name}>Name</div>
+                  {formErrors.name && <span className="error">{formErrors.name}</span>}
+              </div>
+              <div>
+                  <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className={classes.rectangle102}
+                  />
+                  <div className={classes.emailAddress}>Email</div>
+                  {formErrors.email && (
+                      <span className="error">{formErrors.email}</span>
+                  )}
+              </div>
+              <div>
+                  <input
+                      type="text"
+                      id="phone"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      required
+                      className={classes.rectangle103}
+                  />
+                  <div className={classes.phone}>Phone</div>
+                  {formErrors.phoneNumber && (
+                      <span className="error">{formErrors.phoneNumber}</span>
+                  )}
+              </div>
+              <div>
+            <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                className={classes.rectangle104}
+            ></textarea>
+                  <div className={classes.message}>Message</div>
+                  {formErrors.message && (
+                      <span className="error">{formErrors.message}</span>
+                  )}
+              </div>
+              <button type="submit" className={classes.rectangle12}>Submit</button>
+          </form>
+      </div>
   );
 };
 

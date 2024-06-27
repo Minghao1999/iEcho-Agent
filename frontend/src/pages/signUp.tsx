@@ -5,7 +5,10 @@ import { useSignupMutation } from "../redux/api/userAPI";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { MessageResponse } from "../types/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import SideLogo from "../components/sideLogo";
+import {Ellipse3Icon} from "../components/UI/signUp/Ellipse3Icon.tsx";
+import {Ellipse4Icon} from "../components/UI/signUp/Ellipse4Icon.tsx";
+import {Ellipse5Icon} from "../components/UI/signUp/Ellipse5Icon.tsx";
+import classes from '../components/UI/signUp/signUp.module.css'
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -46,77 +49,92 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="login">
-      <SideLogo />
-
-      <main>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="firstname">First Name</label>
-          <input
-            type="text"
-            name="firstname"
-            placeholder="First Name"
-            value={formData.firstname}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="lastname">Last Name</label>
-          <input
-            type="text"
-            name="lastname"
-            placeholder="Last Name"
-            value={formData.lastname}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="password">Password</label>
-          <div className="password-input">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-            </button>
-          </div>
-
-          <label htmlFor="phone">Phone</label>
-          <input
-            type="phone"
-            name="phone"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-
-          <button type="submit">Sign Up</button>
-        </form>
-        <div className="forgot-account">
-          <p>
-            Already have an account?{" "}
-            <Link to={"/login"}>
-              <button className="button">Login Here</button>
-            </Link>
-          </p>
+      <div className={classes.root}>
+        <div className={classes.ellipse5}>
+          <Ellipse5Icon className={classes.icon}/>
         </div>
-      </main>
-    </div>
+        <div className={classes.ellipse4}>
+          <Ellipse4Icon className={classes.icon2}/>
+        </div>
+        <div className={classes.ellipse3}>
+          <Ellipse3Icon className={classes.icon3}/>
+        </div>
+        <div className={classes.rectangle8}></div>
+        <div className={classes.rectangle9}></div>
+        <div className={classes.image2}></div>
+        <div className={classes.signUp1}>Sign Up</div>
+        <div className={classes.frame3}>
+        <main>
+          <form onSubmit={handleSubmit}>
+            <div className={classes.group6}>
+              <div className={classes.firstname}>FirstName</div>
+              <input
+                  type="text"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  className={classes.rectangle10}
+              />
+            </div>
+            <div className={classes.group5}>
+              <div className={classes.lastname}>LastName</div>
+              <input
+                  type="text"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  className={classes.rectangle102}
+              />
+            </div>
+            <div className={classes.group1}>
+              <div className={classes.password}>Password</div>
+              <div className="password-input">
+                <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={classes.rectangle103}
+                />
+                <button
+                    type="button"
+                    className={classes.togglePassword}
+                    onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
+                </button>
+              </div>
+            </div>
+
+              <div className={classes.phone}>Phone</div>
+              <input
+                  type="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={classes.rectangle104}
+              />
+            <div className={classes.email}>Email</div>
+            <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={classes.rectangle105}
+            />
+
+            <div>
+              <button type="submit" className={classes.rectangle12}>Sign Up</button>
+            </div>
+          </form>
+          <div className="forgot-account">
+            <Link to={"/login"} className={classes.cancel}>
+            Already have an account
+              </Link>
+          </div>
+        </main>
+        </div>
+      </div>
   );
 };
 

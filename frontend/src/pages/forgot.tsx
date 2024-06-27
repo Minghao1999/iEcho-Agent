@@ -7,8 +7,10 @@ import { useForgotMutation } from "../redux/api/userAPI";
 import { setUser } from "../redux/reducer/userReducer";
 import { RootState } from "../redux/store";
 import { LoginResponse, MessageResponse } from "../types/api";
-
-import SideLogo from "../components/sideLogo";
+import {Ellipse3Icon} from "../components/UI/forgetPassword/Ellipse3Icon.tsx";
+import {Ellipse4Icon} from "../components/UI/forgetPassword/Ellipse4Icon.tsx";
+import {Ellipse5Icon} from "../components/UI/forgetPassword/Ellipse5Icon.tsx";
+import classes from '../components/UI/forgetPassword/forget.module.css'
 
 
 const Login: React.FC = () => {
@@ -43,30 +45,37 @@ const Login: React.FC = () => {
   };
 
   return (
-      <div className="login">
-        <SideLogo />
+      <div className={classes.root}>
         <main>
+          <div className={classes.ellipse5}>
+            <Ellipse5Icon className={classes.icon}/>
+          </div>
+          <div className={classes.ellipse4}>
+            <Ellipse4Icon className={classes.icon2}/>
+          </div>
+          <div className={classes.ellipse3}>
+            <Ellipse3Icon className={classes.icon3}/>
+          </div>
+          <div className={classes.rectangle8}></div>
+          <div className={classes.rectangle9}></div>
+          <div className={classes.image2}></div>
+          <div className={classes.signIn}>Find your account</div>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email</label>
             <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={classes.rectangle10}
             />
-
-
-            <br />
-            <button type="submit">Submit</button>
+            <div className={classes.username}>Email</div>
+            <br/>
+            <button type="submit" className={classes.rectangle11}>Search</button>
           </form>
-          <div className="forgot-account">
-          <p>
-            Login ? 
+          <div>
             <Link to={"/login"}>
-              <button className="button"> Click Here</button>
-            </Link>
-          </p>
-        </div>
+                <button className={classes.rectangle12}>Cancel</button>
+              </Link>
+          </div>
         </main>
 
       </div>

@@ -8,11 +8,11 @@ const About: React.FC = () => {
     <div className="home-page">
       <NavBar />
 
-      <section className="hero-section">
+      <section >
         <AboutUs />
       </section>
 
-      <footer className="footer-section">
+      <footer >
         <Footer />
       </footer>
     </div>

@@ -1,0 +1,528 @@
+.root {
+    position: relative;
+    width: 200%;
+    height: 98vh;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1e1e1e;
+    overflow: hidden;
+}
+
+.ellipse5 {
+    position: absolute;
+    left: -194px;
+    top: 696px;
+    width: 422px;
+    height: 432px;
+    overflow: visible;
+    filter: blur(100px);
+}
+.icon {
+    width: 100%;
+    height: 100%;
+}
+.ellipse4 {
+    position: absolute;
+    left: 774px;
+    top: 506px;
+    width: 382px;
+    height: 382px;
+    overflow: visible;
+    filter: blur(125px);
+}
+.icon2 {
+    width: 100%;
+    height: 100%;
+}
+.ellipse3 {
+    position: absolute;
+    left: 1052px;
+    top: 353px;
+    width: 424px;
+    height: 424px;
+    overflow: visible;
+    filter: blur(150px);
+}
+.icon3 {
+    width: 100%;
+    height: 100%;
+}
+.rectangle8 {
+    position: absolute;
+    left: 249px;
+    top: 105px;
+    width: 976px;
+    height: 609px;
+    border-radius: 15px;
+    background-color: #1f20219c;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+.rectangle9 {
+    position: absolute;
+    left: 252px;
+    top: 105px;
+    width: 454px;
+    height: 609px;
+    border-radius: 15px;
+    background-color: #040405;
+    -webkit-mask-image:/* webpackIgnore: true */ url('assets/maskGroup.svg');
+    mask-image:/* webpackIgnore: true */ url('assets/maskGroup.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 0px 0px;
+    mask-position: 0px 0px;
+    -webkit-mask-size: 454px 609px;
+    mask-size: 454px 609px;
+}
+.image2 {
+    transform-origin: top left;
+    position: absolute;
+    left: 230px;
+    top: 140px;
+    width: 505.9146px;
+    height: 521.4014px;
+    background-image:/* webpackIgnore: true */ url('assets/logo.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+
+}
+
+
+.signUp1{
+    color: #fff;
+    font-size: 80px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 785px;
+    top: 150px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.rectangle10 {
+    position: relative;
+    left: 790px;
+    top: 300px;
+    width: 349px;
+    height: 50px;
+    outline: solid 1px #fff;
+    outline-offset: -1px;
+    border-radius: 5px;
+    background-color: #fff0;
+    color: #fff;
+    padding-left: 12px;
+    padding-top: 10px;
+    font-size: 12px;
+    transition: outline-color 0.7s ease
+}
+.rectangle10:focus{
+    outline-color:deepskyblue;
+}
+.rectangle102 {
+    position: absolute;
+    left: 790px;
+    top: 380px;
+    width: 349px;
+    height: 50px;
+    outline: solid 1px #fff;
+    outline-offset: -1px;
+    border-radius: 5px;
+    background-color: #fff0;
+    color: #fff;
+    padding-left: 12px;
+    padding-top: 10px;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    transition: outline-color 0.7s ease
+}
+.rectangle102:focus{
+    outline-color: deepskyblue;
+}
+.rectangle103 {
+    position: relative;
+    left: 790px;
+    top: 370px;
+    width: 349px;
+    height: 50px;
+    outline: solid 1px #fff;
+    outline-offset: -1px;
+    border-radius: 5px;
+    background-color: #fff0;
+    color: #fff;
+    padding-left: 12px;
+    padding-top: 10px;
+    font-size: 12px;
+    transition: outline-color 0.7s ease
+}
+.rectangle103:focus{
+    outline-color:deepskyblue;
+}
+
+.rectangle104 {
+    position: relative;
+    left: 790px;
+    top: 370px;
+    width: 349px;
+    height: 50px;
+    outline: solid 1px #fff;
+    outline-offset: -1px;
+    border-radius: 5px;
+    background-color: #fff0;
+    color: #fff;
+    padding-left: 12px;
+    padding-top: 10px;
+    font-size: 12px;
+    transition: outline-color 0.7s ease
+}
+.rectangle104:focus{
+    outline-color:deepskyblue;
+}
+.rectangle105 {
+    position: relative;
+    left: 790px;
+    top: 370px;
+    width: 349px;
+    height: 50px;
+    outline: solid 1px #fff;
+    outline-offset: -1px;
+    border-radius: 5px;
+    background-color: #fff0;
+    color: #fff;
+    padding-left: 12px;
+    padding-top: 10px;
+    font-size: 12px;
+    transition: outline-color 0.7s ease
+}
+.rectangle105:focus{
+    outline-color:deepskyblue;
+}
+.firstname {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 805px;
+    top: 305px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+
+.forgetPassword {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    text-decoration: underline;
+    position: absolute;
+    left: 1048px;
+    top: 480px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.cancel {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    text-decoration: underline;
+    position: absolute;
+    left: 984px;
+    top: 480px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+
+.rectangle12 {
+    border: none;
+    position: absolute;
+    left: 790px;
+    top: 550px;
+    width: 349px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #09a4e3;
+    color: #fff;
+    font-size: 30px;
+}
+
+.lastname {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 805px;
+    top: 385px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.password {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 805px;
+    top: 385px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.phone {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 805px;
+    top: 385px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.email {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 805px;
+    top: 385px;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
+    flex-direction: column;
+}
+.togglePassword {
+    position: absolute;
+    left: 1105px;
+    top: 395px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1800px) {
+    .rectangle8{
+        width: 35%;
+        height: 70vh;
+        top: 20vh;
+        left: 8%;
+    }
+    .rectangle9 {
+        width: 15%;
+        height: 70vh;
+        top: 20vh;
+        left: 8%;
+    }
+    .image2{
+        width: 10%;
+        height: 20%;
+        top: 45vh;
+        left: 10%;
+        background-size: cover;
+    }
+    .signUp1 {
+        font-size: 6vw;
+        top: 18vh;
+        left: 25%;
+    }
+    .rectangle10{
+        top: 35vh;
+        left: 25%;
+        width: 8%;
+        height: 50px;
+    }
+    .rectangle102{
+        top: 35vh;
+        left: 34%;
+        width: 8%;
+        height: 50px;
+    }
+    .rectangle103{
+        top: 37vh;
+        left: 25%;
+        width: 17%;
+        height: 50px;
+    }
+    .rectangle104{
+        top: 40vh;
+        left: 25%;
+        width: 17%;
+        height: 50px;
+    }
+    .rectangle105{
+        top: 50vh;
+        left: 8%;
+        width: 17%;
+        height: 50px;
+    }
+    .rectangle12{
+        font-size: 2vw;
+        top: 74vh;
+        left: 25%;
+        width: 17%;
+        height: 50px;
+    }
+    .firstname{
+        font-size: 1vw;
+        top: 35.5vh;
+        left: 25.5%;
+    }
+    .lastname{
+        font-size: 1vw;
+        top: 35.5vh;
+        left: 34.5%;
+    }
+    .password{
+        font-size: 1vw;
+        top: 44vh;
+        left: 25.5%;
+    }
+    .phone{
+        font-size: 1vw;
+        top: 53.5vh;
+        left: 25.5%;
+    }
+    .email{
+        font-size: 1vw;
+        top: 63.5vh;
+        left: 25.5%;
+    }
+    .cancel{
+        top: 83vh;
+        left: 30.5%;
+    }
+    .forgetPassword{
+        top: 60vh;
+        left: 35%;
+    }
+    .togglePassword{
+        top: 45.5vh;
+        left: 40.5%;
+    }
+}
+
+@media (max-width: 880px) {
+    .rectangle8{
+        width: 500px;
+        height: 550px;
+        top: 150px;
+        left: 110px;
+    }
+    .rectangle9 {
+        width: 0;
+        height: 0;
+    }
+    .image2{
+        width: 55px;
+        height: 55px;
+        top: 155px;
+        left: 110px;
+        background-size: cover;
+    }
+    .signUp1 {
+        font-size: 60px;
+        top: 140px;
+        left: 250px;
+    }
+    .rectangle10{
+        top: 240px;
+        left: 170px;
+        width: 180px;
+        height: 50px;
+    }
+    .rectangle102{
+        top: 240px;
+        left: 380px;
+        width: 180px;
+        height: 50px;
+    }
+    .rectangle103{
+        top: 270px;
+        left: 170px;
+        width: 390px;
+        height: 50px;
+    }
+    .rectangle104{
+        top: 300px;
+        left: 170px;
+        width: 390px;
+        height: 50px;
+    }
+    .rectangle105{
+        top: 380px;
+        left: -220px;
+        width: 390px;
+        height: 50px;
+    }
+    .rectangle12{
+        font-size: 20px;
+        top: 550px;
+        left: 200px;
+        width: 300px;
+        height: 50px;
+    }
+    .firstname{
+        font-size: 12px;
+        top: 240px;
+        left: 180px;
+    }
+    .lastname{
+        font-size: 12px;
+        top: 240px;
+        left: 390px;
+    }
+    .password{
+        font-size: 12px;
+        top: 320px;
+        left: 180px;
+    }
+    .phone{
+        font-size: 12px;
+        top: 400px;
+        left: 180px;
+    }
+    .email{
+        font-size: 12px;
+        top: 480px;
+        left: 180px;
+    }
+    .signUp{
+        top: 470px;
+        left: 390px;
+    }
+    .forgetPassword{
+        top: 470px;
+        left: 450px;
+    }
+    .cancel{
+        top: 83vh;
+        left: 290px;
+    }
+    .togglePassword{
+        top: 335px;
+        left: 520px;
+    }
+}
+

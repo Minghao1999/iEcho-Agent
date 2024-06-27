@@ -3,7 +3,6 @@ import Contact from "../models/Contact.js";
 import Message from "../models/Message.js";
 import Schedule from "../models/Schedule.js";
 import { bot } from "../whatsCloud.js";
-
 export const newMessage = async (request, response) => {
   const { phonenumber, name, sender, text, type, setting } = request.body;
 
@@ -44,7 +43,7 @@ export const newMessage = async (request, response) => {
   } catch (error) {
     response.status(500).json({
       success: false,
-      message: error.message,
+      message:error.message,
     });
   }
 };

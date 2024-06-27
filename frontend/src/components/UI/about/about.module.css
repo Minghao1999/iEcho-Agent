@@ -1,0 +1,167 @@
+
+.root {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1e1e1e;
+    overflow: hidden;
+}
+
+.rectangle7 {
+    width: 100%;
+    height: 70px;
+    background-image: linear-gradient(107.9deg, #040405ff 0%, #1e1e1eff 100%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2%;
+}
+
+.image1 {
+    width: 80px;
+    height: 70px;
+    background-image: url('assets/icons/logo.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.frame1 {
+    display: flex;
+    gap: 20px;
+}
+
+.home, .about, .demo, .login {
+    color: #fff;
+    font-size: 2rem;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    white-space: nowrap;
+}
+
+.ellipse2, .ellipse5, .ellipse4, .ellipse3, .ellipse1 {
+    position: absolute;
+    overflow: visible;
+    filter: blur(100px);
+}
+
+.ellipse2 {
+    left: -2%;
+    top: 50%;
+    width: 28%;
+    height: auto;
+}
+
+.ellipse5 {
+    left: -10%;
+    top: 60%;
+    width: 20%;
+    height: auto;
+}
+
+.ellipse4 {
+    left: 85%;
+    top: 70%;
+    width: 22%;
+    height: auto;
+}
+
+.ellipse3 {
+    left: 78%;
+    top: 30%;
+    width: 31%;
+    height: auto;
+}
+
+.ellipse1 {
+    left: -6%;
+    top: 70%;
+    width: 15%;
+    height: auto;
+}
+
+.welcomeToKOL {
+    color: #fff;
+    font-size: 5rem;
+    font-weight: bold;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 5%;
+    top: 100px;
+    white-space: nowrap;
+}
+
+.loremIpsumDolorSitAmetConsecte {
+    color: #fff;
+    font-size: 1.25rem;
+    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+    position: absolute;
+    left: 5%;
+    top: 300px;
+    width: 40%;
+    height: auto;
+}
+
+.rectangle6 {
+    position: absolute;
+    left: 60%;
+    top: 200px;
+    width: 30%;
+    height: 300px;
+    border-radius: 10px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: fadeIn 1s ease-out;
+}
+
+.videoDemo {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 1100px) {
+    .welcomeToKOL{
+        font-size: 3rem;
+        top: 50px;
+        left: 30%;
+    }
+    .loremIpsumDolorSitAmetConsecte{
+        font-size: 1rem;
+        top: 220px;
+    }
+    .rectangle6{
+        width: 30%;
+        height: 300px;
+    }
+    .frame1 {
+        gap: 10px;
+    }
+
+    .home, .about, .demo, .login {
+        font-size: 1.5rem;
+    }
+}
+
+

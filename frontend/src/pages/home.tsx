@@ -11,22 +11,22 @@ const HomePage: React.FC = () => {
       <NavBar />
 
       {/* Hero Section */}
-      <section className="hero-section">
+      <section>
         <Hero />
       </section>
 
       {/* Features Section */}
-      <section className="features-section">
+      <section>
         <Feature />
       </section>
 
       {/* Demo Form Section */}
-      <section className="demo-form-section">
+      <section>
         <Inquiry />
       </section>
 
       {/* Footer Section */}
-      <footer className="footer-section">
+      <footer>
         <Footer />
       </footer>
     </div>

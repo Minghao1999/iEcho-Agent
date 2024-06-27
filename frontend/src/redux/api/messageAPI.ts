@@ -26,7 +26,7 @@ export const messageAPI = createApi({
         method: "POST",
         body: message,
       }),
-      
+
     }),
     sendSchedule: builder.mutation<MessageResponse, Partial<SendSheduleRequest>>({
       query: (message) => ({
@@ -34,11 +34,10 @@ export const messageAPI = createApi({
         method: "POST",
         body: message,
       }),
-      
+
     }),
   }),
 });
 
 export const { useGetMessageQuery, useSendMessageMutation,useSendScheduleMutation } = messageAPI;
-
 
