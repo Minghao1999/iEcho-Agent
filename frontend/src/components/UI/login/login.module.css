@@ -1,111 +1,98 @@
 .root {
-    position: relative;
-    width: 200%;
-    height: 98vh;
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
     background-color: #1e1e1e;
     overflow: hidden;
+    position: relative;
+    flex-direction: column;
+}
+
+.ellipse5, .ellipse4, .ellipse3 {
+    position: absolute;
+    overflow: visible;
 }
 
 .ellipse5 {
-    position: absolute;
     left: -194px;
     top: 696px;
     width: 422px;
     height: 432px;
-    overflow: visible;
     filter: blur(100px);
 }
-.icon {
-    width: 100%;
-    height: 100%;
-}
+
 .ellipse4 {
-    position: absolute;
     left: 774px;
     top: 506px;
     width: 382px;
     height: 382px;
-    overflow: visible;
     filter: blur(125px);
 }
-.icon2 {
-    width: 100%;
-    height: 100%;
-}
+
 .ellipse3 {
-    position: absolute;
     left: 1052px;
     top: 353px;
     width: 424px;
     height: 424px;
-    overflow: visible;
     filter: blur(150px);
 }
-.icon3 {
+
+.icon, .icon2, .icon3 {
     width: 100%;
     height: 100%;
 }
-.rectangle8 {
+
+.rectangle8, .rectangle9 {
     position: absolute;
-    left: 249px;
-    top: 105px;
+    border-radius: 15px;
+}
+
+.rectangle8 {
     width: 976px;
     height: 609px;
-    border-radius: 15px;
     background-color: #1f20219c;
     box-shadow: 0px 4px 4px 0px #00000040;
 }
+
 .rectangle9 {
-    position: absolute;
-    left: 252px;
-    top: 105px;
     width: 454px;
     height: 609px;
-    border-radius: 15px;
     background-color: #040405;
-    -webkit-mask-image:/* webpackIgnore: true */ url('assets/maskGroup.svg');
-    mask-image:/* webpackIgnore: true */ url('assets/maskGroup.svg');
-    -webkit-mask-repeat: no-repeat;
+    mask-image: url('assets/maskGroup.svg');
     mask-repeat: no-repeat;
-    -webkit-mask-position: 0px 0px;
     mask-position: 0px 0px;
-    -webkit-mask-size: 454px 609px;
     mask-size: 454px 609px;
 }
+
 .image2 {
-    transform-origin: top left;
     position: absolute;
-    left: 230px;
-    top: 140px;
-    width: 505.9146px;
-    height: 521.4014px;
-    background-image:/* webpackIgnore: true */ url('assets/logo.svg');
+    width: 400px;
+    height: 400px;
+    background-image: url('assets/logo.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: auto;
-
+    border-radius: 10px;
+    top: 85px;
+    left: 25px;
 }
-
 
 .signIn {
     color: #fff;
     font-size: 80px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
+    font-family: DM Sans, sans-serif;
     position: absolute;
-    left: 785px;
-    top: 150px;
     width: min-content;
     height: min-content;
     white-space: nowrap;
-    flex-direction: column;
+    top: 0px;
+    left: 500px;
 }
-.rectangle10 {
+
+.rectangle10, .rectangle102 {
     position: relative;
-    left: 790px;
-    top: 300px;
     width: 349px;
     height: 50px;
     outline: solid 1px #fff;
@@ -116,107 +103,72 @@
     padding-left: 12px;
     padding-top: 10px;
     font-size: 12px;
-    transition: outline-color 0.7s ease
+    transition: outline-color 0.7s ease;
+    margin-top: 20px;
 }
-.rectangle10:focus{
-    outline-color:deepskyblue;
-}
-.rectangle102 {
-    position: absolute;
-    left: 790px;
-    top: 380px;
-    width: 349px;
-    height: 50px;
-    outline: solid 1px #fff;
-    outline-offset: -1px;
-    border-radius: 5px;
-    background-color: #fff0;
-    color: #fff;
-    padding-left: 12px;
-    padding-top: 10px;
-    font-size: 12px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
-    transition: outline-color 0.7s ease
-}
-.rectangle102:focus{
+
+.rectangle10:focus, .rectangle102:focus {
     outline-color: deepskyblue;
 }
-.username {
+
+.username, .password {
     color: #fff;
     font-size: 12px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
+    font-family: DM Sans, sans-serif;
     position: absolute;
-    left: 805px;
-    top: 305px;
     width: min-content;
     height: min-content;
     white-space: nowrap;
-    flex-direction: column;
+}
+
+.username {
+    top: 180px;
+    left: 10px;
+}
+
+.password {
+    top: 300px;
+    left: 10px;
+}
+
+.forgetPassword, .signUp {
+    color: #fff;
+    font-size: 12px;
+    font-family: DM Sans, sans-serif;
+    text-decoration: underline;
+    position: absolute;
+    width: min-content;
+    height: min-content;
+    white-space: nowrap;
 }
 
 .forgetPassword {
-    color: #fff;
-    font-size: 12px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
-    text-decoration: underline;
-    position: absolute;
-    left: 1048px;
-    top: 480px;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    top: 380px;
+    left: 340px;
 }
+
 .signUp {
-    color: #fff;
-    font-size: 12px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
-    text-decoration: underline;
-    position: absolute;
-    left: 984px;
-    top: 480px;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
+    top: 380px;
+    left: 270px;
 }
 
 .rectangle12 {
     border: none;
     position: absolute;
-    left: 790px;
-    top: 550px;
     width: 349px;
     height: 50px;
     border-radius: 30px;
     background-color: #09a4e3;
     color: #fff;
     font-size: 30px;
+    cursor: pointer;
+    top: 450px;
 }
-
-.password {
-    color: #fff;
-    font-size: 12px;
-    font-family: DM Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    'Liberation Sans', sans-serif;
-    position: absolute;
-    left: 805px;
-    top: 385px;
-    width: min-content;
-    height: min-content;
-    white-space: nowrap;
-    flex-direction: column;
-}
-
 
 .togglePassword {
     position: absolute;
-    left: 1105px;
-    top: 395px;
+    left: 305px;
+    top: 310px;
     background: none;
     border: none;
     cursor: pointer;
@@ -227,137 +179,62 @@
     justify-content: center;
 }
 
-@media (max-width: 1800px) {
-    .rectangle8{
-        width: 35%;
-        height: 70vh;
-        top: 20vh;
-        left: 8%;
+@media (max-width: 840px) {
+    .rectangle8 {
+        width: 340px;
+        height: 700px;
+        margin: 1px 0px;
     }
     .rectangle9 {
-        width: 15%;
-        height: 70vh;
-        top: 20vh;
-        left: 8%;
+        width: 100px;
+        height: 100px;
+        margin: 1px 0px;
     }
-    .image2{
-        width: 10%;
-        height: 20%;
-        top: 45vh;
-        left: 10%;
+    .image2 {
+        width: 100px;
+        height: 100px;
+        top: 0px;
+        left: 0px;
         background-size: cover;
     }
     .signIn {
-        font-size: 6vw;
-        top: 20vh;
-        left: 25%;
+        font-size: 70px;
+        top: 0px;
+        left: 120px;
     }
-    .rectangle10{
-        top: 40vh;
-        left: 25%;
-        width: 13%;
+    .rectangle10, .rectangle102 {
+        top: 60px;
+        left: -100px;
+        width: 300px;
         height: 50px;
     }
-    .rectangle102{
-        top: 50vh;
-        left: 25%;
-        width: 13%;
+    .rectangle12 {
+        font-size: 20px;
+        top: 550px;
+        left: -100px;
+        width: 300px;
         height: 50px;
     }
-    .rectangle12{
-        font-size: 2vw;
-        top: 70vh;
-        left: 25%;
-        width: 13%;
-        height: 50px;
+    .username {
+        font-size: 12px;
+        top: 215px;
+        left: -85px;
     }
-    .username{
-        font-size: 1vw;
-        top: 40.5vh;
-        left: 25.5%;
+    .password {
+        font-size: 12px;
+        top: 320px;
+        left: -85px;
     }
-    .password{
-        font-size: 1vw;
-        top: 50.5vh;
-        left: 25.5%;
+    .signUp {
+        top: 420px;
+        left: 30px;
     }
-    .signUp{
-        top: 60vh;
-        left: 32%;
+    .forgetPassword {
+        top: 420px;
+        left: 110px;
     }
-    .forgetPassword{
-        top: 60vh;
-        left: 35%;
-    }
-    .togglePassword{
-        top: 52vh;
-        left: 37%;
+    .togglePassword {
+        top: 326px;
+        left: 160px;
     }
 }
-
-@media (max-width: 880px) {
-    .rectangle8{
-        width: 500px;
-        height: 550px;
-        top: 150px;
-        left: 110px;
-        }
-    .rectangle9 {
-        width: 0;
-        height: 0;
-        }
-    .image2{
-        width: 55px;
-        height: 55px;
-        top: 155px;
-        left: 110px;
-        background-size: cover;
-    }
-        .signIn {
-            font-size: 96px;
-            top: 150px;
-            left: 200px;
-        }
-        .rectangle10{
-            top: 300px;
-            left: 200px;
-            width: 300px;
-            height: 50px;
-        }
-        .rectangle102{
-            top: 380px;
-            left: 200px;
-            width: 300px;
-            height: 50px;
-        }
-        .rectangle12{
-            font-size: 20px;
-            top: 550px;
-            left: 200px;
-            width: 300px;
-            height: 50px;
-        }
-        .username{
-            font-size: 12px;
-            top: 305px;
-            left: 210px;
-        }
-        .password{
-            font-size: 12px;
-            top: 385px;
-            left: 210px;
-        }
-        .signUp{
-            top: 470px;
-            left: 390px;
-        }
-        .forgetPassword{
-            top: 470px;
-            left: 450px;
-        }
-        .togglePassword{
-            top: 394px;
-            left: 470px;
-        }
-}
-

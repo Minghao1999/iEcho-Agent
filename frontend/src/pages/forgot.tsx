@@ -56,9 +56,10 @@ const Login: React.FC = () => {
           <div className={classes.ellipse3}>
             <Ellipse3Icon className={classes.icon3}/>
           </div>
-          <div className={classes.rectangle8}></div>
-          <div className={classes.rectangle9}></div>
+          <div className={classes.rectangle8}>
+          <div className={classes.rectangle9}>
           <div className={classes.image2}></div>
+          </div>
           <div className={classes.signIn}>Find your account</div>
           <form onSubmit={handleSubmit}>
             <input
@@ -69,12 +70,11 @@ const Login: React.FC = () => {
             />
             <div className={classes.username}>Email</div>
             <br/>
-            <button type="submit" className={classes.rectangle11}>Search</button>
+            <button type="submit" className={classes.rectangle11}>Submit</button>
           </form>
           <div>
-            <Link to={"/login"}>
-                <button className={classes.rectangle12}>Cancel</button>
-              </Link>
+            <Link to={"/login"} className={classes.cancel}>Cancel</Link>
+          </div>
           </div>
         </main>
 

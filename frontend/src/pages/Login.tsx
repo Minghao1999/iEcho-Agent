@@ -1,7 +1,6 @@
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import Eye icons
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -59,13 +58,13 @@ const Login: React.FC = () => {
         <div className={classes.ellipse3}>
           <Ellipse3Icon className={classes.icon3}/>
         </div>
-        <div className={classes.rectangle8}></div>
-        <div className={classes.rectangle9}></div>
+        <div className={classes.rectangle8}>
+        <div className={classes.rectangle9}>
         <div className={classes.image2}></div>
-        <div className={classes.signIn}>Sign In</div>
+        </div>
+        <div className={classes.signIn}>Sign In
         <main>
           <form onSubmit={handleSubmit}>
-            {/*<label htmlFor="phone">Phone</label>*/}
             <div>
               <input
                   type="phone"
@@ -76,7 +75,6 @@ const Login: React.FC = () => {
               <div className={classes.username}>Phone</div>
             </div>
 
-            {/*<label htmlFor="password">Password</label>*/}
             <div>
               <input
                   type={showPassword ? "text" : "password"}
@@ -98,7 +96,7 @@ const Login: React.FC = () => {
             <button type="submit" className={classes.rectangle12}>Login</button>
             </div>
             </form>
-          <div className="forgot-account">
+          <div>
             <p>
               <Link to={"/signup"} className={classes.signUp}> Sign Up
               </Link>
@@ -110,6 +108,8 @@ const Login: React.FC = () => {
           </div>
         </main>
       </div>
+        </div>
+        </div>
   );
 };
 

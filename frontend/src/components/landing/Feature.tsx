@@ -27,7 +27,7 @@ const Feature = () => {
           <div className={classes.ellipse5}>
               <Ellipse5Icon className={classes.icon7}/>
           </div>
-          <div className={classes.rectangle18}></div>
+          <div className={classes.rectangle18}>
           <div className={classes.automatedAssistance}>Automated Assistance</div>
           <div className={classes.loremIpsumDolorSitAmetConsecte2}>
               Provides instant support for common queries and tasks, reducing the need for manual intervention and improving response times using OpenAI.
@@ -35,7 +35,8 @@ const Feature = () => {
               <li>Offers personalized responses based on user interactions.</li>
               <li>Integrates with knowledge bases to provide accurate information.</li>
           </div>
-          <div className={classes.rectangle19}></div>
+          </div>
+          <div className={classes.rectangle19}>
           <div className={classes.whatSAppIntegration}>What’s App Integration</div>
           <div className={classes.loremIpsumDolorSitAmetConsecte3}>
               Expands the reach of the chatbot by leveraging the widespread use of WhatsApp as a communication platform.
@@ -43,7 +44,8 @@ const Feature = () => {
               <li>Supports multimedia messages, including images, videos, and documents.</li>
               <li>Allows for automated responses to be sent directly via WhatsApp.</li>
           </div>
-          <div className={classes.rectangle20}></div>
+          </div>
+          <div className={classes.rectangle20}>
           <div className={classes.realTimeCommunication}>
               Real-time Communication
           </div>
@@ -52,6 +54,7 @@ const Feature = () => {
               <li>Utilizes WebSocket technology for instant message delivery.</li>
               <li>Enables live chat sessions for interactive support.</li>
               <li>Integrates with user authentication systems for personalized experiences.</li>
+          </div>
           </div>
       </div>
   );

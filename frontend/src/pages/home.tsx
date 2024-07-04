@@ -8,7 +8,7 @@ import Footer from "../components/landing/Footer";
 const HomePage: React.FC = () => {
   return (
     <div className="home-page">
-      <NavBar />
+      <NavBar/>
 
       {/* Hero Section */}
       <section>

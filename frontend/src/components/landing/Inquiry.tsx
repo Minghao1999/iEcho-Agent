@@ -57,7 +57,7 @@ const Inquiry: React.FC = () => {
 
   return (
       <div className={`${classes.root}`}>
-          <div className={classes.rectangle21}></div>
+          <div className={classes.rectangle21}>
           <div className={classes.requestDemo}>Request</div>
           <div className={classes.ellipse8}>
               <Ellipse8Icon className={classes.icon}/>
@@ -66,66 +66,71 @@ const Inquiry: React.FC = () => {
               <Ellipse9Icon className={classes.icon}/>
           </div>
 
-          <form onSubmit={handleSubmit}>
-              <div>
-                  <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className={classes.rectangle10}
-                  />
+              <form onSubmit={handleSubmit}>
                   <div className={classes.Name}>Name</div>
-                  {formErrors.name && <span className="error">{formErrors.name}</span>}
-              </div>
-              <div>
-                  <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className={classes.rectangle102}
-                  />
-                  <div className={classes.emailAddress}>Email</div>
-                  {formErrors.email && (
-                      <span className="error">{formErrors.email}</span>
-                  )}
-              </div>
-              <div>
-                  <input
-                      type="text"
-                      id="phone"
-                      name="phoneNumber"
-                      value={formData.phoneNumber}
-                      onChange={handleChange}
-                      required
-                      className={classes.rectangle103}
-                  />
-                  <div className={classes.phone}>Phone</div>
-                  {formErrors.phoneNumber && (
-                      <span className="error">{formErrors.phoneNumber}</span>
-                  )}
-              </div>
-              <div>
-            <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className={classes.rectangle104}
-            ></textarea>
-                  <div className={classes.message}>Message</div>
-                  {formErrors.message && (
-                      <span className="error">{formErrors.message}</span>
-                  )}
-              </div>
-              <button type="submit" className={classes.rectangle12}>Submit</button>
-          </form>
+                  <div>
+                      <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className={classes.rectangle10}
+                      />
+
+                      {formErrors.name && <span className="error">{formErrors.name}</span>}
+                  </div>
+                  <div>
+                      <div className={classes.emailAddress}>Email</div>
+                      <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className={classes.rectangle102}
+                      />
+
+                      {formErrors.email && (
+                          <span className="error">{formErrors.email}</span>
+                      )}
+                  </div>
+                  <div>
+                      <div className={classes.phone}>Phone</div>
+                      <input
+                          type="text"
+                          id="phone"
+                          name="phoneNumber"
+                          value={formData.phoneNumber}
+                          onChange={handleChange}
+                          required
+                          className={classes.rectangle103}
+                      />
+
+                      {formErrors.phoneNumber && (
+                          <span className="error">{formErrors.phoneNumber}</span>
+                      )}
+                  </div>
+                  <div>
+                      <div className={classes.message}>Message</div>
+                      <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          className={classes.rectangle104}
+                      ></textarea>
+
+                      {formErrors.message && (
+                          <span className="error">{formErrors.message}</span>
+                      )}
+                  </div>
+                  <button type="submit" className={classes.rectangle12}>Submit</button>
+              </form>
+          </div>
       </div>
   );
 };

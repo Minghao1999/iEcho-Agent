@@ -59,9 +59,10 @@ const Signup: React.FC = () => {
         <div className={classes.ellipse3}>
           <Ellipse3Icon className={classes.icon3}/>
         </div>
-        <div className={classes.rectangle8}></div>
-        <div className={classes.rectangle9}></div>
+        <div className={classes.rectangle8}>
+        <div className={classes.rectangle9}>
         <div className={classes.image2}></div>
+        </div>
         <div className={classes.signUp1}>Sign Up</div>
         <div className={classes.frame3}>
         <main>
@@ -122,7 +123,6 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 className={classes.rectangle105}
             />
-
             <div>
               <button type="submit" className={classes.rectangle12}>Sign Up</button>
             </div>
@@ -134,6 +134,7 @@ const Signup: React.FC = () => {
           </div>
         </main>
         </div>
+      </div>
       </div>
   );
 };
