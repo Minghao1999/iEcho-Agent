@@ -1,8 +1,10 @@
 const EmptyChat = () => {
   return (
     <div className="EmptyChat">
-      <h1>KOL AGENT</h1>
-      <img src="/assets/logo.svg" alt="Logo" />
+      <img src="/assets/icons/logo.jpg"
+           alt="Logo"
+            style={{ position: "absolute",width: "15%",height: "15%"}}
+      />
     </div>
   );
 };

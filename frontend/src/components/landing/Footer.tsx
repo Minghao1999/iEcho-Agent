@@ -31,7 +31,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className={classes._2024KOLAllRightsReserved}>
-                @ 2024 KOL. All rights reserved.
+                @ 2024 Echo. All rights reserved.
             </div>
         </footer>
     );

@@ -3,12 +3,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #000; /* WhatsApp header color */
+  background-color: #FFFFFF; /* WhatsApp header color */
   color: #fff; /* Text color */
   height: 12%;
   position: relative;
-  
 }
+
+.profile-container {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center the avatar horizontally */
+  align-items: center;
+}
+
 .profile {
   @include flex(row);
 }

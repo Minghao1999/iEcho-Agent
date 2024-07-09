@@ -1,11 +1,10 @@
 .message-menu {
-  background-color: #f5f5f5;
+  background-color: #FFFFFF;
   border-right: 1px solid #ddd;
-  padding: 2vw; // Responsive padding using viewport width
+  padding:2vw; // Responsive padding using viewport width
   overflow-y: auto; // Ensure the menu itself can scroll if needed
   max-width: 100vh;
   height: 99%;
-
   /* Scrollbar styling */
   @include style-scrollbar();
 
@@ -13,14 +12,21 @@
   input[type="text"] {
     width: 100%;
     padding: 1vw;
-    margin-bottom: 1.2rem;
+    height: 60px;
+    margin-bottom: 2rem;
     border: 1px solid #ddd;
-    border-radius: 2vw;
-    background-color: #f5f5f5;
+    border-radius: 1vw;
+    background-color: #FFFFFF;
     outline: none;
+    font-size: 30px;
 
     &::placeholder {
-      color: #999;
+      color: #00000040;
+      font-size: 2vw;
+      top: 10px;
+    }
+    &:hover {
+      background-color: #eaeaea;
     }
   }
 
@@ -28,20 +34,21 @@
   .conversation-container {
     max-height: 70vh; 
     overflow-y: auto; // Allow vertical scrolling
-    
-
     .conversation {
       display: flex;
       padding: 2vw;
       cursor: pointer;
       border: 1px solid #ddd;
+      border-radius: 1vw;
+      background-color: #FFFFFF;
+      margin-bottom: 1rem;
 
       &:hover {
         background-color: #e5e5e5;
       }
 
       &.selected {
-        background-color: #ddd;
+        background-color: #eaeaea;
       }
 
       .logo{

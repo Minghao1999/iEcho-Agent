@@ -68,15 +68,14 @@
 
 .image2 {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    background-image: url('assets/logo.svg');
+    width: 195px;
+    height: 55px;
+    top: 40%;
+    left: 25%;
+    background-image: url('assets/icons/logo.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: auto;
-    border-radius: 10px;
-    top: 85px;
-    left: 25px;
+    background-size: contain;
 }
 
 .signIn {
@@ -191,11 +190,11 @@
         margin: 1px 0px;
     }
     .image2 {
-        width: 100px;
-        height: 100px;
-        top: 0px;
-        left: 0px;
-        background-size: cover;
+        width: 50px;
+        height: 40px;
+        top: 30px;
+        left: 25px;
+        background-size: contain;
     }
     .signIn {
         font-size: 70px;

@@ -24,21 +24,20 @@ body {
   height: 100vh;
 
   > aside {
-    width: 30%;
     height: 100vh;
   }
 
   > main {
-    width: 70%;
+    width: 100%;
     height: 100vh;
     @include flex(column);
   }
 
   // Media query for smaller screens (e.g., mobile)
-  @media (max-width: $smallerScreen) {
-    flex-direction: column;
+  @media (max-width: 840px) {
+    flex-direction: row;
 
-    > aside,
+    > aside
     > main {
       width: 100%;
       height: auto;

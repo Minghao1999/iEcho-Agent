@@ -40,7 +40,13 @@ const MessageMenu: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addContacts(data.data));
+      const uniqueContacts = data.data.filter(
+          (contact:Contact) =>
+              !contacts.some(
+                  (existingContact) => existingContact.phonenumber === contact.phonenumber
+              )
+      )
+      dispatch(addContacts(uniqueContacts));
     }
   }, [data]);
 
@@ -48,7 +54,7 @@ const MessageMenu: React.FC = () => {
     <div className="message-menu">
       <input
         type="text"
-        placeholder="Search Conversations..."
+        placeholder="Search Conversation"
         value={searchTerm}
         onChange={handleSearchChange}
       />

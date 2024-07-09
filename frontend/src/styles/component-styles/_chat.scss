@@ -13,7 +13,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 10px;
-  border: 1px solid green;
 
   .message-body {
     display: flex;
@@ -21,46 +20,54 @@
 
     .date-divider {
       text-align: center;
-      margin: 10px 0;
-      font-size: 12px;
-      color: #ffffff;
-      background-color: black;
-      border: 1px solid red;
-      border-radius: 20px;
-      padding: 1%;
+      margin: 30px 0;
+      font-size: 20px;
+      color: #20789d;
     }
-    
 
     .message {
+      font-size: 20px;
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid red;
+      padding: 20px;
       max-width: 70%; /* Adjust as needed */
-    }
+      position: relative;
 
-    .sent {
-      align-self: flex-end;
+      .message-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
 
-      background-color: #dcf8c6;
-    }
+        .message-box {
+          width: 100%;
+          height: 100%;
+        }
+      }
 
-    .received {
-      align-self: flex-start;
+      &.sent {
+        align-self: flex-end;
+        background-color: transparent;
+      }
 
-      background-color: #eaeaea;
-    }
+      &.received {
+        align-self: flex-start;
+        background-color: transparent;
+      }
 
-    .message-time {
-      align-self: flex-end;
-      color: #534e4e;
-      margin-top: 5px;
-    }
+      .message-time {
+        align-self: flex-end;
+        color: #534e4e;
+        margin-top: 5px;
+        font-size: 15px;
+      }
 
-    .message-content {
-      color: #000;
+      .message-content {
+        color: #000;
+      }
     }
   }
 }
@@ -70,6 +77,17 @@
   align-items: center;
   padding: 10px;
 }
+.input-container{
+  position: relative;
+  width: 100%;
+}
+.input-icon{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 40px;
+  transform: translateY(-50%);
+}
 
 .message-input {
   flex-grow: 1;
@@ -78,7 +96,15 @@
   border-radius: 20px;
   border: 1px solid #ccc;
   margin-right: 10px;
+  transition: outline-color 0.7s ease;
+  width: 98%;
+  padding-left: 60px;
 }
+
+.message-input:focus{
+  outline-color:#20789d
+}
+
 .sendBtn {
   cursor: pointer;
 }
@@ -99,15 +125,16 @@
   height: 100%;
   width: 100%;
   background-color: #000;
+  border-radius: 10px;
 
-  h1{
+  h1 {
     font-weight: bolder;
     color: azure;
   }
 
   img {
-    max-width:  30%;
+    max-width: 30%;
     height: 'auto';
-    margin: 10%; 
+    margin: 10%;
   }
 }

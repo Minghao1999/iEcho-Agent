@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo.jpg";
 import messaging from "./messaging.svg";
 import mobile_hero from "./mobile_hero.svg";
 import push_notifications from "./push_notifications.svg";

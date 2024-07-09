@@ -15,6 +15,9 @@ import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage, setMessages } from "../redux/reducer/messageReducer";
 import toast from "react-hot-toast";
 import { MarkdownRenderer } from "./mardownFormat";
+import {Rectangle37Icon} from "./UI/chat/chatBoxL.tsx"
+import {Group24Icon} from "./UI/chat/chatBoxR.tsx";
+import {Group26Icon} from "./UI/chat/autoSelectButton.tsx";
 
 const Chat: React.FC = () => {
   const { selectedContact } = useSelector(
@@ -111,11 +114,11 @@ const Chat: React.FC = () => {
 
   return (
       <div className="chat-container">
-        {selectedContact && <ChatHeader />}
+        {selectedContact && <ChatHeader/>}
 
         <div className="chat-messages" ref={autoScroll}>
           {!selectedContact ? (
-              <EmptyChat />
+              <EmptyChat/>
           ) : isLoading ? (
               <SkeletonLoader
                   variantType="text"
@@ -142,8 +145,15 @@ const Chat: React.FC = () => {
                               message.sender === "me" ? "sent" : "received"
                           }`}
                       >
+                        <div className="message-background">
+                          {message.sender === "me" ? (
+                              <Group24Icon className="message-box"/>
+                          ) : (
+                              <Rectangle37Icon className="message-box"/>
+                          )}
+                        </div>
                         <div className="message-content">
-                          <MarkdownRenderer content={message.text} />
+                          <MarkdownRenderer content={message.text}/>
                         </div>
                         <div className="message-time">
                           {new Date(message.timestamp).toLocaleString("en-US", {
@@ -162,33 +172,37 @@ const Chat: React.FC = () => {
         {selectedContact ? (
             selectedContact.setting === "manual" ? (
                 <div className="chat-footer">
+                  <div className="input-container">
+                  <Group26Icon className="input-icon"/>
                   <input
                       type="text"
-                      placeholder="Type a message..."
+                      placeholder="Echo Input"
                       className="message-input"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyPress}
                   />
+                  </div>
                   <IoMdSend
                       size={30}
                       className="sendBtn"
-                      color="green"
+                      color="#20789d"
                       onClick={handleSendMessage}
                   />
                 </div>
+
             ) : (
-                <Box
-                    sx={{
-                      fontWeight: "bold",
-                      p: 3,
-                      backgroundColor: "black",
-                      color: "white",
-                      textAlign: "center",
-                    }}
-                >
-                  This message is handled automatically...
-                </Box>
+                <div className="chat-footer">
+                  <div className="input-container">
+                    <Group26Icon className="input-icon"/>
+                <input
+                    type="text"
+                    placeholder="Echo On"
+                    className="message-input"
+                    readOnly
+                />
+                  </div>
+                </div>
             )
         ) : null}
       </div>
