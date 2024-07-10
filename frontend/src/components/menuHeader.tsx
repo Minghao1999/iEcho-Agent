@@ -1,147 +1,144 @@
+// menuHeader.tsx
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-// import Typography from "@mui/material/Typography";
-import classes from "./UI/chat/chat.module.css"
-import React from "react";
+import classes from "./UI/chat/chat.module.css";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { BiLogOut, BiSolidMessageRoundedEdit } from "react-icons/bi"; // Import logout icon from react-icons/bi
+import { BiLogOut, BiSolidMessageRoundedEdit } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { resetContacts } from "../redux/reducer/contactReducer";
 import { resetUser } from "../redux/reducer/userReducer";
 import { RootState } from "../redux/store";
 import Modal from "@mui/material/Modal";
 import ScheduleForm from "./scheduleChat";
 import { closeModal, openModal } from "../redux/reducer/scheduleReducer";
-// import { BsThreeDotsVertical } from "react-icons/bs";
-
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {logo} from "../../assets/icons";
-const MenuHeader = () => {
-  const navigator = useNavigate();
-  const dispatch = useDispatch();
-  // const KOL_User = useSelector(
-  //   (state: RootState) => state.userReducer.user?.firstname
-  // );
+import { logo } from "../../assets/icons";
 
-  const isModalOpen = useSelector((state: RootState) => state.modal.modalOpen);
+const MenuHeader = ({ setActiveButton }: { setActiveButton: (button: string) => void }) => {
+    const [activeButton, setActiveButtonLocal] = useState<string>("chat");
+    const navigator = useNavigate();
+    const dispatch = useDispatch();
+    const isModalOpen = useSelector((state: RootState) => state.modal.modalOpen);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-    dispatch(resetUser());
-    dispatch(resetContacts([]));
-    localStorage.removeItem("token");
-    const message = "Logout successful";
-    toast.success(message);
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        dispatch(resetUser());
+        dispatch(resetContacts([]));
+        localStorage.removeItem("token");
+        toast.success("Logout successful");
+        navigator("/login");
+    };
 
-    navigator("/login");
-    console.log("navigating to login...", localStorage.getItem("token"));
-  };
+    const handleSchedule = () => {
+        dispatch(openModal());
+    };
 
-  const handleSchedule = () => {
-    dispatch(openModal());
-  };
+    const handleCloseModal = () => {
+        dispatch(closeModal());
+    };
 
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
+    const handleButtonClick = (button: string) => {
+        setActiveButton(button);
+        setActiveButtonLocal(button);
+    };
 
-  return (
-      <div >
-        {/*<Typography*/}
-        {/*  variant="h4"*/}
-        {/*  gutterBottom*/}
-        {/*  component="div"*/}
-        {/*  sx={{*/}
-        {/*    p: 2.5,*/}
-        {/*    pb: 0,*/}
-        {/*    color: "white",*/}
-        {/*    display: "flex",*/}
-        {/*    alignItems: "center",*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Typography*/}
-        {/*    variant="h4"*/}
-        {/*    sx={{ ml: 2, color: "white", marginRight: "1.2rem" }}*/}
-        {/*  >*/}
-        {/*    {KOL_User}*/}
-        {/*  </Typography>*/}
+    const getRectangleStyle = () => {
+        switch (activeButton) {
+            case "user":
+                return { top: "110px" };
+            case "chat":
+                return { top: "230px" };
+            case "myspace":
+                return { top: "360px" };
+            case "share":
+                return { top: "480px" };
+            default:
+                return {};
+        }
+    };
 
-        {/*</Typography>*/}
-        <a href="/">
-          <img className={classes.image1} src={logo} alt=""/>
-        </a>
-        <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            className={classes.settings}
-        >
-        </Button>
-        <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-        >
-          <MenuItem>
-            <Tooltip title="Schedule Message">
-              <IconButton aria-label="logout" onClick={handleSchedule}>
-                <BiSolidMessageRoundedEdit/>
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-          <MenuItem>
-            <Tooltip title="Logout">
-              <IconButton aria-label="logout" onClick={handleLogout}>
-                <BiLogOut/>
-              </IconButton>
-            </Tooltip>
-          </MenuItem>
-        </Menu>
+    return (
+        <div>
+            <a href="/">
+                <img className={classes.image1} src={logo} alt="logo" />
+            </a>
+            <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+                className={classes.settings}
+            ></Button>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{ "aria-labelledby": "basic-button" }}
+            >
+                <MenuItem>
+                    <Tooltip title="Schedule Message">
+                        <IconButton aria-label="schedule" onClick={handleSchedule}>
+                            <BiSolidMessageRoundedEdit />
+                        </IconButton>
+                    </Tooltip>
+                </MenuItem>
+                <MenuItem>
+                    <Tooltip title="Logout">
+                        <IconButton aria-label="logout" onClick={handleLogout}>
+                            <BiLogOut />
+                        </IconButton>
+                    </Tooltip>
+                </MenuItem>
+            </Menu>
 
-        <Modal
-            open={isModalOpen}
-            onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-          <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                width: 400,
-              }}
-          >
-            <ScheduleForm/>
-          </Box>
-        </Modal>
-      </div>
-  );
+            <Modal
+                open={isModalOpen}
+                onClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        bgcolor: "background.paper",
+                        border: "2px solid #000",
+                        boxShadow: 24,
+                        p: 4,
+                        width: 400,
+                    }}
+                >
+                    <ScheduleForm />
+                </Box>
+            </Modal>
+            <div style={{position:"relative",zIndex:1}}>
+                <Button className={classes.user} onClick={() => handleButtonClick("user")}></Button>
+                <Button className={classes.chat} onClick={() => handleButtonClick("chat")}></Button>
+                <Button className={classes.mySpace} onClick={() => handleButtonClick("myspace")}></Button>
+                <Button className={classes.share} onClick={() => handleButtonClick("share")}></Button>
+            </div>
+            <div className={classes.rectangle30} style={getRectangleStyle()}></div>
+        </div>
+    );
 };
 
 export default MenuHeader;

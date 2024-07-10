@@ -1,4 +1,4 @@
-import  {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -10,16 +10,16 @@ import { addMessage } from "../redux/reducer/messageReducer";
 import { BotMessageResponse } from "../types/api";
 import { MessageSocket } from "../types/message";
 import { RootState } from "../redux/store";
-import classes from "../components/UI/chat/chat.module.css";
-import Button from "@mui/material/Button";
 import UserProfile from "../components/userProfile.tsx";
 import MySpace from "../components/myspace.tsx";
 import Share from "../components/share.tsx";
+
 const Dashboard = () => {
   const socket = useMemo(() => io(`${import.meta.env.VITE_SERVER_SOCKET_IP}`), []);
   const dispatch = useDispatch();
   const AllContact = useSelector((state: RootState) => state.contactReducer.contacts);
-  const [activeButton, setActiveButton] = useState<string>("chat")
+  const [activeButton, setActiveButton] = useState<string>("chat");
+
   useEffect(() => {
     const handleSocketConnect = () => {
       console.log("Connected to server", socket.id);
@@ -59,7 +59,6 @@ const Dashboard = () => {
     socket.on("message", handleIncomingMessage);
     socket.on("bot-message", handleBotMessage);
 
-    // Clean up socket listeners
     return () => {
       socket.off("connect", handleSocketConnect);
       socket.off("message", handleIncomingMessage);
@@ -69,29 +68,19 @@ const Dashboard = () => {
 
   return (
       <div className="dashboard">
-        <aside style={{flex: "0 0 5%"}} className={classes.chatBox}>
-          <MenuHeader/>
-          <div className={activeButton === "user" ? classes.rectangle30 : ""}>
-            <Button className={classes.user} onClick={() => setActiveButton("user")}></Button>
-          </div>
-          <div className={activeButton === "chat" ? classes.rectangle30 : ""}>
-            <Button className={classes.chat} onClick={() => setActiveButton("chat")}></Button>
-          </div>
-          <div className={activeButton === "myspace" ? classes.rectangle30 : ""}>
-            <Button className={classes.mySpace} onClick={() => setActiveButton("myspace")}></Button>
-          </div>
-          <div className={activeButton === "share" ? classes.rectangle30 : ""}>
-            <Button className={classes.share} onClick={() => setActiveButton("share")}></Button>
-          </div>
+        <aside style={{ flex: "0 0 100px", backgroundColor: "black" }}>
+          <MenuHeader setActiveButton={setActiveButton} />
         </aside>
-        <aside style={{flex: "0 0 30%"}}>
-          {activeButton === "chat" && <MessageMenu/>}
-        </aside>
+        {activeButton === "chat" && (
+            <aside style={{ flex: "0 0 30%" }}>
+              <MessageMenu />
+            </aside>
+        )}
         <main>
-          {activeButton === "user" && <UserProfile/>}
-          {activeButton === "chat" && <Chat/>}
-          {activeButton === "myspace" && <MySpace/>}
-          {activeButton === "share" && <Share/>}
+          {activeButton === "user" && <UserProfile />}
+          {activeButton === "chat" && <Chat />}
+          {activeButton === "myspace" && <MySpace />}
+          {activeButton === "share" && <Share />}
         </main>
       </div>
   );

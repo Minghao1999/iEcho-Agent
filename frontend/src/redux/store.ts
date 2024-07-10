@@ -9,7 +9,6 @@ import { messageReducer } from "./reducer/messageReducer";
 import { modalReducer } from "./reducer/scheduleReducer";
 
 
-export const server =  "http://127.0.0.1:5002";
 
 export const store = configureStore({
   reducer: {
