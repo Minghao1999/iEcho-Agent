@@ -33,7 +33,7 @@ export const myCache = new NodeCache();
 
 dotenv.config();
 
-const port = Number(process.env.PORT) || 5001; // Change port to process.env.PORT or default to 5000
+const port = Number(process.env.PORT) || 5003; // Change port to process.env.PORT or default to 5000
 const from = process.env.FROM;
 const token = process.env.TOKEN;
 const to = process.env.TO;
