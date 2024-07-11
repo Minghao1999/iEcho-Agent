@@ -26,6 +26,8 @@ app.use("/api/v1/chat", chatRouter);
 export const myCache = new NodeCache();
 app.use("/uploads", express.static("uploads"));
 app.use(errorMiddleware);
+
+app.get("/status")
 app.listen(port, host, async () => {
     if (!MongoDB_URL) {
         throw new Error("MongoDB URL is not provided in the environment variables. ");
