@@ -43,7 +43,7 @@ const host = process.env.host || "0.0.0.0";
 
 const socketport = 8000;
 app.get("/",(req,res)=>{
-  res.json({message: "Sever is running"})
+  res.json({message: "Socket Sever is running"})
 })
 export const bot = createBot(from, token);
 
