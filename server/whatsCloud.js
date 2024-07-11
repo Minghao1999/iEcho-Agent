@@ -39,7 +39,7 @@ const token = process.env.TOKEN;
 const to = process.env.TO;
 const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const MongoDB_URL = process.env.MongoDB_URL;
-const host = process.env.host || "172.31.19.233";
+const host = process.env.host || "3.143.110.86";
 
 const socketport = 8000;
 app.get("/",(req,res)=>{
