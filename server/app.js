@@ -28,7 +28,7 @@ app.use("/uploads", express.static("uploads"));
 app.use(errorMiddleware);
 
 app.get("/status",(req,res)=>{
-    
+    res.json({message})
 })
 app.listen(port, host, async () => {
     if (!MongoDB_URL) {
