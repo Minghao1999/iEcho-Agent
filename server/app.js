@@ -27,7 +27,7 @@ export const myCache = new NodeCache();
 app.use("/uploads", express.static("uploads"));
 app.use(errorMiddleware);
 
-app.get("/status",(req,res)=>{
+app.get("/",(req,res)=>{
     res.json({message: "Sever is running"})
 })
 app.listen(port, host, async () => {
