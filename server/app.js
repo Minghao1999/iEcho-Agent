@@ -18,7 +18,7 @@ const MongoDB_URL = process.env.MongoDB_URL;
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: true, credentials: true }))
+app.use(cors({ origin: 'http://3.143.110.86:5173', credentials: true }))
 // Use Router for API routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/chat", chatRouter);
