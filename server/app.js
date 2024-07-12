@@ -13,12 +13,12 @@ dotenv.config();
 const app = express();
 // Environment
 const port = Number(process.env.port) || Number(5000);
-const host = process.env.host || "127.0.0.1";
+const host = process.env.host || "0.0.0.0";
 const MongoDB_URL = process.env.MongoDB_URL;
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: 'http://3.143.110.86:5173', credentials: true }))
+app.use(cors({ origin: true, credentials: true }))
 // Use Router for API routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/chat", chatRouter);
