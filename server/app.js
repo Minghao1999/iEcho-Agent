@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 // Environment
 const port = Number(process.env.port) || Number(5001);
-const host = process.env.host || "3.143.110.86";
+const host = process.env.host || "172.31.19.233";
 const MongoDB_URL = process.env.MongoDB_URL;
 
 app.use(express.json());
