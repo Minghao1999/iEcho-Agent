@@ -12,7 +12,7 @@ import userRouter from "./routes/user.js";
 dotenv.config();
 const app = express();
 // Environment
-const port = Number(process.env.port) || Number(5000);
+const port = Number(process.env.port) || Number(5001);
 const host = process.env.host || "0.0.0.0";
 const MongoDB_URL = process.env.MongoDB_URL;
 
