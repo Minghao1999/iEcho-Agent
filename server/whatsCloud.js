@@ -38,6 +38,7 @@ const from = process.env.FROM;
 // const token = process.env.TOKEN;
 const token = "HAPPY";
 const to = process.env.TO;
+// const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
