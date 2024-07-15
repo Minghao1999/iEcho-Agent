@@ -34,7 +34,7 @@ export const myCache = new NodeCache();
 dotenv.config();
 
 const port = Number(process.env.PORT) || 5000; // Change port to process.env.PORT or default to 5000
-const from = process.env.FROM;
+const from = "376074712252123"
 const token = process.env.TOKEN;
 const to = process.env.TO;
 const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
