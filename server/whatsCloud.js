@@ -39,7 +39,7 @@ const from = process.env.FROM;
 const token = "HAPPY";
 const to = process.env.TO;
 // const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
-const webhookVerifyToken = ;
+const webhookVerifyToken = "EAAK3GyP9eHoBO9xxlaWI047mDaWggYtWvVXqmLvA7uLnMGybV22ZBY5z33txHHiFPZBWhMw7R68U8wJ8NnfOlAvEY5qlRqlNzVhfPSxlc0zdGYodsCUIEKi0x0H5BM5jWCHWh8xjMbq8S5WPIZAX48csfoQFF09LDoTLfEwgmXaZARvx1d8RfmLSwD6yo6gU7EZClFIwgY32Fz4QMWn8ZD";
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
 
