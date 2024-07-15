@@ -8,7 +8,7 @@ router.post('/login', Login);
 router.get('/',verifyTokenMiddleware,getUser);
 router.post('/signup',completeUser);
 router.post('/forgot', ForgotRequest )
- router.get('/forgot-check', CheckLogged,forgotVerify )
+router.get('/forgot-check', CheckLogged,forgotVerify )
 router.put('/forgot-finish', ResetPassword)
 router.get('/getProfile',getProfile )
 router.post('/updateProfile',updateProfile);
