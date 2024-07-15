@@ -68,7 +68,7 @@ export const bot = createBot(from, token);
         app.use(errorMiddleware);
       },
     });
-    console.log('webhook connected successful', )
+    console.log('webhook connected successfully', )
 
     bot.on("text", (message) => {
       handleMessage(message, io);
