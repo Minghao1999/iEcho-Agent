@@ -52,7 +52,6 @@ export const bot = createBot(from, token);
     await connectDB(MongoDB_URL);
 
     // Start express server to listen for incoming messages
-    console.log('Connecting to webhook...', )
     await bot.startExpressServer({
       webhookVerifyToken: webhookVerifyToken,
       port: port,
@@ -68,7 +67,6 @@ export const bot = createBot(from, token);
         app.use(errorMiddleware);
       },
     });
-    console.log('webhook connected successfully', )
 
     bot.on("text", (message) => {
       handleMessage(message, io);
