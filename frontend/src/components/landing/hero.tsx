@@ -47,7 +47,7 @@ const Hero = () => {
 
                     <div className={classes.videoDemo}>
                         <img src={"/assets/comingSoon.jpg"} alt={"comingSoon"}
-                             style={{width: "100%", height: "100%", objectFit: "cover"}}/>
+                             style={{width: "100%", height: "100%"}}/>
                     </div>
 
                 </div>
