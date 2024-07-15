@@ -68,6 +68,7 @@ export const bot = createBot(from, token);
         app.use(errorMiddleware);
       },
     });
+    console.log(' =', )
 
     bot.on("text", (message) => {
       handleMessage(message, io);
