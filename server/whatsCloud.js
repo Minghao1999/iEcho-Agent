@@ -52,6 +52,9 @@ export const bot = createBot(from, token);
     await connectDB(MongoDB_URL);
 
     // Start express server to listen for incoming messages
+    const x = () => {
+      
+    }
     await bot.startExpressServer({
       webhookVerifyToken: webhookVerifyToken,
       port: port,
