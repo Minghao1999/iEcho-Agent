@@ -46,7 +46,7 @@ export const sendVerificationEmail = (email, verificationToken) => {
         // Send email with dynamic HTML content
         sendEmail({
             to: email,
-            subject: `KOL - Reset your Password`,
+            subject: `iEcho - Reset your Password`,
             html,
         });
     });
