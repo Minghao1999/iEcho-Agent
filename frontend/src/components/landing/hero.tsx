@@ -33,16 +33,23 @@ const Hero = () => {
                     and MongoDB for storing messages and responses.
                 </p>
                 <div className={classes.rectangle6}>
-                    <iframe
-                        className={classes.videoDemo}
-                        width="560" height="315"
-                        src="https://www.youtube.com/embed/Ri7-vnrJD3k?si=DS-RJzeEGv5FAehQ"
-                        title="YouTube video player" frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen>
+                    {/*<iframe*/}
+                    {/*    className={classes.videoDemo}*/}
+                    {/*    width="560" height="315"*/}
+                    {/*    src="https://www.youtube.com/embed/Ri7-vnrJD3k?si=DS-RJzeEGv5FAehQ"*/}
+                    {/*    title="YouTube video player"*/}
+                    {/*    frameBorder="0"*/}
+                    {/*    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"*/}
+                    {/*    referrerPolicy="no-referrer"*/}
+                    {/*    allowFullScreen*/}
+                    {/*    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"*/}
+                    {/*></iframe>*/}
 
-                    </iframe>
+                    <div className={classes.videoDemo}>
+                        <img src={"/assets/comingSoon.jpg"} alt={"comingSoon"}
+                             style={{width: "100%", height: "100%", objectFit: "cover"}}/>
+                    </div>
+
                 </div>
             </div>
         </div>
