@@ -37,7 +37,7 @@ const port = Number(process.env.PORT) || 5000; // Change port to process.env.POR
 const from = process.env.FROM;
 const token = process.env.TOKEN;
 const to = process.env.TO;
-const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
+const webhookVerifyToken = "TOKEN";
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
 
