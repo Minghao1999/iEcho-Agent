@@ -35,11 +35,9 @@ dotenv.config();
 
 const port = Number(process.env.PORT) || 5000; // Change port to process.env.PORT or default to 5000
 const from = process.env.FROM;
-// const token = process.env.TOKEN;
-const token = "HAPPY";
+const token = process.env.TOKEN;
 const to = process.env.TO;
-// const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
-const webhookVerifyToken = "EAAK3GyP9eHoBO9xxlaWI047mDaWggYtWvVXqmLvA7uLnMGybV22ZBY5z33txHHiFPZBWhMw7R68U8wJ8NnfOlAvEY5qlRqlNzVhfPSxlc0zdGYodsCUIEKi0x0H5BM5jWCHWh8xjMbq8S5WPIZAX48csfoQFF09LDoTLfEwgmXaZARvx1d8RfmLSwD6yo6gU7EZClFIwgY32Fz4QMWn8ZD";
+const webhookVerifyToken = process.env.WEBHOOK_VERIFY_TOKEN;
 const MongoDB_URL = process.env.MongoDB_URL;
 const host = process.env.host || "127.0.0.1";
 
