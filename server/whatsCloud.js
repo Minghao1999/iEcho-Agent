@@ -21,7 +21,7 @@ const app = express();
 const server = createServer(app); // Create HTTP server
 const io = new Server(server, {
   cors: {
-    origin: "http://18.216.16.95:5173",
+    origin: "http://3.143.110.86:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
