@@ -7,6 +7,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import SideLogo from "../components/sideLogo";
 import { useResetMutation } from "../redux/api/userAPI";
 import { MessageResponse } from "../types/api";
+import {Ellipse3Icon} from "../components/UI/forgetPassword/Ellipse3Icon.tsx";
+import {Ellipse4Icon} from "../components/UI/forgetPassword/Ellipse4Icon.tsx";
+import {Ellipse5Icon} from "../components/UI/forgetPassword/Ellipse5Icon.tsx";
+import classes from '../components/UI/resetPassword/resetPassword.module.css'
 
 const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
@@ -50,37 +54,51 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="login">
-      <SideLogo />
+    <div className={classes.root}>
       <main>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="password">New Password</label>
-          <div className="password-input">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="New Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-            </button>
-          </div>
+        <div className={classes.ellipse5}>
+          <Ellipse5Icon className={classes.icon}/>
+        </div>
+        <div className={classes.ellipse4}>
+          <Ellipse4Icon className={classes.icon2}/>
+        </div>
+        <div className={classes.ellipse3}>
+          <Ellipse3Icon className={classes.icon3}/>
+        </div>
+        <div className={classes.rectangle8}>
+          <div className={classes.rectangle9}></div>
+          <div className={classes.image2}></div>
 
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <br />
-          <button type="submit">Reset Password</button>
-        </form>
+          <div className={classes.signIn}>Reset Password</div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={classes.rectangle10}
+              />
+              <div className={classes.password1}>New Password</div>
+              <button
+                  type="button"
+                  className={classes.togglePassword}
+                  onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
+              </button>
+            </div>
+
+            <input
+                type={showPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={classes.rectangle101}
+            />
+            <div className={classes.password2}>Confirm Password</div>
+            <br/>
+            <button type="submit" className={classes.rectangle11}>Reset Password</button>
+          </form>
+        </div>
       </main>
     </div>
   );
