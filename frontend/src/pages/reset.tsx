@@ -68,7 +68,6 @@ const ResetPassword: React.FC = () => {
         <div className={classes.rectangle8}>
           <div className={classes.rectangle9}></div>
           <div className={classes.image2}></div>
-
           <div className={classes.signIn}>Reset Password</div>
           <form onSubmit={handleSubmit}>
             <div>
