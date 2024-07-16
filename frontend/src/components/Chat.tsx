@@ -175,7 +175,6 @@ const Chat: React.FC = () => {
                   <div className="input-container">
                   <input
                       type="text"
-                      placeholder="Input"
                       className="message-input"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
