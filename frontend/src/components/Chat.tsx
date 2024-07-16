@@ -173,10 +173,9 @@ const Chat: React.FC = () => {
             selectedContact.setting === "manual" ? (
                 <div className="chat-footer">
                   <div className="input-container">
-                  <Group26Icon className="input-icon"/>
                   <input
                       type="text"
-                      placeholder="Echo Input"
+                      placeholder="Input"
                       className="message-input"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
