@@ -175,7 +175,7 @@ const Chat: React.FC = () => {
                   <div className="input-container">
                   <input
                       type="text"
-                      className="message-input"
+                      className="message-input1"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyPress}
@@ -196,7 +196,7 @@ const Chat: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Echo On"
-                    className="message-input"
+                    className="message-input2"
                     readOnly
                 />
                   </div>

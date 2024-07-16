@@ -89,7 +89,20 @@
   transform: translateY(-50%);
 }
 
-.message-input {
+.message-input1 {
+  flex-grow: 1;
+  font-size: 20px;
+  padding: 1.2rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  transition: outline-color 0.7s ease;
+  width: 98%;
+  padding-left: 10px;
+}
+
+
+.message-input2 {
   flex-grow: 1;
   font-size: 20px;
   padding: 1.2rem;
