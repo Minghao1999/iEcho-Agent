@@ -118,7 +118,7 @@ export const getContact = async (request, response) => {
 };
 
 export const putSetting = TryCatch(async (req, res) => {
-  const { phonenumber, setting } = req.body;
+  const { phonenumber, setting, userId } = req.body;
 
   try {
     // Find the contact by phone number
