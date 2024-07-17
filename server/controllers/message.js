@@ -4,7 +4,7 @@ import Message from "../models/Message.js";
 import Schedule from "../models/Schedule.js";
 import { bot } from "../whatsCloud.js";
 export const newMessage = async (request, response) => {
-  const { phonenumber, name, sender, text, type, setting } = request.body;
+  const { phonenumber, name, sender, text, type, setting, userId } = request.body;
 
   try {
     // Check if the contact exists
