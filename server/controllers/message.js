@@ -8,7 +8,7 @@ export const newMessage = async (request, response) => {
 
   try {
     // Check if the contact exists
-    let contact = await Contact.findOne({ phonenumber,userId: });
+    let contact = await Contact.findOne({ phonenumber,userId:_id });
     // If the contact doesn't exist, insert it into the Contact collection
     if (!contact) {
       contact = new Contact({ phonenumber, name, setting, userId });
