@@ -50,6 +50,7 @@ export const newMessage = async (request, response) => {
 
 export const getMessage = async (request, response) => {
   try {
+    const { userId } = request.body;
     // Retrieve the contact based on the phone number
     const contact = await Contact.findOne({ phonenumber: request.params.id });
 
