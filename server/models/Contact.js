@@ -12,6 +12,7 @@ const ContactSchema = new mongoose.Schema({
         enum: ['auto', 'manual'],
         default: 'auto'
     }
+    
 });
 
 const Contact = mongoose.model('Contact', ContactSchema);
