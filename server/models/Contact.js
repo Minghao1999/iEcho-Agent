@@ -11,7 +11,7 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         enum: ['auto', 'manual'],
         default: 'auto'
-    }
+    },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User',
