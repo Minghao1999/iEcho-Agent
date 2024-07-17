@@ -122,7 +122,7 @@ export const putSetting = TryCatch(async (req, res) => {
 
   try {
     // Find the contact by phone number
-    const contact = await Contact.findOne({ phonenumber });
+    const contact = await Contact.findOne({ phonenumber,userId });
 
     // If the contact doesn't exist, return a 404 Not Found error
     if (!contact) {
