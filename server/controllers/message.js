@@ -4,14 +4,14 @@ import Message from "../models/Message.js";
 import Schedule from "../models/Schedule.js";
 import { bot } from "../whatsCloud.js";
 export const newMessage = async (request, response) => {
-  const { phonenumber, name, sender, text, type, setting, _id } = request.body;
+  const { phonenumber, name, sender, text, type, setting } = request.body;
 
   try {
     // Check if the contact exists
-    let contact = await Contact.findOne({ phonenumber,userId:_id });
+    let contact = await Contact.findOne({ phonenumber });
     // If the contact doesn't exist, insert it into the Contact collection
     if (!contact) {
-      contact = new Contact({ phonenumber, name, setting, userId:_id });
+      contact = new Contact({ phonenumber, name, setting, userId });
       await contact.save();
     }
 
@@ -48,13 +48,10 @@ export const newMessage = async (request, response) => {
   }
 };
 
-
-
 export const getMessage = async (request, response) => {
   try {
-    const { userId } = request.body;
     // Retrieve the contact based on the phone number
-    const contact = await Contact.findOne({ phonenumber: request.params.id, userId});
+    const contact = await Contact.findOne({ phonenumber: request.params.id });
 
     if (!contact) {
       // If the contact doesn't exist, return an empty array
@@ -82,7 +79,6 @@ export const getMessage = async (request, response) => {
 
 export const getContact = async (request, response) => {
   try {
-    const {userId} = request.body;
     // Retrieve all contacts
     const contacts = await Contact.find();
 
@@ -120,11 +116,11 @@ export const getContact = async (request, response) => {
 };
 
 export const putSetting = TryCatch(async (req, res) => {
-  const { phonenumber, setting, userId } = req.body;
+  const { phonenumber, setting } = req.body;
 
   try {
     // Find the contact by phone number
-    const contact = await Contact.findOne({ phonenumber,userId });
+    const contact = await Contact.findOne({ phonenumber });
 
     // If the contact doesn't exist, return a 404 Not Found error
     if (!contact) {
