@@ -13,7 +13,9 @@ const ContactSchema = new mongoose.Schema({
         default: 'auto'
     }
     userId:{
-        
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 
 });
