@@ -5,11 +5,6 @@ const MessageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, // Change the type to ObjectId
         ref: 'Contact' // Specify the model that this field refers to
     },
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     data: [{
         sender: {
             type: String
