@@ -48,50 +48,6 @@ import { bot } from "../whatsCloud.js";
 //   }
 // };
 
-export const newMessage = async (request, response) => {
-  const { phonenumber, name, sender, text, type, setting, userId } = request.body;
-
-  try {
-    // Check if the contact exists
-    let contact = await Contact.findOne({ phonenumber, userId });
-    // If the contact doesn't exist, insert it into the Contact collection
-    if (!contact) {
-      contact = new Contact({ phonenumber, name, setting, userId });
-      await contact.save();
-    }
-
-    // Find or create the message document
-    let message = await Message.findOne({ phonenumber: contact._id });
-
-    bot.sendMessage(phonenumber, text);
-
-    // If the message document doesn't exist, create a new one
-    if (!message) {
-      message = new Message({
-        phonenumber: contact._id,
-        data: [{ sender, text, type }],
-      });
-    } else {
-      // If the message document exists, update it by pushing the new message data
-      message.data.push({ sender, text, type });
-    }
-
-    const lastMessage = message.data[message.data.length - 1];
-
-    await message.save();
-
-    response.status(200).json({
-      success: true,
-      message: "Message has been sent successfully",
-      data: lastMessage,
-    });
-  } catch (error) {
-    response.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
 
 
 export const getMessage = async (request, response) => {
