@@ -1,6 +1,6 @@
-# KOL Application
+# iEcho Application
 
-The KOL Chat Application facilitates communication between celebrities and their friends and fans through a chat interface. This document serves as a comprehensive guide to understanding the application's functionality, architecture, and usage.
+The iEcho Chat Application facilitates communication between celebrities and their friends and fans through a chat interface. This document serves as a comprehensive guide to understanding the application's functionality, architecture, and usage.
 
 ## Prerequisites
 
@@ -16,9 +16,9 @@ The application is built using the MERN stack (MongoDB, Express.js, React.js, No
 
 
 
-## Feature: Key Opinion Leader (KOL) (AI) Assistant
+## Feature: iEcho (AI) Assistant
 
-The KOL Chat Application includes  AI assistant designed specifically for WhatsApp. This AI assistant is capable of automatically responding to messages using Large Language Models (LLM), providing users with efficient communication management. Additionally, it offers the flexibility to switch between automatic AI responses and manual response mode, empowering users to tailor their communication approach as needed.
+The iEcho Chat Application includes  AI assistant designed specifically for WhatsApp. This AI assistant is capable of automatically responding to messages using Large Language Models (LLM), providing users with efficient communication management. Additionally, it offers the flexibility to switch between automatic AI responses and manual response mode, empowering users to tailor their communication approach as needed.
 
 ### Key Features:
 
