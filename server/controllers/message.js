@@ -80,6 +80,7 @@ export const getMessage = async (request, response) => {
 
 export const getContact = async (request, response) => {
   try {
+    const {userId}
     // Retrieve all contacts
     const contacts = await Contact.find();
 
