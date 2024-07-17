@@ -12,7 +12,9 @@ const ContactSchema = new mongoose.Schema({
         enum: ['auto', 'manual'],
         default: 'auto'
     }
-    userId:
+    userId:{
+        
+    }
 
 });
 
