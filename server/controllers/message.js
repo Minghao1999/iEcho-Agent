@@ -52,7 +52,7 @@ export const getMessage = async (request, response) => {
   try {
     const { userId } = request.body;
     // Retrieve the contact based on the phone number
-    const contact = await Contact.findOne({ phonenumber: request.params.id });
+    const contact = await Contact.findOne({ phonenumber: request.params.id, userId});
 
     if (!contact) {
       // If the contact doesn't exist, return an empty array
