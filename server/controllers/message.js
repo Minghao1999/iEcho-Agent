@@ -60,7 +60,7 @@ export const getMessage = async (request, response) => {
 
     // Retrieve messages associated with the contact's ObjectId
     const messages = await Message.find({ phonenumber: contact._id }).populate(
-      "phonenumber"
+        "phonenumber"
     );
 
     // Manipulate the response format
@@ -86,8 +86,8 @@ export const getContact = async (request, response) => {
     for (const contact of contacts) {
       // Find the last message associated with the contact
       const lastMessage = await Message.findOne(
-        { phonenumber: contact._id },
-        { data: { $slice: -1 } }
+          { phonenumber: contact._id },
+          { data: { $slice: -1 } }
       );
 
       // Set the lastmessage field of the contact object
@@ -125,8 +125,8 @@ export const putSetting = TryCatch(async (req, res) => {
     // If the contact doesn't exist, return a 404 Not Found error
     if (!contact) {
       return res
-        .status(404)
-        .json({ success: false, message: "Contact not found" });
+          .status(404)
+          .json({ success: false, message: "Contact not found" });
     }
 
     // Update the setting for the contact
@@ -135,8 +135,8 @@ export const putSetting = TryCatch(async (req, res) => {
 
     // Return a success response
     res
-      .status(200)
-      .json({ success: true, message: "Setting updated successfully" });
+        .status(200)
+        .json({ success: true, message: "Setting updated successfully" });
   } catch (error) {
     // If an error occurs, return a 500 Internal Server Error
     res.status(500).json({ success: false, message: error.message });
