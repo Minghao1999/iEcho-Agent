@@ -27,16 +27,18 @@ const UserProfile = () => {
         transform: "translate(-50%, -50%)",
         zIndex: 1,
         color: "#fff",
+        fontSize: "30px",
+        lineHeight: "2",
     };
 
     return (
         <div style={containerStyle}>
             <img src={"/assets/background.jpg"} alt={"comingSoon"} style={imageStyle} />
             <div style={textStyle}>
-                <p>firstName: {firstName}</p>
-                <p>lastName: {lastName}</p>
-                <p>phone: {phone}</p>
-                <p>email: {email}</p>
+                <p>FirstName: {firstName}</p>
+                <p>LastName: {lastName}</p>
+                <p>Phone Number: {phone}</p>
+                <p>Email: {email}</p>
             </div>
         </div>
     );
