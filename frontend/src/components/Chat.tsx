@@ -9,7 +9,6 @@ import { RootState } from "../redux/store";
 import { Message } from "../types/message";
 import EmptyChat from "./EmptyChat";
 import ChatHeader from "./chatHeader";
-import { Box } from "@mui/system";
 import SkeletonLoader from "./loader/skeletonLoader";
 import { updateLastMessage } from "../redux/reducer/contactReducer";
 import { addMessage, setMessages } from "../redux/reducer/messageReducer";
