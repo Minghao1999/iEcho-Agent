@@ -21,16 +21,14 @@ const AboutUs = () => {
           </div>
           <div>
               <h1 className={classes.welcomeToKOL}>
-                  About Us <span>Bayes Solution</span>
+                  About Us
               </h1>
               <div className={classes.ellipse1}>
                   <Ellipse1Icon className={classes.icon5}/>
               </div>
               <p className={classes.loremIpsumDolorSitAmetConsecte}>
-                  At Bayes Solution, we're committed to providing cutting-edge AI and Blockchain solutions. Our
-                  expertise lies in developing innovative applications that leverage the power of artificial
-                  intelligence and blockchain technology. From smart contracts to predictive analytics, we empower
-                  businesses to embrace the future with confidence.
+                  The application ensures seamless communication through Socket.IO for real-time messaging
+                  and MongoDB for storing messages and responses.
               </p>
           </div>
       </div>

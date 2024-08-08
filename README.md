@@ -54,7 +54,7 @@ git clone https://github.com/bayesianinstitute/KOL_Chat.git
 Navigate to the server directory:
 
 ```bash
-cd KOL_Chat/server
+cd iEcho_Chat/server
 ```
 
 Install dependencies:
@@ -85,7 +85,7 @@ ngrok http 5000
 Navigate to the client directory:
 
 ```bash
-cd KOL_Chat/frontend
+cd iEcho_Chat/frontend
 ```
 
 Install dependencies:
